@@ -1,5 +1,8 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.enums.CustomError;
+import com.sast.atSast.exception.LocalRuntimeException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -8,4 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @RestController
 public class AccountController {
+    @GetMapping("/hello")
+    public String helloWorld(){
+        return "hello, world";
+    }
+
+    @GetMapping("/exception")
+    public String except(){
+        throw new LocalRuntimeException(CustomError.REQUEST_ERROR);
+    }
 }
