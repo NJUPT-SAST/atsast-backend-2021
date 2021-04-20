@@ -1,4 +1,4 @@
-package com.sast.atSast.entity;
+package com.sast.atSast.model;
 
 import lombok.Data;
 
@@ -8,4 +8,5 @@ public class Account {
     private String email;
     private String password;
     private Byte type;
+    private Byte enable;
 }

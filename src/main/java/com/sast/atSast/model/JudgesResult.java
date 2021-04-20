@@ -1,4 +1,4 @@
-package com.sast.atSast.entity;
+package com.sast.atSast.model;
 
 
 import lombok.Data;
@@ -11,4 +11,5 @@ public class JudgesResult {
   private long judgeUid;
   private Integer scores;
   private String comment;
+  private Byte enable;
 }

@@ -1,4 +1,4 @@
-package com.sast.atSast.entity;
+package com.sast.atSast.model;
 
 import lombok.Data;
 
@@ -14,5 +14,6 @@ public class StudentInfo {
   private String major;
   private String qqId;
   private String wxId;
+  private Byte enable;
 
 }

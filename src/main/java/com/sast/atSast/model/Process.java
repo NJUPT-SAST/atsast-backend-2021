@@ -1,4 +1,4 @@
-package com.sast.atSast.entity;
+package com.sast.atSast.model;
 
 import lombok.Data;
 
@@ -11,5 +11,6 @@ public class Process {
   private String fileUrl;
   private Integer score;
   private String result;
+  private Byte enable;
 
 }

@@ -1,4 +1,4 @@
-package com.sast.atSast.entity;
+package com.sast.atSast.model;
 
 
 import lombok.Data;
@@ -16,4 +16,5 @@ public class Contest {
   private Date judge;
   private Date end;
   private byte curr;
+  private Byte enable;
 }
