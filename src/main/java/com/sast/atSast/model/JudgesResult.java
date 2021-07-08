@@ -1,11 +1,14 @@
 package com.sast.atSast.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JudgesResult {
-
   private long teamId;
   private long contestId;
   private boolean contestEnd;
@@ -13,14 +16,4 @@ public class JudgesResult {
   private Integer scores;
   private String comment;
   private Byte enable;
-
-  public JudgesResult(long teamId, long contestId, boolean contestEnd, long judgeUid, Integer scores, String comment, Byte enable) {
-    this.teamId = teamId;
-    this.contestId = contestId;
-    this.contestEnd = contestEnd;
-    this.judgeUid = judgeUid;
-    this.scores = scores;
-    this.comment = comment;
-    this.enable = enable;
-  }
 }

@@ -1,8 +1,12 @@
 package com.sast.atSast.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignUp {
     private long uid;
     private String stuId;
@@ -10,13 +14,4 @@ public class SignUp {
     private String contestName;
     private long teamId;
     private Byte enable;
-
-    public SignUp(long uid, String stuId, String realName, String contestName, long teamId, Byte enable) {
-        this.uid = uid;
-        this.stuId = stuId;
-        this.realName = realName;
-        this.contestName = contestName;
-        this.teamId = teamId;
-        this.enable = enable;
-    }
 }

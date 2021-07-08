@@ -1,16 +1,14 @@
 package com.sast.atSast.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Video {
     private long videoId;
     private long videoPath;
     private Byte enable;
-
-    public Video(long videoId, long videoPath, Byte enable) {
-        this.videoId = videoId;
-        this.videoPath = videoPath;
-        this.enable = enable;
-    }
 }

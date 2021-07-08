@@ -1,20 +1,16 @@
 package com.sast.atSast.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Account {
     private long uid;
     private String email;
     private String password;
     private Byte type;
     private Byte enable;
-
-    public Account(Long uid, String email, String password, Byte type, Byte enable) {
-        this.uid = uid;
-        this.email = email;
-        this.password = password;
-        this.type = type;
-        this.enable = enable;
-    }
 }
