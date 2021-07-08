@@ -16,6 +16,9 @@ public class HttpResponse<T> {
     private Integer errCode;
     private T data;
 
+    public HttpResponse(boolean b, String errMsg, Integer errCode, Object o) {
+    }
+
     public static <T> HttpResponse success(T data) {
         return new HttpResponse<>(true, null, null, data);
     }
