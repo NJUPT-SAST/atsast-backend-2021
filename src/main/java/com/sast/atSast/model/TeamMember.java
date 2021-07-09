@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
-    private long uid;
-    private String email;
-    private String password;
-    private Byte type;
+public class TeamMember {
+    private long teamId;
+    private long memberUid;
     private Byte enable;
+    private long leaderUid;
+    private String instructor;
 }

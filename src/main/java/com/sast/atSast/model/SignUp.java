@@ -7,10 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Account {
+public class SignUp {
     private long uid;
-    private String email;
-    private String password;
-    private Byte type;
+    private String stuId;
+    private String realName;
+    private String contestName;
+    private long teamId;
     private Byte enable;
 }

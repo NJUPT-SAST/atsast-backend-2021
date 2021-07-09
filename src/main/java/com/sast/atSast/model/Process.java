@@ -1,16 +1,18 @@
 package com.sast.atSast.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Process {
-
-  private Long teamId;
+  private long teamId;
   private String teamName;
-  private Long contestId;
+  private long contestId;
   private String fileUrl;
   private Integer score;
   private String result;
   private Byte enable;
-
 }
