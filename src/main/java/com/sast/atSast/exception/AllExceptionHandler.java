@@ -21,24 +21,25 @@ public class AllExceptionHandler implements ErrorController {
     public String getErrorPath() {
         return "/error";
     }
+
     private Logger logger = LoggerFactory.getLogger("ERROR");
 
     @ResponseStatus(code = HttpStatus.OK)
     @ExceptionHandler(Exception.class)
     @RequestMapping("/error")
     @ResponseBody
-    public HttpResponse<Void> handleException(Exception uncaughtException){
-        if (uncaughtException == null){
+    public HttpResponse<Void> handleException(Exception uncaughtException) {
+        if (uncaughtException == null) {
             return HttpResponse.failure("No found exception!", CustomError.INTERNAL_ERROR.getCode());
         }
         uncaughtException.printStackTrace();
-        if (uncaughtException instanceof LocalRuntimeException){
+        if (uncaughtException instanceof LocalRuntimeException) {
             logger.error(((LocalRuntimeException) uncaughtException).getError().getErrMsg());
             LocalRuntimeException localRuntimeException = (LocalRuntimeException) uncaughtException;
-            return HttpResponse.failure(localRuntimeException.getError().getErrMsg(),localRuntimeException.getError().getCode());
-        }else{
-            logger.error("error message",uncaughtException);
-            return HttpResponse.failure(uncaughtException.getMessage(),CustomError.UNKNOWN_ERROR.getCode());
+            return HttpResponse.failure(localRuntimeException.getError().getErrMsg(), localRuntimeException.getError().getCode());
+        } else {
+            logger.error("error message", uncaughtException);
+            return HttpResponse.failure(uncaughtException.getMessage(), CustomError.UNKNOWN_ERROR.getCode());
         }
     }
 }

@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class JudgesAuthor {
-    private long contestId;
-    private long judgeUid;
-    private Byte enable;
+    private int contestId;
+    private int judgeUid;
+    private int enable;
+
 }

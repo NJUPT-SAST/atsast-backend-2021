@@ -4,14 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class SignUp {
-    private long uid;
+    private int uid;
     private String stuId;
     private String realName;
     private String contestName;
-    private long teamId;
-    private Byte enable;
+    private int teamId;
+    private int enable;
+
 }

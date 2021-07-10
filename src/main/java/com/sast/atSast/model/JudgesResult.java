@@ -5,15 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class JudgesResult {
-  private long teamId;
-  private long contestId;
-  private boolean contestEnd;
-  private long judgeUid;
-  private Integer scores;
+
+  private int teamId;
+  private int contestId;
+  private int contestEnd;
+  private int judgeUid;
+  private int scores;
   private String comment;
-  private Byte enable;
+  private int enable;
 }

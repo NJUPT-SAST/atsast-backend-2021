@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Video {
-    private long videoId;
-    private long videoPath;
-    private Byte enable;
+    private int videoId;
+    private int contestId;
+    private String videoPath;
+    private int enable;
+
 }

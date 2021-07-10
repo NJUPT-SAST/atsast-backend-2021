@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Account {
-    private long uid;
+    private int uid;
     private String email;
     private String password;
-    private Byte type;
-    private Byte enable;
+    private int type;
+    private int enable;
+
 }

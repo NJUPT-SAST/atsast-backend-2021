@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Picture {
-    private long picId;
+    private int picId;
+    private int contestId;
     private String picPath;
-    private Byte enable;
+    private int enable;
+
 }

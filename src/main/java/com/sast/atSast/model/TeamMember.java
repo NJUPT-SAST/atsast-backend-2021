@@ -4,13 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class TeamMember {
-    private long teamId;
-    private long memberUid;
-    private Byte enable;
-    private long leaderUid;
+    private int teamId;
+    private int memberUid;
+    private int enable;
+    private int leaderUid;
     private String instructor;
+
 }

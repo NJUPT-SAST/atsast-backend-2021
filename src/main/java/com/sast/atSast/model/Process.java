@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Process {
-  private long teamId;
+
+  private int teamId;
   private String teamName;
-  private long contestId;
+  private int contestId;
   private String fileUrl;
-  private Integer score;
+  private int score;
   private String result;
-  private Byte enable;
+  private int enable;
+
 }

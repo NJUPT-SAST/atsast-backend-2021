@@ -4,11 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class StudentInfo {
-  private long uid;
+
+  private int uid;
   private String realName;
   private String stuId;
   private String phone;
@@ -17,5 +18,6 @@ public class StudentInfo {
   private String major;
   private String qqId;
   private String wxId;
-  private Byte enable;
+  private int enable;
+
 }
