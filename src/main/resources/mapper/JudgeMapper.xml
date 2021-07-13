@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sast.atSast.mapper.JudgeMapper">
+    <resultMap id="JudgeVOMap" type="com.sast.atSast.model.JudgeVO">
+        <result property="contestName" column="contest_name" jdbcType="VARCHAR"/>
+        <result property="teamName" column="team_name" jdbcType="VARCHAR"/>
+        <result property="instructorName" column="instructor" jdbcType="VARCHAR"/>
+        <collection property="memberNames" column="real_name" ofType="string">
+            <result column="real_name"/>
+        </collection>
+        <collection property="fileUrls" column="file_url" ofType="string">
+            <result column="file_url"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectJudgeInfo" resultType="com.sast.atSast.model.JudgeVO">
+        select real_name, contest_name, t.team_name, t.instructor, p.file_url
+        from team_member t
+                 left join student_info s
+                           on t.member_uid = s.uid
+                 left join process p
+                           on p.team_id = t.team_id
+                 left join contest c
+                           on t.contest_id = c.contest_id
+        where t.team_id = #{teamId}
+    </select>
+    <select id="selectTeamLeader" resultType="java.lang.String">
+        select real_name
+        from student_info
+        where uid =
+              (
+                  select leader_uid
+                  from team_member
+                  where team_id = #{teamId}
+              )
+    </select>
+    <select id="selectJudgeAuthority" resultType="java.lang.Integer">
+        select team_id from judge_authority where judge_uid=#{judgeUid}
+    </select>
+</mapper>

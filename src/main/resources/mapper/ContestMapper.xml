@@ -4,7 +4,7 @@
     <insert id="insertContest" parameterType="com.sast.atSast.model.Contest">
         insert into contest
         (master_uid,
-         `name`,
+         contest_name,
          description,
          contest_organizer,
          contest_host,
@@ -18,8 +18,8 @@
          submit_end,
          judge,
          judge_end,
-         `end`,
-         end_end) value ( #{contest.masterUid},
+         `show`,
+         `show_end`) value ( #{contest.masterUid},
             #{contest.name},
             #{contest.description},
             #{contest.contestOrganizer},
@@ -34,8 +34,8 @@
             #{contest.submitEnd},
             #{contest.judge},
             #{contest.judgeEnd},
-            #{contest.end},
-            #{contest.endEnd}
+            #{contest.show},
+            #{contest.showEnd}
             )
     </insert>
     <insert id="insertPic">
@@ -49,6 +49,14 @@
         <foreach collection="urls" separator="," item="url">
             (#{contestId},#{url})
         </foreach>
+    </insert>
+    <insert id="insertJudgeAuthority">
+        insert into judges_authority (team_id,judge_uid)
+        values
+        <foreach collection="teamIds" item="teamId" separator=",">
+            (#{teamId},#{judgeUid})
+        </foreach>
+
     </insert>
     <update id="updatePushLink">
         update contest
@@ -65,8 +73,9 @@
 
     </select>
     <select id="selectAllFiles" resultType="java.lang.String">
-        select file_url from process where contest_id=#{contestId}
+        select file_url
+        from process
+        where contest_id = #{contestId}
     </select>
-
 
 </mapper>

@@ -45,4 +45,9 @@ public class ContestServiceImpl implements ContestService {
         return contestMapper.selectAllFiles(contestId);
     }
 
+    @Override
+    public void saveJudgeAuthority(int judgeUid, List<Integer> teamIds) {
+        contestMapper.insertJudgeAuthority(judgeUid,teamIds);
+    }
+
 }

@@ -17,4 +17,6 @@ public interface ContestService {
     ContestVO queryNum(int contestId);
 
     List<String> queryAllFiles(int contestId);
+
+    void saveJudgeAuthority(int judgeUid,List<Integer> teamIds);
 }

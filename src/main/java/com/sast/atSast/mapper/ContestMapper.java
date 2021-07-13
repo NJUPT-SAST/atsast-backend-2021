@@ -13,10 +13,17 @@ import java.util.List;
  **/
 @Mapper
 public interface ContestMapper {
-    public void insertContest(@Param("contest") Contest contest);
-    public void insertPic(@Param("contestId")int contestId, @Param("urls") List<String> urls);
-    public void insertVideo(@Param("contestId")int contestId, @Param("urls")List<String> urls);
-    public void updatePushLink(@Param("contestId")int contestId,@Param("url")String url);
-    public ContestVO selectNum(@Param("contestId")int contestId);
-    public List<String> selectAllFiles(@Param("contestId")int contestId);
+    void insertContest(@Param("contest") Contest contest);
+
+    void insertPic(@Param("contestId") int contestId, @Param("urls") List<String> urls);
+
+    void insertVideo(@Param("contestId") int contestId, @Param("urls") List<String> urls);
+
+    void updatePushLink(@Param("contestId") int contestId, @Param("url") String url);
+
+    ContestVO selectNum(@Param("contestId") int contestId);
+
+    List<String> selectAllFiles(@Param("contestId") int contestId);
+
+    void insertJudgeAuthority(@Param("judgeUid") int judgeId, @Param("teamIds") List<Integer> teamIds);
 }

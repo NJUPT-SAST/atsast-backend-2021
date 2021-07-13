@@ -4,10 +4,7 @@ import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.ContestVO;
 import com.sast.atSast.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Timestamp;
@@ -27,12 +24,12 @@ import java.util.List;
 public class ContestController {
 
     @Autowired
-    ContestService contestService;
+    private ContestService contestService;
 
     //创建比赛
     @PostMapping("/admin/contest/create")
     public void contestCreate(int masterUid, String name, String description,String contestOrganizer,String contestHost,String contestHelper,
-                              String reg, String regEnd, String submit, String submitEnd, String judge, String judgeEnd, String end, String endEnd,
+                              String reg, String regEnd, String submit, String submitEnd, String judge, String judgeEnd, String show, String showEnd,
                               int isTeam, String instructor, int isJoin, MultipartFile file) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -42,14 +39,14 @@ public class ContestController {
         LocalDateTime submitEndLdt = LocalDateTime.parse(submitEnd, formatter);
         LocalDateTime judgeLdt = LocalDateTime.parse(judge, formatter);
         LocalDateTime judgeEndLdt = LocalDateTime.parse(judgeEnd, formatter);
-        LocalDateTime endLdt = LocalDateTime.parse(end, formatter);
-        LocalDateTime endEndLdt = LocalDateTime.parse(endEnd, formatter);
+        LocalDateTime endLdt = LocalDateTime.parse(show, formatter);
+        LocalDateTime endEndLdt = LocalDateTime.parse(showEnd, formatter);
         Contest contest = new Contest(masterUid,name,description,contestOrganizer,contestHost,contestHelper,regLdt,regEndLdt,submitLdt,submitEndLdt,judgeLdt,judgeEndLdt,endLdt,endEndLdt,isTeam,instructor,isJoin);
         contestService.contestCreate(contest);
     }
 
     //提交照片、视频、推送链接
-    @PostMapping("/admin/contest/upload")
+    @PutMapping("/admin/contest/upload")
     public void uploadInfo(int contestId, List<String> picUrls,List<String> videoUrls, String pushLink){
         contestService.uploadInfo(contestId,picUrls,videoUrls,pushLink);
     }
@@ -66,4 +63,9 @@ public class ContestController {
         return contestService.queryAllFiles(contestId);
     }
 
+    //储存权限
+    @PostMapping("/admin/contest/saveAuthority")
+    public void saveJudgeAuthority(int judgeId,List<Integer> teamIds){
+        contestService.saveJudgeAuthority(judgeId,teamIds);
+    }
 }

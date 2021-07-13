@@ -22,11 +22,11 @@ public class Contest {
   private LocalDateTime reg;
   private LocalDateTime submit;
   private LocalDateTime judge;
-  private LocalDateTime end;
+  private LocalDateTime show;
   private LocalDateTime regEnd;
   private LocalDateTime submitEnd;
   private LocalDateTime judgeEnd;
-  private LocalDateTime endEnd;
+  private LocalDateTime showEnd;
   private int isTeam;
   private String instructor;
   private int isJoin;
@@ -35,7 +35,7 @@ public class Contest {
   private int enable;
   private String pushLink;
 
-  public Contest(int masterUid, String name, String description, String contestOrganizer, String contestHost, String contestHelper, LocalDateTime reg, LocalDateTime submit, LocalDateTime judge, LocalDateTime end, LocalDateTime regEnd, LocalDateTime submitEnd, LocalDateTime judgeEnd, LocalDateTime endEnd, int isTeam, String instructor, int isJoin) {
+  public Contest(int masterUid, String name, String description, String contestOrganizer, String contestHost, String contestHelper, LocalDateTime reg, LocalDateTime submit, LocalDateTime judge, LocalDateTime show, LocalDateTime regEnd, LocalDateTime submitEnd, LocalDateTime judgeEnd, LocalDateTime showEnd, int isTeam, String instructor, int isJoin) {
     this.masterUid = masterUid;
     this.name = name;
     this.description = description;
@@ -45,11 +45,11 @@ public class Contest {
     this.reg = reg;
     this.submit = submit;
     this.judge = judge;
-    this.end = end;
+    this.show = show;
     this.regEnd = regEnd;
     this.submitEnd = submitEnd;
     this.judgeEnd = judgeEnd;
-    this.endEnd = endEnd;
+    this.showEnd = showEnd;
     this.isTeam = isTeam;
     this.instructor = instructor;
     this.isJoin = isJoin;
