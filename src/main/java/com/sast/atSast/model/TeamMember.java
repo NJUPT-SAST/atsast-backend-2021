@@ -13,4 +13,8 @@ public class TeamMember {
     private Byte enable;
     private long leaderUid;
     private String instructor;
+    private long contestId;
+    private String teamName;
+    private Integer score;
+    private String result;
 }

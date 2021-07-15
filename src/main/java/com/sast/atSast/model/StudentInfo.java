@@ -17,5 +17,8 @@ public class StudentInfo {
   private String major;
   private String qqId;
   private String wxId;
+  private String hometown;
+  private String politicalStatus;
+  private String dormitoryNumber;
   private Byte enable;
 }

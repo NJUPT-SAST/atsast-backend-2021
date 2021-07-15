@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.ContestMapper">
+    <select id="getContestByCurr" resultType="com.sast.atSast.model.Contest">
+        select * from atsast.contest where curr=#{curr}
+    </select>
+
+    <select id="getContest" resultType="com.sast.atSast.model.Contest">
+        select * from atsast.contest
+    </select>
+
+    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
+        select * from atsast.contest where contest_id=#{id}
+    </select>
+
+    <update id="updateCurr">
+        update atsast.contest set curr=#{curr} where contest_id=#{contestId}
+    </update>
+
+    <update id="updateComment">
+        update atsast.contest set comment=#{comment} where contest_id=#{contestId}
+    </update>
+</mapper>
+

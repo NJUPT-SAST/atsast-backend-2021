@@ -1,4 +1,4 @@
-package com.sast.ATSAST;
+package com.sast.atSast;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
