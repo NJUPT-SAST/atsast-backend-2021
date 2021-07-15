@@ -10,7 +10,8 @@ import lombok.NoArgsConstructor;
 public class Message {
     private long uid;
     private long contestId;
-    private String contestDescript;
     private Byte isAccepted;
     private Byte enable;
+    private long teamId;
+    private long leaderUid;
 }

@@ -1,4 +1,4 @@
-package com.sast.ATSAST;
+package com.sast.atSast;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
