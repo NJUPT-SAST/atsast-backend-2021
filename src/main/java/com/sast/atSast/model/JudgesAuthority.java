@@ -7,8 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JudgesAuthor {
+public class JudgesAuthority {
     private long contestId;
     private long judgeUid;
     private Byte enable;
+    private long id;
 }

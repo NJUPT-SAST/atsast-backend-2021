@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 public class JudgesResult {
   private long teamId;
   private long contestId;
-  private boolean contestEnd;
   private long judgeUid;
   private Integer scores;
   private String comment;

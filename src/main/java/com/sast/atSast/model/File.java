@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Picture {
-    private long picId;
-    private String picPath;
-    private Byte enable;
-    private long contestId;
+public class File {
+    private long fileId;
+    private String filePath;
+    private long teamId;
 }
