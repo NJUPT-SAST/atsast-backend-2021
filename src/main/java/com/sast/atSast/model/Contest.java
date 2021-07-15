@@ -18,7 +18,6 @@ public class Contest {
   private LocalDateTime currAdmin;
   private boolean isTeam;
   private boolean isJoin;
-  private boolean judging;
   private String comment;
   private String pushlink;
   private String contestOrganizer;
@@ -32,4 +31,5 @@ public class Contest {
   private String joinGrade;
   private String isInstructor;
   private Byte enable;
+  private Byte judging;
 }

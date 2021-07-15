@@ -7,9 +7,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Picture {
-    private long picId;
-    private String picPath;
-    private Byte enable;
+public class FileStd {
+    private long stageId;
+    private long fileId;
+    private String filePath;
+    private String fileDescription;
+    private String fileLimit;
     private long contestId;
 }
