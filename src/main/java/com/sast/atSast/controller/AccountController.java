@@ -38,7 +38,7 @@ public class AccountController {
     }
 
     @PostMapping("/user/register")
-    public void register(String username,String password, Byte type){
+    public void register(String username,String password, String type){
         accountService.register(username,password,type);
     }
 }

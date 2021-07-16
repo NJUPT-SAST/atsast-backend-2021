@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @Date: 2021/4/20 13:48
  * @Description: 账号相关，account表、student_info表
@@ -14,4 +16,5 @@ import org.springframework.stereotype.Repository;
 public interface AccountMapper {
     void insertAccount(Account account);
     Account selectByEmail(@Param("email") String email);
+    List<String> selectRolesByEmail(@Param("email") String email);
 }

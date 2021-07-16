@@ -7,11 +7,15 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * @author: 風楪fy
@@ -25,6 +29,14 @@ public class AccountRealm extends AuthorizingRealm {
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+        String primaryPrincipal = (String) principals.getPrimaryPrincipal();
+        List<String> roles = accountService.findPermsByEmail(primaryPrincipal);
+        if(!CollectionUtils.isEmpty(roles)){
+            SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+            roles.forEach(role->{
+                simpleAuthorizationInfo.addRole(role);
+            });
+        }
         return null;
     }
 

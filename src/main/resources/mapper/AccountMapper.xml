@@ -8,4 +8,7 @@
     <select id="selectByEmail" resultType="com.sast.atSast.model.Account">
         select id,email,password,`type`,salt,enable from account where email=#{email}
     </select>
+    <select id="selectRolesByEmail" resultType="java.lang.String">
+        select email from account where email=#{email}
+    </select>
 </mapper>

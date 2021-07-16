@@ -10,8 +10,11 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
+import org.graalvm.compiler.virtual.phases.ea.EarlyReadEliminationPhase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @Date: 2021/4/20 13:44
@@ -45,16 +48,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void register(String username, String password, Byte type) {
+    public void register(String username, String password, String role) {
         String salt = SaltUtil.getSalt(8);
         Md5Hash md5Hash = new Md5Hash(password, "salt", 1024);
         String md5Password = md5Hash.toHex();
-        Account account = new Account(username, md5Password, type, salt);
+        Account account = new Account(username, md5Password, role, salt);
         accountMapper.insertAccount(account);
     }
 
     @Override
     public Account findByEmail(String email) {
         return accountMapper.selectByEmail(email);
+    }
+
+    @Override
+    public List<String> findPermsByEmail(String email) {
+        return accountMapper.selectRolesByEmail(email);
     }
 }
