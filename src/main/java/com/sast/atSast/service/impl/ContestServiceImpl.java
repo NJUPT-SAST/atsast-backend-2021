@@ -9,18 +9,32 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author cxy621
+ * @date 2021/7/16 18:48:44
+ * @desription 创建比赛，将信息插入数据库
+ */
 @Service
 public class ContestServiceImpl implements ContestService {
+
     @Autowired
     private ContestMapper contestMapper;
 
+    @Override
     public void createContest(Contest contest){
         contestMapper.createContest(contest);
     }
 
+    @Override
     public void createStage(Stage stage){
         contestMapper.createStage(stage);
     }
+
+    @Override
+    public void updatepushLink(int contestId, String pushLink){
+        contestMapper.updatepushLink(contestId, pushLink);
+    }
+
 }
 
 

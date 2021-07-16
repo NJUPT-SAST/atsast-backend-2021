@@ -31,4 +31,10 @@ public class Contest {
   private boolean enable;
   private boolean judging;
   private String stages;
+  private Byte minMember;
+  private Byte maxMember;
+  private Byte minInstructor;
+  private Byte maxInstructor;
+  private boolean isTech;
+  private Byte contestType;
 }

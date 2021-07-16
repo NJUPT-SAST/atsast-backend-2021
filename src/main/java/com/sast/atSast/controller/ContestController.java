@@ -5,10 +5,7 @@ import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.Stage;
 import com.sast.atSast.service.impl.ContestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,6 +24,12 @@ public class ContestController {
         for (Stage stage : stages) {
             contestService.createStage(stage);
         }
+    }
+
+    @ResponseBody
+    @PostMapping("/admin/uploadlink")
+    public void addpushLink(@RequestParam("contestId") int contestId,@RequestParam("pushLink") String pushLink){
+        contestService.updatepushLink(contestId, pushLink);
     }
 
 }

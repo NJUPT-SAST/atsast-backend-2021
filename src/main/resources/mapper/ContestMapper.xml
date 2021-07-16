@@ -2,16 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sast.atSast.mapper.ContestMapper">
+
     <insert id="createContest" parameterType="com.sast.atSast.model.Contest">
         insert into
             atsast.contest (master_uid, contest_name, description,enable, isteam, isjoin,
                             judging, is_instructor, comment, contest_organizer, contest_host,
                             contest_helper, curr_stu, banners, team_group, subject_category,
-                            work_category, join_grade, stages)
+                            work_category, join_grade, stages, min_member, max_member, min_instructor,
+                            max_instructor, contest_type)
                             values (#{masterUid}, #{contestName}, #{description}, #{enable},
                                     #{isTeam}, #{isJoin}, #{judging},#{isInstructor},#{comment},
                                     #{contestOrganizer}, #{contestHost},#{contestHelper}, #{currStu},#{banners},
-                                    #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages});
+                                    #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages},
+                                    #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType});
     </insert>
 
     <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
@@ -21,6 +24,10 @@
                           values (#{contestId}, #{stageId}, #{stageName},
                                   #{stageType}, #{stageBegin}, #{stageEnd})
     </insert>
+
+    <update id="updatepushLink" parameterType="com.sast.atSast.model.Contest">
+        update atsast.contest set pushlink = #{pushLink} where contest_id = #{contestId}
+    </update>
 
 </mapper>
 
