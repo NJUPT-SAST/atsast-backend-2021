@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Video {
     private long videoId;
     private String videoPath;
-    private Byte enable;
+    private boolean enable;
     private long contestId;
 }

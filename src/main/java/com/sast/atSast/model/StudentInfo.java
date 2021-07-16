@@ -20,5 +20,5 @@ public class StudentInfo {
   private String hometown;
   private String politicalStatus;
   private String dormitoryNumber;
-  private Byte enable;
+  private boolean enable;
 }

@@ -12,5 +12,5 @@ public class Account {
     private String email;
     private String password;
     private Byte type;
-    private Byte enable;
+    private boolean enable;
 }

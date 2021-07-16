@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +13,7 @@ public class Contest {
   private long masterUid;
   private String contestName;
   private String description;
-  private LocalDateTime currAdmin;
+  private Byte currAdmin;
   private boolean isTeam;
   private boolean isJoin;
   private String comment;
@@ -29,7 +27,8 @@ public class Contest {
   private String subjectCategory;
   private String workCategory;
   private String joinGrade;
-  private String isInstructor;
-  private Byte enable;
-  private Byte judging;
+  private boolean isInstructor;
+  private boolean enable;
+  private boolean judging;
+  private String stages;
 }

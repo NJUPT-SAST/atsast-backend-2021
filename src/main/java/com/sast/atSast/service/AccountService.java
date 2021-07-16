@@ -5,4 +5,5 @@ package com.sast.atSast.service;
  * @Description: 登陆相关逻辑接口
  **/
 public interface AccountService {
+
 }

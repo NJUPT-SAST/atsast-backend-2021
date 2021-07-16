@@ -24,11 +24,11 @@ public class AccountController {
     @Autowired
     ContestMapper contestMapper;
 
-    @GetMapping("/hello")
-    public String helloWorld(){
-        contestMapper.updateCurr(1,2);
-        return "hello, world";
-    }
+//    @GetMapping("/hello")
+//    public String helloWorld(){
+//        contestMapper.updateCurr(1,2);
+//        return "hello, world";
+//    }
 
     @GetMapping("/exception")
     public String except(){
