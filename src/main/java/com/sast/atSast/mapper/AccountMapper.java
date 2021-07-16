@@ -1,6 +1,8 @@
 package com.sast.atSast.mapper;
 
+import com.sast.atSast.model.Account;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,5 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface AccountMapper {
-
+    void insertAccount(Account account);
+    Account selectByEmail(@Param("email") String email);
 }

@@ -4,9 +4,15 @@ import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
 import com.sast.atSast.mapper.ContestMapper;
 import com.sast.atSast.model.Contest;
+import com.sast.atSast.service.AccountService;
+import com.sast.atSast.service.impl.AccountServiceImpl;
 import com.sast.atSast.service.impl.ContestServiceImpl;
+import com.sast.atSast.shiro.realm.AccountRealm;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,19 +25,20 @@ import java.util.List;
 public class AccountController {
 
     @Autowired
-    private ContestServiceImpl contestService;
+    private AccountService accountService;
 
-    @Autowired
-    ContestMapper contestMapper;
-
-    @GetMapping("/hello")
-    public String helloWorld(){
-        contestMapper.updateCurr(1,2);
-        return "hello, world";
+    @PostMapping("/user/login")
+    public void login(String username, String password){
+        accountService.login(username,password);
     }
 
-    @GetMapping("/exception")
-    public String except(){
-        throw new LocalRuntimeException(CustomError.REQUEST_ERROR);
+    @PutMapping("/user/logout")
+    public void logout(){
+        accountService.logout();
+    }
+
+    @PostMapping("/user/register")
+    public void register(String username,String password, Byte type){
+        accountService.register(username,password,type);
     }
 }
