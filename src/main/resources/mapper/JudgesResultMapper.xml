@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.JudgesResultMapper">
+
+    <insert id="addResult" parameterType="com.sast.atSast.model.JudgesResult">
+        insert into judges_result (team_id, contest_id, judge_uid, scores, comment)
+        values (#{teamId}, #{contestId}, #{judgeUid}, #{scores}, #{comment})
+    </insert>
+
+</mapper>
+

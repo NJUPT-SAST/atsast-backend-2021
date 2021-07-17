@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class JudgesAuthority {
     private long contestId;
     private long judgeUid;
-    private Byte enable;
+    private boolean enable;
     private long id;
 }

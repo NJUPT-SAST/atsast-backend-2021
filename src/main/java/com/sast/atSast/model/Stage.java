@@ -15,6 +15,7 @@ public class Stage {
     private String stageName;
     private String stageType;
     private String displayText;
-    private LocalDateTime stageBegin;
-    private LocalDateTime stageEnd;
+    private String stageBegin;
+    private String stageEnd;
+    private long id;
 }

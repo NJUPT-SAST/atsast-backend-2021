@@ -1,6 +1,8 @@
 package com.sast.atSast.mapper;
 
 import com.sast.atSast.model.Contest;
+import com.sast.atSast.model.Stage;
+import com.sast.atSast.model.TeamMember;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -14,14 +16,12 @@ import java.util.List;
 @Repository
 @Mapper
 public interface ContestMapper {
-    List<Contest> getContestByCurr(@Param("curr")Integer curr);
 
-    Contest getContestById(@Param("id")Integer id);
+    void createContest(Contest contest);
 
-    List<Contest> getContest();
+    void createStage(Stage stage);
 
-    void updateCurr(@Param("contestId")Integer contestId,@Param("curr")Integer curr);
+    void updatepushLink(int contestId, String pushLink);
 
-    void updateComment(@Param("contestId")Integer contestId,@Param("comment")String comment);
-
+    List<TeamMember> getTeamById(long contestId);
 }

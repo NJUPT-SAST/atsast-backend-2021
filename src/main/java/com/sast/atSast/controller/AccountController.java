@@ -36,6 +36,11 @@ public class AccountController {
     public void logout(){
         accountService.logout();
     }
+//    @GetMapping("/hello")
+//    public String helloWorld(){
+//        contestMapper.updateCurr(1,2);
+//        return "hello, world";
+//    }
 
     @PostMapping("/user/register")
     public void register(String username,String password, String type){
