@@ -47,10 +47,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.20")
 	testCompileOnly("org.projectlombok:lombok:1.18.20")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
-	//fastjson
-	implementation("com.alibaba:fastjson:1.2.76")
-	//easyexcel
-	implementation("com.alibaba:easyexcel:2.2.10")
+
 }
 
 test {

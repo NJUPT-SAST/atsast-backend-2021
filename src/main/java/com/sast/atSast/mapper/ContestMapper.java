@@ -2,6 +2,7 @@ package com.sast.atSast.mapper;
 
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.Stage;
+import com.sast.atSast.model.TeamMember;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -21,4 +22,6 @@ public interface ContestMapper {
     void createStage(Stage stage);
 
     void updatepushLink(int contestId, String pushLink);
+
+    List<TeamMember> getTeamById(long contestId);
 }

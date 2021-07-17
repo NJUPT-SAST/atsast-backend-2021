@@ -9,12 +9,12 @@
                             judging, is_instructor, comment, contest_organizer, contest_host,
                             contest_helper, curr_stu, banners, team_group, subject_category,
                             work_category, join_grade, stages, min_member, max_member, min_instructor,
-                            max_instructor, contest_type)
+                            max_instructor, contest_type, is_tech)
                             values (#{masterUid}, #{contestName}, #{description}, #{enable},
                                     #{isTeam}, #{isJoin}, #{judging},#{isInstructor},#{comment},
                                     #{contestOrganizer}, #{contestHost},#{contestHelper}, #{currStu},#{banners},
                                     #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages},
-                                    #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType});
+                                    #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType}, #{isTech});
     </insert>
 
     <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
@@ -28,6 +28,10 @@
     <update id="updatepushLink" parameterType="com.sast.atSast.model.Contest">
         update atsast.contest set pushlink = #{pushLink} where contest_id = #{contestId}
     </update>
+
+    <select id="getTeamById" resultType="com.sast.atSast.model.TeamMember">
+        select distinct team_name, team_id from atsast.team_member where contest_id = #{contestId}
+    </select>
 
 </mapper>
 

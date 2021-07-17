@@ -15,8 +15,8 @@ public class StudentInfo {
   private String faculty;
   private String personId;
   private String major;
-  private String qqId;
-  private String wxId;
+  private String qq;
+  private String wx;
   private String hometown;
   private String politicalStatus;
   private String dormitoryNumber;

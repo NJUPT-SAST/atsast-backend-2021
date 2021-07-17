@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.StudentInfoMapper">
+
+<!--    <insert id="addStudentInfo" parameterType="com.sast.atSast.model.StudentInfo">-->
+<!--        insert into-->
+<!--            atsast.student_info (uid, real_name, stu_id, phone, faculty,-->
+<!--                                 person_id, major, qq, hometown, political_status, dormitory_number)-->
+<!--                                 values (#{uid}, #{real_name})-->
+<!--    </insert>-->
+
+</mapper>
+

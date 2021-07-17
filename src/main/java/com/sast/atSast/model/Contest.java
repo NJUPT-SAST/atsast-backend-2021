@@ -14,8 +14,8 @@ public class Contest {
   private String contestName;
   private String description;
   private Byte currAdmin;
-  private boolean isTeam;
-  private boolean isJoin;
+  private String isTeam;
+  private String isJoin;
   private String comment;
   private String pushlink;
   private String contestOrganizer;
@@ -27,14 +27,14 @@ public class Contest {
   private String subjectCategory;
   private String workCategory;
   private String joinGrade;
-  private boolean isInstructor;
-  private boolean enable;
-  private boolean judging;
+  private String isInstructor;
+  private String enable;
+  private String judging;
   private String stages;
   private Byte minMember;
   private Byte maxMember;
   private Byte minInstructor;
   private Byte maxInstructor;
-  private boolean isTech;
+  private String isTech;
   private Byte contestType;
 }
