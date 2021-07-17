@@ -48,9 +48,9 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok:1.18.20")
 	testAnnotationProcessor("org.projectlombok:lombok:1.18.20")
 	//shiro
-	implementation group: 'org.apache.shiro', name: 'shiro-core', version: '1.4.0'
-	implementation group: 'org.apache.shiro', name: 'shiro-web', version: '1.4.0'
-	implementation group: 'org.apache.shiro', name: 'shiro-spring', version: '1.4.0'
+	implementation("org.apache.shiro:shiro-core:1.4.0")
+	implementation("org.apache.shiro:shiro-web:1.4.0")
+	implementation group("org.apache.shiro:shiro-spring:1.4.0")
 
 }
 
