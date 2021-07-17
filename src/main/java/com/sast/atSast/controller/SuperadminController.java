@@ -20,45 +20,45 @@ public class SuperadminController {
     @Autowired
     private ContestService contestService;
 
-//    列出所有状态的比赛
-    @GetMapping("/superadmin/list")
-    @ResponseBody
-    public List<Contest> contestList(){
-        return contestService.getContest();
-    }
-
-    // 比赛详情
-    @GetMapping("/superadmin/detail/{id}")
-    @ResponseBody
-    public Contest contestDetail(@PathVariable("id") int id){
-        return contestService.getContestById(id);
-    }
-
-
-//    审查比赛是否可以发布
-    @GetMapping("/superadmin/check/{contestId}/{result}")
-    @ResponseBody
-    public String contestCheck(@PathVariable("result") int result,@PathVariable("contestId") int contestId,String comment){
-        ModelAndView mv=new ModelAndView();
-        if(result==0){
-            contestService.updateComment(contestId,comment);
-            return "NO";
-        }
-        contestService.updateCurr(contestId,1);
-        return "OK";
-    }
-
-//    审查比赛是否可以结束
-    @GetMapping("/superadmin/checkend/{contestId}/{result}")
-    @ResponseBody
-    public String contestEndCheck(@PathVariable("result") Integer result,@PathVariable("contestId") Integer contestId,String comment){
-        if(result==0){
-            contestService.updateComment(contestId,comment);
-            return "NO";
-        }
-        contestService.updateCurr(contestId,2);
-        return "OK";
-    }
+////    列出所有状态的比赛
+//    @GetMapping("/superadmin/list")
+//    @ResponseBody
+//    public List<Contest> contestList(){
+//        return contestService.getContest();
+//    }
+//
+//    // 比赛详情
+//    @GetMapping("/superadmin/detail/{id}")
+//    @ResponseBody
+//    public Contest contestDetail(@PathVariable("id") int id){
+//        return contestService.getContestById(id);
+//    }
+//
+//
+////    审查比赛是否可以发布
+//    @GetMapping("/superadmin/check/{contestId}/{result}")
+//    @ResponseBody
+//    public String contestCheck(@PathVariable("result") int result,@PathVariable("contestId") int contestId,String comment){
+//        ModelAndView mv=new ModelAndView();
+//        if(result==0){
+//            contestService.updateComment(contestId,comment);
+//            return "NO";
+//        }
+//        contestService.updateCurr(contestId,1);
+//        return "OK";
+//    }
+//
+////    审查比赛是否可以结束
+//    @GetMapping("/superadmin/checkend/{contestId}/{result}")
+//    @ResponseBody
+//    public String contestEndCheck(@PathVariable("result") Integer result,@PathVariable("contestId") Integer contestId,String comment){
+//        if(result==0){
+//            contestService.updateComment(contestId,comment);
+//            return "NO";
+//        }
+//        contestService.updateCurr(contestId,2);
+//        return "OK";
+//    }
 
 //    导入Excel生成账号
     @GetMapping("/superadmin/import")

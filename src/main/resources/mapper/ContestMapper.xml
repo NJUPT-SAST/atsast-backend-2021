@@ -2,24 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.sast.atSast.mapper.ContestMapper">
-    <select id="getContestByCurr" resultType="com.sast.atSast.model.Contest">
-        select * from atsast.contest where curr=#{curr}
-    </select>
 
-    <select id="getContest" resultType="com.sast.atSast.model.Contest">
-        select * from atsast.contest
-    </select>
+    <insert id="createContest" parameterType="com.sast.atSast.model.Contest">
+        insert into
+            atsast.contest (master_uid, contest_name, description,enable, isteam, isjoin,
+                            judging, is_instructor, comment, contest_organizer, contest_host,
+                            contest_helper, curr_stu, banners, team_group, subject_category,
+                            work_category, join_grade, stages, min_member, max_member, min_instructor,
+                            max_instructor, contest_type, is_tech)
+                            values (#{masterUid}, #{contestName}, #{description}, #{enable},
+                                    #{isTeam}, #{isJoin}, #{judging},#{isInstructor},#{comment},
+                                    #{contestOrganizer}, #{contestHost},#{contestHelper}, #{currStu},#{banners},
+                                    #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages},
+                                    #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType}, #{isTech});
+    </insert>
 
-    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
-        select * from atsast.contest where contest_id=#{id}
-    </select>
+    <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
+        insert into
+            atsast.stage (contest_id, stage_id, stage_name,
+                          stage_type, stage_begin, stage_end)
+                          values (#{contestId}, #{stageId}, #{stageName},
+                                  #{stageType}, #{stageBegin}, #{stageEnd})
+    </insert>
 
-    <update id="updateCurr">
-        update atsast.contest set curr=#{curr} where contest_id=#{contestId}
+    <update id="updatepushLink" parameterType="com.sast.atSast.model.Contest">
+        update atsast.contest set pushlink = #{pushLink} where contest_id = #{contestId}
     </update>
 
-    <update id="updateComment">
-        update atsast.contest set comment=#{comment} where contest_id=#{contestId}
-    </update>
+    <select id="getTeamById" resultType="com.sast.atSast.model.TeamMember">
+        select distinct team_name, team_id from atsast.team_member where contest_id = #{contestId}
+    </select>
+
 </mapper>
 
