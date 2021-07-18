@@ -27,7 +27,7 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public void updatepushLink(int contestId, String pushLink){
+    public void updatepushLink(long contestId, String pushLink){
         contestMapper.updatepushLink(contestId, pushLink);
     }
 

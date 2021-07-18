@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 public class Message {
     private long uid;
     private long contestId;
-    private boolean isAccepted;
-    private boolean enable;
+    private String isAccepted;
+    private Byte enable;
     private long teamId;
     private long leaderUid;
 }

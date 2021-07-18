@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class TeamMember {
     private long teamId;
     private long memberUid;
-    private boolean enable;
+    private Byte enable;
     private long leaderUid;
     private String instructor;
     private long contestId;

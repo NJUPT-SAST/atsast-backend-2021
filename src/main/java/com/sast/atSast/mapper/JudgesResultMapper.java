@@ -1,5 +1,6 @@
 package com.sast.atSast.mapper;
 
+import com.sast.atSast.model.JudgesResult;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +12,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface JudgesResultMapper {
 
-    void addResult(String comment, int scores, long teamId, long contestId ,long judgeUid);
+    void addResult(JudgesResult judgesResult);
 }

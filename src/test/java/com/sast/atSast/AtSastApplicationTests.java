@@ -20,16 +20,13 @@ class AtSastApplicationTests {
 
 	@Test
 	void contextLoads() {
-//		String data = "[\n" +
-//				"    {\n" +
-//				"        \"stageBegin\": \"2013-03-06 17:17:16\",\n" +
-//				"        \"stageEnd\": \"1974-09-08 01:06:24\",\n" +
-//				"        \"stageId\": 38,\n" +
-//				"        \"contestId\": 15,\n" +
-//				"        \"stageName\": \"秀英\",\n" +
-//				"        \"stageType\": \"non ipsum\"\n" +
-//				"    }\n" +
-//				"]";
+		List<Long> teamIds = new ArrayList<>();
+		long i = 1;
+		while (i <= 10){
+			teamIds.add(i);
+			i++;
+		}
+		System.out.println(teamIds);
 	}
 
 }

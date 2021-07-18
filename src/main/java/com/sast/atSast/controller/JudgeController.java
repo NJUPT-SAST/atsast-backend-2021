@@ -1,14 +1,16 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.model.JudgesAuthority;
+import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.JudgesAuthorityService;
 import com.sast.atSast.service.JudgesResultService;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,48 +28,40 @@ public class JudgeController {
     ContestService contestService;
 
     /**
-     * @description 进行评委授权，一个评委能够评论多个队伍
-     * @param judgeId 评委的id
-     * @param teamIds 团队的id
+     * @desription 评委授权
+     * @param judgesAuthority 传来的json自动打包成对象
      */
     @ResponseBody
-    @PostMapping("/admin/editfilestd")
-    public void addAuthority(@RequestParam("judgeId") long judgeId, @RequestParam("teamIds") List<Long> teamIds){
-        for (long teamId : teamIds){
-            judgesAuthorityService.addAuthority(judgeId, teamId);
+    @PostMapping("/admin/authority")
+    public void addAuthority(@RequestBody JudgesAuthority judgesAuthority){
+        for (long teamId : judgesAuthority.getTeamIds()){
+            judgesAuthority.setTeamId(teamId);
+            judgesAuthorityService.addAuthority(judgesAuthority);
         }
     }
 
-    /**
-     * @desription 添加评审结果
-     * @param comment 评论
-     * @param scores 分数
-     * @param teamId 队伍id
-     * @param contestId 比赛id
-     * @param judgeUid 评委id
-     */
+
     @ResponseBody
     @PostMapping("/judge/comment")
-    public void addResult(@RequestParam("comment") String comment, @RequestParam("scores") int scores,
-                          @RequestParam("teamId") long teamId, @RequestParam("contestId") long contestId,
-                          @RequestParam("judgeUid") long judgeUid){
-        judgesResultService.addResult(comment, scores, teamId, contestId, judgeUid);
+    public void addResult(@RequestBody JudgesResult judgesResult){
+        judgesResultService.addResult(judgesResult);
     }
 
-    /**
-     * @desription 评审列表
-     * @param contestId 比赛id
-     * @return 所有符合比赛id的队伍名和id
-     */
-    @ResponseBody
-    @PostMapping("/judge/list")
-    public List<String> getTeamById(@RequestParam("contestId") long contestId){
-        List<TeamMember> teamMembers = contestService.getTeamById(contestId);
-        List<String> teamMessage = new ArrayList<>();
-        for (TeamMember teamMember : teamMembers){
-            teamMessage.add(teamMember.getTeamName() + teamMember.getTeamId());
-        }
-        System.out.println(teamMessage);
-        return teamMessage;
-    }
+//    /**
+//     * @desription 评审列表
+//     * @param contestId 比赛id
+//     * @return 所有符合比赛id的队伍名和id
+//     */
+//    @ResponseBody
+//    @GetMapping("/judge/list")
+//    public List<String> getTeamById(@RequestParam("contestId") long contestId){
+//        List<TeamMember> teamMembers = contestService.getTeamById(contestId);
+//        List<String> teamMessage = new ArrayList<>();
+//        for (TeamMember teamMember : teamMembers){
+//            teamMessage.add(teamMember.getTeamName() + teamMember.getTeamId());
+//        }
+//        System.out.println(teamMessage);
+//        return teamMessage;
+//    }
+
 }

@@ -1,6 +1,9 @@
 package com.sast.atSast.service;
 
+import com.sast.atSast.model.JudgesResult;
+
 public interface JudgesResultService {
 
-    void addResult(String comment, int scores, long teamId, long contestId ,long judgeUid);
+    void addResult(JudgesResult judgesResult);
+
 }

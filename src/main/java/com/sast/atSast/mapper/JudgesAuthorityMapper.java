@@ -1,5 +1,6 @@
 package com.sast.atSast.mapper;
 
+import com.sast.atSast.model.JudgesAuthority;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface JudgesAuthorityMapper {
 
-    void addAuthority(long judgeId, long teamId);
+    void addAuthority(JudgesAuthority judgesAuthority);
 
 }
