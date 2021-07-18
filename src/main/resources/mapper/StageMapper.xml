@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.StageMapper">
+
+    <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
+        insert into
+            atsast.stage (contest_id, stage_id, stage_name,
+                          stage_type, stage_begin, stage_end)
+        values (#{contestId}, #{stageId}, #{stageName},
+                #{stageType}, #{stageBegin}, #{stageEnd})
+    </insert>
+
+</mapper>
+

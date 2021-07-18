@@ -1,10 +1,9 @@
 package com.sast.atSast.controller;
 
-import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.TeamMember;
-import com.sast.atSast.service.impl.ContestServiceImpl;
-import com.sast.atSast.service.impl.JudgesAuthorityServiceImpl;
-import com.sast.atSast.service.impl.JudgesResultServiceImpl;
+import com.sast.atSast.service.ContestService;
+import com.sast.atSast.service.JudgesAuthorityService;
+import com.sast.atSast.service.JudgesResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,13 +17,13 @@ import java.util.List;
 public class JudgeController {
 
     @Autowired
-    JudgesAuthorityServiceImpl judgesAuthorityService;
+    JudgesAuthorityService judgesAuthorityService;
 
     @Autowired
-    JudgesResultServiceImpl judgesResultService;
+    JudgesResultService judgesResultService;
 
     @Autowired
-    ContestServiceImpl contestService;
+    ContestService contestService;
 
     /**
      * @description 进行评委授权，一个评委能够评论多个队伍

@@ -1,36 +1,36 @@
 package com.sast.atSast.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.Stage;
-import com.sast.atSast.service.impl.ContestServiceImpl;
-import com.sast.atSast.service.impl.VideoServiceImpl;
+import com.sast.atSast.service.ContestService;
+import com.sast.atSast.service.StageService;
+import com.sast.atSast.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class ContestController {
 
     @Autowired
-    private ContestServiceImpl contestService;
+    private ContestService contestService;
 
     @Autowired
-    VideoServiceImpl videoService;
+    private StageService stageService;
+
+    @Autowired
+    private VideoService videoService;
 
     /**
      * @description 前端传递json字符串，通过fastjson实现自动分配
-     * @param data 所有信息的长字符串
+     * @param contest 前端传递json字符串自动打包成对象
      */
     @ResponseBody
     @PostMapping("/admin/createcontest")
-    public void createContest(@RequestBody String data){
-        Contest contest = JSON.parseObject(data, Contest.class);
-        List<Stage> stages = JSON.parseArray(contest.getStages(), Stage.class);
-		contestService.createContest(contest);
-        for (Stage stage : stages) {
-            contestService.createStage(stage);
+    public void createContest(@RequestBody Contest contest){
+        contest.setStages(Integer.parseInt(String.valueOf(contest.getStageTemps().size())));
+        contestService.createContest(contest);
+        for (Stage stage : contest.getStageTemps()){
+            stageService.createStage(stage);
         }
     }
 
@@ -41,7 +41,7 @@ public class ContestController {
      */
     @ResponseBody
     @PostMapping("/admin/uploadlink")
-    public void addpushLink(@RequestParam("contestId") int contestId,@RequestParam("pushLink") String pushLink){
+    public void addpushLink(@RequestParam("contestId") int contestId, @RequestParam("pushLink") String pushLink){
         contestService.updatepushLink(contestId, pushLink);
     }
 

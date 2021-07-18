@@ -27,11 +27,6 @@ public class ContestServiceImpl implements ContestService {
     }
 
     @Override
-    public void createStage(Stage stage){
-        contestMapper.createStage(stage);
-    }
-
-    @Override
     public void updatepushLink(int contestId, String pushLink){
         contestMapper.updatepushLink(contestId, pushLink);
     }

@@ -11,9 +11,8 @@ public interface ContestService {
 
     void createContest(Contest contest);
 
-    void createStage(Stage stage);
-
     void updatepushLink(int contestId, String pushLink);
 
     List<TeamMember> getTeamById(long contestId);
+
 }
