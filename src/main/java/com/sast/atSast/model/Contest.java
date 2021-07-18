@@ -31,7 +31,7 @@ public class Contest {
   private String workCategory;
   private String joinGrade;
   private String isInstructor;
-  private String enable;
+  private Byte enable;
   private String judging;
   private Byte minMember;
   private Byte maxMember;

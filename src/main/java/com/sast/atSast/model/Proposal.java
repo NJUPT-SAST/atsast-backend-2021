@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 public class Proposal {
     private String proposalPath;
     private long contestId;
-    private boolean enable;
+    private Byte enable;
 }

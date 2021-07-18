@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 public class Picture {
     private long picId;
     private String picPath;
-    private boolean enable;
+    private Byte enable;
     private long contestId;
 }

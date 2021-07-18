@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface VideoMapper {
-    void getVideo(long contestId, String videoUrl);
+
+    void addVideo(long contestId, String videoPath);
+
 }

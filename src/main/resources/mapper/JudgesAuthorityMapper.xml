@@ -4,7 +4,9 @@
 <mapper namespace="com.sast.atSast.mapper.JudgesAuthorityMapper">
 
     <insert id="addAuthority" parameterType="com.sast.atSast.model.JudgesAuthority">
-        insert into atsast.judges_authority(team_id, judge_uid) values (#{teamId}, #{judgeId})
+        insert into
+            atsast.judges_authority( team_id, judge_uid, contest_id) values
+                                    (#{teamId}, #{judgeUid}, #{contestId})
     </insert>
 
 </mapper>
