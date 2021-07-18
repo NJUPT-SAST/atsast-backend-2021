@@ -12,5 +12,9 @@
                                          #{dormitoryNumber})
     </insert>
 
+    <select id="getStudentInfoById" resultType="com.sast.atSast.model.StudentInfo">
+        select * from atsast.student_info where uid = #{Uid}
+    </select>
+
 </mapper>
 

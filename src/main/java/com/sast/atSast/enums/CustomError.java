@@ -14,7 +14,8 @@ public enum CustomError {
     INTERNAL_ERROR(5001,"内部错误"),
     REQUEST_ERROR(4001,"请求出错"),
     PERMISSION_DENY(4003,"权限错误"),
-    UNKNOWN_ERROR(4004,"未知错误"),;
+    UNKNOWN_ERROR(4004,"未知错误");
+
 
 
     private int code;

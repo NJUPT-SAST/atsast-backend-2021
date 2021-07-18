@@ -20,13 +20,7 @@ class AtSastApplicationTests {
 
 	@Test
 	void contextLoads() {
-		List<Long> teamIds = new ArrayList<>();
-		long i = 1;
-		while (i <= 10){
-			teamIds.add(i);
-			i++;
-		}
-		System.out.println(teamIds);
+
 	}
 
 }
