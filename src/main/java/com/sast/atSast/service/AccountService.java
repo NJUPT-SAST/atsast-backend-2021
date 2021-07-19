@@ -1,7 +1,6 @@
 package com.sast.atSast.service;
 
 import com.sast.atSast.model.Account;
-
 import java.util.List;
 
 /**
@@ -12,6 +11,11 @@ public interface AccountService {
     void login(String username,String password);
     void logout();
     void register(String username,String password, String role);
-    Account findByEmail(String email);
-    List<String> findPermsByEmail(String email);
+    Account findAccountByEmail(String email);
+    List<String> findRolesByEmail(String email);
+
+    void sendVerificationCodeEmail();
+    boolean judgeVerificationCode(String inputVerificationCode);
+    void forgetPassword(String password);
+    void updatePassword(String oldPassword, String newPassword);
 }

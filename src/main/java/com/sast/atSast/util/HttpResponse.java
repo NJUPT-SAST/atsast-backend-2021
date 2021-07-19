@@ -23,4 +23,16 @@ public class HttpResponse<T> {
     public static HttpResponse<Void> failure(String errMsg, Integer errCode) {
         return new HttpResponse<>(false, errMsg, errCode, null);
     }
+
+    //为了便于ShiroFormAuthenticationFilter中的toString可以返回合适的格式
+    @Override
+    public String toString() {
+        return "{\n" +
+                "    \"success\": " + success + ",\n" +
+                "    \"errMsg\": " + '\"' + errMsg + '\"' + ",\n" +
+                "    \"errCode\": " + errCode + ",\n" +
+                "    \"data\": " + data + "\n" +
+                "}"
+                ;
+    }
 }

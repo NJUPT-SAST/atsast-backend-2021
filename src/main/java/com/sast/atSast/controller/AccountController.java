@@ -1,21 +1,11 @@
 package com.sast.atSast.controller;
 
-import com.sast.atSast.enums.CustomError;
-import com.sast.atSast.exception.LocalRuntimeException;
-import com.sast.atSast.mapper.ContestMapper;
-import com.sast.atSast.model.Contest;
 import com.sast.atSast.service.AccountService;
-import com.sast.atSast.service.impl.AccountServiceImpl;
-import com.sast.atSast.service.impl.ContestServiceImpl;
-import com.sast.atSast.shiro.realm.AccountRealm;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @Date: 2021/4/20 12:13
@@ -28,22 +18,48 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/user/login")
-    public void login(String username, String password){
-        accountService.login(username,password);
+    public String login(String email, String password) {
+        accountService.login(email, password);
+        return "ok";
     }
 
     @PutMapping("/user/logout")
-    public void logout(){
+    public String logout() {
         accountService.logout();
+        return "ok";
     }
-//    @GetMapping("/hello")
-//    public String helloWorld(){
-//        contestMapper.updateCurr(1,2);
-//        return "hello, world";
-//    }
 
     @PostMapping("/user/register")
-    public void register(String username,String password, String type){
-        accountService.register(username,password,type);
+    public String register(String email, String password, String role) {
+        accountService.register(email, password, role);
+        return "ok";
     }
+
+    //发送验证码邮件
+    @PostMapping("/user/sendemail")
+    public String sendVerificationCodeEmail() {
+        accountService.sendVerificationCodeEmail();
+        return "ok";
+    }
+
+    //判断验证码是否正确
+    @GetMapping("/user/judgecode")
+    public boolean judgeVerificationCode(String inputVerificationCode) {
+        return accountService.judgeVerificationCode(inputVerificationCode);
+    }
+
+    //忘记密码（需要先通过验证）
+    @PutMapping("/user/forgetpassword")
+    public String forgetPassword(String password) {
+        accountService.forgetPassword(password);
+        return "ok";
+    }
+
+    //更新密码（根据旧密码修改）
+    @PutMapping("/user/updatepassword")
+    public String updatePassword(String oldPassword, String newPassword) {
+        accountService.updatePassword(oldPassword, newPassword);
+        return "ok";
+    }
+
 }

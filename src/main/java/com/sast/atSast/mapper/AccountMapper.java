@@ -15,6 +15,8 @@ import java.util.List;
 @Mapper
 public interface AccountMapper {
     void insertAccount(Account account);
-    Account selectByEmail(@Param("email") String email);
+    Account selectAccountByEmail(@Param("email") String email);
     List<String> selectRolesByEmail(@Param("email") String email);
+    void updatePasswordByEmail(@Param("email") String email,@Param("password")String password,@Param("salt") String salt);
+    String findPasswordByEmail(@Param("email") String email);
 }
