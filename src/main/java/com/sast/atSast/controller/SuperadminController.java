@@ -1,4 +1,5 @@
 package com.sast.atSast.controller;
+
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
 import java.util.List;
 
 /**
@@ -60,19 +62,19 @@ public class SuperadminController {
 //        return "OK";
 //    }
 
-//    导入Excel生成账号
+    //    导入Excel生成账号
     @GetMapping("/superadmin/import")
     @ResponseBody
-    public String export(MultipartFile file){
+    public String export(MultipartFile file) {
 
         return "";
     }
 
-//    生成邀请注册链接
+    //    生成邀请注册链接
     @GetMapping("/superadmin/invite")
     @ResponseBody
-    public String invite(){
-        String url=" ";
+    public String invite() {
+        String url = " ";
 
         return url;
     }

@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface StudentInfoMapper {
 
     void addStudentInfo(StudentInfo studentInfo);
+
+    StudentInfo getStudentInfoById(long Uid);
+
 }

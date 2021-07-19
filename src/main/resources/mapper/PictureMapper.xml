@@ -4,9 +4,8 @@
 <mapper namespace="com.sast.atSast.mapper.PictureMapper">
 
     <insert id="addPictures" parameterType="com.sast.atSast.model.Picture">
-        insert into
-                atsast.picture  (pic_path, contest_id) values
-                                (#{picPath}, #{contestId})
+        insert into atsast.picture (pic_path, contest_id)
+        values (#{picPath}, #{contestId})
     </insert>
 
 </mapper>

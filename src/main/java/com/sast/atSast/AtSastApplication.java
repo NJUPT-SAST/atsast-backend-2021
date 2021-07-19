@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = "com.sast.atSast.mapper")
 public class AtSastApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(AtSastApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(AtSastApplication.class, args);
+    }
 
 }

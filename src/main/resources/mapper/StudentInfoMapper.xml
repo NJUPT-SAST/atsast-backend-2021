@@ -4,13 +4,18 @@
 <mapper namespace="com.sast.atSast.mapper.StudentInfoMapper">
 
     <insert id="addStudentInfo" parameterType="com.sast.atSast.model.StudentInfo">
-        insert into
-            atsast.student_info (uid, real_name, stu_id, phone, faculty,
-                                 person_id, major, qq, hometown, political_status, dormitory_number)
-                                 values (#{uid}, #{realName}, #{stuId}, #{phone}, #{faculty},
-                                         #{personId}, #{major}, #{qq}, #{hometown}, #{politicalStatus},
-                                         #{dormitoryNumber})
+        insert into atsast.student_info (uid, real_name, stu_id, phone, faculty,
+                                         person_id, major, qq, hometown, political_status, dormitory_number)
+        values (#{uid}, #{realName}, #{stuId}, #{phone}, #{faculty},
+                #{personId}, #{major}, #{qq}, #{hometown}, #{politicalStatus},
+                #{dormitoryNumber})
     </insert>
+
+    <select id="getStudentInfoById" resultType="com.sast.atSast.model.StudentInfo">
+        select *
+        from atsast.student_info
+        where uid = #{Uid}
+    </select>
 
 </mapper>
 

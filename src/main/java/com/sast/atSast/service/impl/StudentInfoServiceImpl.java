@@ -23,4 +23,9 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         studentInfoMapper.addStudentInfo(studentInfo);
     }
 
+    @Override
+    public StudentInfo getStudentInfoById(long Uid) {
+        return studentInfoMapper.getStudentInfoById(Uid);
+    }
+
 }

@@ -16,4 +16,5 @@ public class JudgesResultServiceImpl implements JudgesResultService {
     public void addResult(JudgesResult judgesResult) {
         judgesResultMapper.addResult(judgesResult);
     }
+
 }

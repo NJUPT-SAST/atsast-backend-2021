@@ -4,9 +4,8 @@
 <mapper namespace="com.sast.atSast.mapper.StageMapper">
 
     <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
-        insert into
-            atsast.stage (contest_id, stage_id, stage_name,
-                          stage_type, stage_begin, stage_end)
+        insert into atsast.stage (contest_id, stage_id, stage_name,
+                                  stage_type, stage_begin, stage_end)
         values (#{contestId}, #{stageId}, #{stageName},
                 #{stageType}, #{stageBegin}, #{stageEnd})
     </insert>

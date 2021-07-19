@@ -1,32 +1,48 @@
 package com.sast.atSast;
 
-import com.alibaba.fastjson.JSON;
-import com.sast.atSast.model.Contest;
-import com.sast.atSast.model.Stage;
-import com.sast.atSast.model.TeamMember;
-import com.sast.atSast.service.impl.ContestServiceImpl;
+import com.sast.atSast.model.FileStd;
+import com.sast.atSast.service.FileStdService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 @SpringBootTest
 class AtSastApplicationTests {
 
-	@Autowired
-	private ContestServiceImpl contestService;
+//	private static final String PATH = "D:\\CXY\\EXE\\2021-2022\\SOC\\Test\\Excel";
 
-	@Test
-	void contextLoads() {
-		List<Long> teamIds = new ArrayList<>();
-		long i = 1;
-		while (i <= 10){
-			teamIds.add(i);
-			i++;
-		}
-		System.out.println(teamIds);
-	}
+    @Autowired
+    private FileStdService fileStdService;
+
+    @Test
+    void contextLoads() throws FileNotFoundException, IOException {
+//		long begin = System.currentTimeMillis();
+//
+//		Workbook workbook = new SXSSFWorkbook();
+//		Sheet sheet = workbook.createSheet("瞎jb测试");
+//
+//		for (int rowNum = 0; rowNum < 65536; rowNum++){
+//			Row row = sheet.createRow(rowNum);
+//			for (int cellNum = 0; cellNum < 10; cellNum++){
+//				Cell cell = row.createCell(cellNum);
+//				cell.setCellValue(cellNum);
+//			}
+//		}
+//
+//		FileOutputStream output = new FileOutputStream(PATH + "陈鑫扬全新版本.xlsx");
+//		workbook.write(output);
+//		System.out.println("表格生成成功");
+//		output.close();
+//		((SXSSFWorkbook) workbook).dispose();
+//
+//		long end = System.currentTimeMillis();
+//		System.out.println((double) (end - begin) / 1000);
+
+        FileStd fileStd = fileStdService.getFileMessageById(5, 17);
+        System.out.println(fileStd);
+    }
 
 }
