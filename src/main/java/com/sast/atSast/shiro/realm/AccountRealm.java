@@ -2,6 +2,7 @@ package com.sast.atSast.shiro.realm;
 
 import com.sast.atSast.model.Account;
 import com.sast.atSast.service.AccountService;
+import com.sast.atSast.service.RedisService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,7 +31,7 @@ public class AccountRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String primaryPrincipal = (String) principals.getPrimaryPrincipal();
-        List<String> roles = accountService.findPermsByEmail(primaryPrincipal);
+        List<String> roles = accountService.findRolesByEmail(primaryPrincipal);
         if(!CollectionUtils.isEmpty(roles)){
             SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
             roles.forEach(role->{
@@ -43,7 +44,7 @@ public class AccountRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String principal = (String) token.getPrincipal();//得到账号（邮箱）
-        Account account = accountService.findByEmail(principal);
+        Account account = accountService.findAccountByEmail(principal);
         if(!ObjectUtils.isEmpty(account)){
             return new SimpleAuthenticationInfo(account.getEmail(),
                     account.getPassword(),

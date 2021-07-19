@@ -2,13 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sast.atSast.mapper.AccountMapper">
     <insert id="insertAccount" useGeneratedKeys="true" keyProperty="uid">
-        insert into account (uid,email,password,`type`,salt)
-        values(#{uid},#{email},#{password},#{type},#{salt})
+        insert into account (uid,email,password,`role`,salt)
+        values(#{uid},#{email},#{password},#{role},#{salt})
     </insert>
-    <select id="selectByEmail" resultType="com.sast.atSast.model.Account">
-        select id,email,password,`type`,salt,enable from account where email=#{email}
+    <select id="selectAccountByEmail" resultType="com.sast.atSast.model.Account">
+        select uid,email,password,`role`,salt,enable from account where email=#{email}
     </select>
     <select id="selectRolesByEmail" resultType="java.lang.String">
         select email from account where email=#{email}
+    </select>
+    <update id="updatePasswordByEmail">
+        update account
+        set password=#{password},salt=#{salt}
+        where email = #{email}
+    </update>
+    <select id="findPasswordByEmail" resultType="java.lang.String">
+        select psssword from account where email=#{email}
     </select>
 </mapper>
