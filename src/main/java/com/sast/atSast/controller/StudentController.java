@@ -19,13 +19,14 @@ public class StudentController {
 
     @ResponseBody
     @PostMapping("/user/selfinfo")
-    public void addStudentInfo(@RequestBody StudentInfo studentInfo){
+    public String addStudentInfo(@RequestBody StudentInfo studentInfo) {
         studentInfoService.addStudentInfo(studentInfo);
+        return "ok";
     }
 
     @ResponseBody
     @GetMapping("/user/selfinfo")
-    public StudentInfo getStudentInfoById(long uid){
+    public StudentInfo getStudentInfoById(long uid) {
         return studentInfoService.getStudentInfoById(uid);
     }
 
