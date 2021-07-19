@@ -53,7 +53,6 @@ dependencies {
 	implementation("org.apache.shiro:shiro-spring:1.4.0")
 	//email
 	compile('org.springframework.boot:spring-boot-starter-mail')
-
 }
 
 test {

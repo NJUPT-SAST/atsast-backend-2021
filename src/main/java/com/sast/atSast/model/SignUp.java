@@ -13,5 +13,5 @@ public class SignUp {
     private String realName;
     private String contestName;
     private long teamId;
-    private boolean enable;
+    private Byte enable;
 }

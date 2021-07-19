@@ -4,6 +4,9 @@ package com.sast.atSast.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,13 +31,16 @@ public class Contest {
   private String workCategory;
   private String joinGrade;
   private String isInstructor;
-  private String enable;
+  private Byte enable;
   private String judging;
-  private String stages;
   private Byte minMember;
   private Byte maxMember;
   private Byte minInstructor;
   private Byte maxInstructor;
   private String isTech;
   private Byte contestType;
+
+  @Transient
+  private List<Stage> stageTemps;
+  private Integer stages;
 }

@@ -14,5 +14,5 @@ public class JudgesResult {
   private long judgeUid;
   private Integer scores;
   private String comment;
-  private boolean enable;
+  private Byte enable;
 }

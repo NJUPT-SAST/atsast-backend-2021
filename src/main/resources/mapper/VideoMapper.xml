@@ -3,8 +3,9 @@
 
 <mapper namespace="com.sast.atSast.mapper.VideoMapper">
 
-    <insert id="getVideo" parameterType="com.sast.atSast.model.Video">
-        insert into atsast.video (video_path, contest_id) values (#{videoPath}, #{contestId})
+    <insert id="addVideo" parameterType="com.sast.atSast.model.Video">
+        insert into atsast.video (video_path, contest_id)
+        values (#{videoPath}, #{contestId})
     </insert>
 
 </mapper>

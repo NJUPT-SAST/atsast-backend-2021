@@ -1,8 +1,7 @@
 package com.sast.atSast.service;
 
-import com.sast.atSast.model.Video;
-
 public interface VideoService {
 
-    void getVideo(long contestId, String videoUrl);
+    void addVideo(long contestId, String videoPath);
+
 }

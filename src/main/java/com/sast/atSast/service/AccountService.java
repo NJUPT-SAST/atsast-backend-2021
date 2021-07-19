@@ -8,7 +8,8 @@ import java.util.List;
  * @Description: 登陆相关逻辑接口
  **/
 public interface AccountService {
-    void login(String username,String password);
+    void login(String username, String password);
+
     void logout();
     void register(String username,String password, String role);
     Account findAccountByEmail(String email);

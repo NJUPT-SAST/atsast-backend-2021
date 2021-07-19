@@ -13,7 +13,8 @@ public class VideoServiceImpl implements VideoService {
     VideoMapper videoMapper;
 
     @Override
-    public void getVideo(long contestId, String videoUrl) {
-        videoMapper.getVideo(contestId, videoUrl);
+    public void addVideo(long contestId, String videoPath) {
+        videoMapper.addVideo(contestId, videoPath);
     }
+
 }

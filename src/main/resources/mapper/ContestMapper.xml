@@ -4,33 +4,41 @@
 <mapper namespace="com.sast.atSast.mapper.ContestMapper">
 
     <insert id="createContest" parameterType="com.sast.atSast.model.Contest">
-        insert into
-            atsast.contest (master_uid, contest_name, description,enable, isteam, isjoin,
-                            judging, is_instructor, comment, contest_organizer, contest_host,
-                            contest_helper, curr_stu, banners, team_group, subject_category,
-                            work_category, join_grade, stages, min_member, max_member, min_instructor,
-                            max_instructor, contest_type, is_tech)
-                            values (#{masterUid}, #{contestName}, #{description}, #{enable},
-                                    #{isTeam}, #{isJoin}, #{judging},#{isInstructor},#{comment},
-                                    #{contestOrganizer}, #{contestHost},#{contestHelper}, #{currStu},#{banners},
-                                    #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages},
-                                    #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType}, #{isTech});
-    </insert>
-
-    <insert id="createStage" parameterType="com.sast.atSast.model.Stage">
-        insert into
-            atsast.stage (contest_id, stage_id, stage_name,
-                          stage_type, stage_begin, stage_end)
-                          values (#{contestId}, #{stageId}, #{stageName},
-                                  #{stageType}, #{stageBegin}, #{stageEnd})
+        insert into atsast.contest (master_uid, contest_name, description, enable, is_team, is_join,
+                                    judging, is_instructor, comment, contest_organizer, contest_host,
+                                    contest_helper, curr_stu, banners, team_group, subject_category,
+                                    work_category, join_grade, stages, min_member, max_member, min_instructor,
+                                    max_instructor, contest_type, is_tech)
+        values (#{masterUid}, #{contestName}, #{description}, #{enable},
+                #{isTeam}, #{isJoin}, #{judging}, #{isInstructor}, #{comment},
+                #{contestOrganizer}, #{contestHost}, #{contestHelper}, #{currStu}, #{banners},
+                #{teamGroup}, #{subjectCategory}, #{workCategory}, #{joinGrade}, #{stages},
+                #{minMember}, #{maxMember}, #{minInstructor}, #{maxInstructor}, #{contestType}, #{isTech});
     </insert>
 
     <update id="updatepushLink" parameterType="com.sast.atSast.model.Contest">
-        update atsast.contest set pushlink = #{pushLink} where contest_id = #{contestId}
+        update atsast.contest
+        set pushlink = #{pushLink}
+        where contest_id = #{contestId}
     </update>
 
     <select id="getTeamById" resultType="com.sast.atSast.model.TeamMember">
-        select distinct team_name, team_id from atsast.team_member where contest_id = #{contestId}
+        select distinct team_name, team_id
+        from atsast.team_member
+        where contest_id = #{contestId}
+    </select>
+
+    <insert id="addFile" parameterType="com.sast.atSast.model.FileStd">
+        insert into atsast.file_std (stage_id, file_description, file_limit, contest_id)
+        values (#{stageId}, #{fileDescription}, #{fileLimit}, #{contestId})
+        #待讨论逻辑
+    </insert>
+
+    <select id="getFileMessageById" resultType="com.sast.atSast.model.FileStd">
+        select file_description, file_limit
+        from atsast.file_std
+        where stage_id = #{stageId}
+          and contest_id = #{contestId}
     </select>
 
 </mapper>
