@@ -26,4 +26,6 @@ public interface ContestMapper {
 
     FileStd getFileMessageById(long stageId, long contestId);
 
+    Contest getContestById(long contestId);
+
 }

@@ -41,5 +41,11 @@
           and contest_id = #{contestId}
     </select>
 
+    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where contest_id = #{contestId}
+    </select>
+
 </mapper>
 

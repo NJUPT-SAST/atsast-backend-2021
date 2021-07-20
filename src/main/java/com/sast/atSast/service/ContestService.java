@@ -15,4 +15,6 @@ public interface ContestService {
 
     List<TeamMember> getTeamById(long contestId);
 
+    Contest getContestById(long contestId);
+
 }
