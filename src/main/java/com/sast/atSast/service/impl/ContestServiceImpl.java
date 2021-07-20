@@ -35,6 +35,12 @@ public class ContestServiceImpl implements ContestService {
     public List<TeamMember> getTeamById(long contestId) {
         return contestMapper.getTeamById(contestId);
     }
+
+    @Override
+    public Contest getContestById(long contestId) {
+        return contestMapper.getContestById(contestId);
+    }
+
 }
 
 
