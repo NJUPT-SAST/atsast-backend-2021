@@ -81,6 +81,10 @@ public class AdminController {
         return "ok";
     }
 
+    /**
+     * @param fileStd 自动装配为对象
+     * @desription 管理员设定提交文件的各种信息
+     */
     @ResponseBody
     @PostMapping("/admin/editfilestd")
     public String addFile(@RequestBody FileStd fileStd) {
@@ -88,9 +92,14 @@ public class AdminController {
         return "ok";
     }
 
+    /**
+     * @param stageId   阶段id
+     * @param contestId 比赛id
+     * @desription 获取设定文件信息
+     */
     @ResponseBody
     @GetMapping("/admin/editfilestd")
-    public FileTemp getFileMessageById(long stageId, long contestId){
+    public FileTemp getFileMessageById(long stageId, long contestId) {
         FileStd fileStd = fileStdService.getFileMessageById(stageId, contestId);
         System.out.println(fileStd);
         return new FileTemp(fileStd.getFileDescription(), fileStd.getFileLimit());

@@ -16,5 +16,7 @@ import java.util.List;
 public interface JudgesResultMapper {
 
     void addResult(JudgesResult judgesResult);
-    List<JudgesResult> getResults(@Param("contestId") Integer contestId);
+  
+    List<JudgesResult> getResults(@Param("contestId") Integer contestId)
+
 }

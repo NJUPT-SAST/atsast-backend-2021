@@ -18,4 +18,6 @@ public interface ContestService {
     void updateComment(Integer contestId,String comment);
     void updateJudge(Integer judging,long contestId);
 
+    Contest getContestById(long contestId);
+
 }
