@@ -7,6 +7,7 @@ import com.sast.atSast.pojo.FileTemp;
 import com.sast.atSast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class AdminController {
@@ -25,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private FileStdService fileStdService;
+
+    @Autowired
+    private ExcelService excelService;
 
     /**
      * @param contest 前端传递json字符串自动打包成对象
@@ -100,5 +104,8 @@ public class AdminController {
         System.out.println(fileStd);
         return new FileTemp(fileStd.getFileDescription(), fileStd.getFileLimit());
     }
+
+
+
 
 }

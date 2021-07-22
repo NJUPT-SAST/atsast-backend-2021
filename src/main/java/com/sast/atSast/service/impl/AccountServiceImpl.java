@@ -7,8 +7,12 @@ import com.sast.atSast.model.Account;
 import com.sast.atSast.service.AccountService;
 import com.sast.atSast.service.EmailService;
 import com.sast.atSast.service.RedisService;
+import com.sast.atSast.util.MultipartFileToFile;
 import com.sast.atSast.util.SaltUtil;
 import com.sast.atSast.util.VerificationCodeGenerator;
+import org.apache.ibatis.annotations.Param;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
@@ -19,12 +23,15 @@ import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.lang.model.element.VariableElement;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static com.sast.atSast.enums.CustomError.PERMISSION_DENY;
+import java.util.regex.Pattern;
 
 /**
  * @Date: 2021/4/20 13:44
@@ -39,6 +46,12 @@ public class AccountServiceImpl implements AccountService {
     EmailService emailService;
     @Autowired
     RedisService redisService;
+
+    String check = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+    Pattern emailRegex = Pattern.compile(check);
+
+    String passwordCheck="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+    Pattern pwdRegex=Pattern.compile(passwordCheck);
 
     @Override
     public void login(String email, String password) {
@@ -141,5 +154,113 @@ public class AccountServiceImpl implements AccountService {
         } catch (AuthenticationException e) {
             throw new LocalRuntimeException(CustomError.WRONG_PASSWORD);
         }
+    }
+
+    public void importAccount(@Param("account")Account account){
+        accountMapper.insertAccount(account);
+    }
+
+    public void readAccountExcel(MultipartFile file) throws IOException {
+        List<String> emails=new LinkedList<String>();
+        List<String> tempEmails=new LinkedList<String>();
+        emails=accountMapper.listEmail();
+
+        MultipartFileToFile multipartFileToFile=new MultipartFileToFile();
+        List<Account> accounts=new LinkedList<Account>();
+
+        Workbook workbook= null;
+        try {
+            InputStream inputStream=file.getInputStream();
+            inputStream = new FileInputStream(multipartFileToFile.convert(file));
+            workbook = new XSSFWorkbook(inputStream);
+        } catch (Exception e) {
+            CustomError.EXCEL_ERROR.setErrMsg("上传文件格式有误（文件后缀应为.xlsx）");
+            throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+        }
+
+        Sheet sheet=workbook.getSheetAt(0);
+
+        Row rowTitle=sheet.getRow(0);
+
+        int rowCount=sheet.getPhysicalNumberOfRows();
+        for(int rowNum=1;rowNum<rowCount;rowNum++){
+            Row rowData=sheet.getRow(rowNum);
+            if(rowData!=null){
+                int cellCount=rowTitle.getPhysicalNumberOfCells();
+                Account account=new Account();
+                for(int cellNum=0;cellNum<cellCount;cellNum++){
+                    account.setUid(0);
+                    account.setEnable((byte) 1);
+
+                    Cell cell= null;
+                    try {
+                        cell = rowData.getCell(cellNum);
+                        CellType cellType=cell.getCellTypeEnum();
+                    } catch (NullPointerException e) {
+                        CustomError.EXCEL_ERROR.setErrMsg("Excel缺失数据");
+                        throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                    }
+
+                    String cellValue;
+                    if(cell.getCellTypeEnum()==CellType.STRING) {
+                        cellValue = cell.getStringCellValue();
+                    }else if(cell.getCellTypeEnum()==CellType.NUMERIC){
+                        cellValue=String.valueOf(cell.getNumericCellValue());
+                    }else {
+                        CustomError.EXCEL_ERROR.setErrMsg("Excel内存放数据类型有误");
+                        throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                    }
+
+                    switch (cellNum){
+                        case 0:
+                            if(emails.contains(cellValue)|tempEmails.contains(cellValue)){
+                                CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行邮箱已存在");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                            }else if(!emailRegex.matcher(cellValue).matches()){
+                                CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行邮箱格式错误");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                            }else {
+                                account.setEmail(cellValue);
+                            }
+                            break;
+                        case 1:
+                            if(!pwdRegex.matcher(cellValue).matches()){
+                                CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行密码格式错误");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                            }else {
+                                account.setPassword(cellValue);
+                            }
+                            break;
+                        case 2:
+                            if(cellValue.equals("学生")|cellValue.equals("评委")
+                                    |cellValue.equals("管理员")|cellValue.equals("超级管理员")){
+                                account.setRole(cellValue);
+                            }else{
+                                CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行账号身份错误");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                            }
+                            break;
+                        default:
+                            CustomError.EXCEL_ERROR.setErrMsg("Excel内容错误");
+                            throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                    }
+                    tempEmails.add(account.getEmail());
+                }
+                accounts.add(account);
+            }
+        }
+        tempEmails.clear();
+        for(Account item:accounts){
+            String salt = SaltUtil.getSalt(8);
+            Md5Hash md5Hash = new Md5Hash(item.getPassword(), salt, 1024);
+            String md5Password = md5Hash.toHex();
+            item.setSalt(salt);
+            item.setPassword(md5Password);
+            accountMapper.importAccount(item);
+        }
+    }
+
+    public List<String> listEmail(){
+        return accountMapper.listEmail();
     }
 }
