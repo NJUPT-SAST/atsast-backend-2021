@@ -6,6 +6,8 @@ import com.sast.atSast.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @program: ATSAST
  * @description: 储存添加学生信息
@@ -28,4 +30,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
         return studentInfoMapper.getStudentInfoById(Uid);
     }
 
+    @Override
+    public String getRealName(long uid) {
+        return getRealName(uid);
+    }
+
+    @Override
+    public List<StudentInfo> listStudentInfos() {
+        return studentInfoMapper.listStudentInfos();
+    }
 }

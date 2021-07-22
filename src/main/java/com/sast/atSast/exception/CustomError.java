@@ -1,4 +1,4 @@
-package com.sast.atSast.enums;
+package com.sast.atSast.exception;
 
 import lombok.AllArgsConstructor;
 

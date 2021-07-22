@@ -2,7 +2,10 @@ package com.sast.atSast.mapper;
 
 import com.sast.atSast.model.JudgesResult;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author cxy621
@@ -13,4 +16,5 @@ import org.springframework.stereotype.Repository;
 public interface JudgesResultMapper {
 
     void addResult(JudgesResult judgesResult);
+    List<JudgesResult> getResults(@Param("contestId") Integer contestId);
 }

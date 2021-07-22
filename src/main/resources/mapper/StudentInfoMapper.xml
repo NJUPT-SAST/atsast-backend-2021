@@ -14,7 +14,15 @@
     <select id="getStudentInfoById" resultType="com.sast.atSast.model.StudentInfo">
         select *
         from atsast.student_info
-        where uid = #{Uid}
+        where uid = #{Uid} and enable=1
+    </select>
+
+    <select id="getRealName" resultType="com.sast.atSast.model.StudentInfo">
+        select real_name from atsast.student_info where uid=#{uid} and enable=1
+    </select>
+
+    <select id="listStudentInfos" resultType="com.sast.atSast.model.StudentInfo">
+        select * from atsast.student_info where enable=1
     </select>
 
 </mapper>

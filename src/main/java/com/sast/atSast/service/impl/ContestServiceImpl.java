@@ -2,7 +2,6 @@ package com.sast.atSast.service.impl;
 
 import com.sast.atSast.mapper.ContestMapper;
 import com.sast.atSast.model.Contest;
-import com.sast.atSast.model.Stage;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,25 @@ public class ContestServiceImpl implements ContestService {
     @Override
     public List<TeamMember> getTeamById(long contestId) {
         return contestMapper.getTeamById(contestId);
+    }
+
+    public List<Contest> getContestByCurr(Integer curr){
+        return contestMapper.getContestByCurr(curr);
+    }
+    public List<Contest> getContest(){
+        return  contestMapper.getContest();
+    }
+    public Contest getContestById(Integer id){
+        return contestMapper.getContestById(id);
+    }
+    public void updateCurr(Integer contestId,Integer curr){
+        contestMapper.updateCurr(contestId,curr);
+    }
+    public void updateComment(Integer contestId,String comment){
+        contestMapper.updateComment(contestId,comment);
+    }
+    public void updateJudge(Integer judging,long contestId){
+        contestMapper.updateJudge(judging, contestId);
     }
 }
 
