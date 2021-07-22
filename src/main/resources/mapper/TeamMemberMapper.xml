@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.TeamMemberMapper">
+    <select id="getTeams" resultType="com.sast.atSast.model.TeamMember">
+        select * from atsast.team_member where contest_id=#{contestId} and enable=1
+    </select>
+
+    <update id="updateTeam">
+        update atsast.team_member set score=#{score},result=#{result} where team_id=#{teamId} and enable=1
+    </update>
+
+    <insert id="insertTeam" parameterType="com.sast.atSast.model.TeamMember">
+        insert into atsast.team_member (team_id,member_uid,leader_uid,instructor,contest_id,team_name)
+        values (#{teamMember.teamId},#{teamMember.memberUid},#{teamMember.leaderUid},#{teamMember.instructor},
+    #{teamMember.contestId},#{teamMember.teamName})
+    </insert>
+
+
+</mapper>

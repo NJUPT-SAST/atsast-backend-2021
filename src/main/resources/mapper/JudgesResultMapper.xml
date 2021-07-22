@@ -15,6 +15,9 @@
           and contest_id = #{contestId}
           and judge_uid = #{judgeUid}
     </select>
+    <select id="getResults" resultType="com.sast.atSast.model.JudgesResult">
+        select * from atsast.judges_result where contest_id=#{contestId} and enable=1
+    </select>
 
 </mapper>
 

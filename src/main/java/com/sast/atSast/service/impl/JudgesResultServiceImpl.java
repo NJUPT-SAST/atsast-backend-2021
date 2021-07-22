@@ -6,6 +6,8 @@ import com.sast.atSast.service.JudgesResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JudgesResultServiceImpl implements JudgesResultService {
 
@@ -20,6 +22,8 @@ public class JudgesResultServiceImpl implements JudgesResultService {
     @Override
     public JudgesResult getResult(long teamId, long contestId, long judgeUid) {
         return judgesResultMapper.getResult(teamId, contestId, judgeUid);
+    public List<JudgesResult> getResults(Integer contestId){
+        return judgesResultMapper.getResults(contestId);
     }
 
 }
