@@ -6,4 +6,6 @@ public interface JudgesResultService {
 
     void addResult(JudgesResult judgesResult);
 
+    JudgesResult getResult(long teamId, long contestId, long judgeUid);
+
 }
