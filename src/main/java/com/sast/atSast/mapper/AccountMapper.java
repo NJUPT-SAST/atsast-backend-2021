@@ -12,7 +12,6 @@ import java.util.List;
  * @Description: 账号相关，account表、student_info表
  **/
 @Repository
-@Mapper
 public interface AccountMapper {
     void insertAccount(Account account);
     Account selectAccountByEmail(@Param("email") String email);

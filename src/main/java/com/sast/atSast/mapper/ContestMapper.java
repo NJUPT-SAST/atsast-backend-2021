@@ -14,7 +14,6 @@ import java.util.List;
  * @Description: 比赛管理相关，主要是contest表
  **/
 @Repository
-@Mapper
 public interface ContestMapper {
 
     void createContest(Contest contest);

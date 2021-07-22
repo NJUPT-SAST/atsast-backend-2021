@@ -101,7 +101,6 @@ public class AdminController {
     @GetMapping("/admin/editfilestd")
     public FileTemp getFileMessageById(long stageId, long contestId) {
         FileStd fileStd = fileStdService.getFileMessageById(stageId, contestId);
-        System.out.println(fileStd);
         return new FileTemp(fileStd.getFileDescription(), fileStd.getFileLimit());
     }
 

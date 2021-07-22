@@ -24,7 +24,6 @@ minio:
   accessKey:
   secretKey:
   bucketImageName:
-
 mybatis:
   type-aliases-package: com.sast.atSast.model
   mapper-locations: classpath:mapper/*.xml
