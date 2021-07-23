@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sast.atSast.mapper.TeamMapper">
+    <resultMap type="com.sast.atSast.model.TeamMember" id="TeamMap">
+        <result property="teamId" column="team_id" jdbcType="INTEGER"/>
+        <result property="memberUid" column="member_uid" jdbcType="INTEGER"/>
+        <result property="instructor" column="instructor" jdbcType="VARCHAR"/>
+        <result property="contestId" column="contest_id" jdbcType="INTEGER"/>
+        <result property="teamName" column="team_name" jdbcType="VARCHAR"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="result" column="result" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <update id="deleteTeam" parameterType="java.lang.Integer" >
+        update atsast.team_member set enable = 0 where team_id = #{teamId}
+    </update>
+
+    <select id="getTeam" parameterType="java.lang.Integer" resultType="com.sast.atSast.model.TeamMember">
+        select * from atsast.team_member where team_id = #{teamId} and enable = 1
+    </select>
+
+    <update id="updateScore" >
+        update atsast.team_member set score = #{score} where team_id = #{teamId} and enable =1
+    </update>
+
+    <update id="updateResult" >
+        update atsast.team_member set result = #{result} where team_id = #{teamId} and enable =1
+    </update>
+
+</mapper>

@@ -1,6 +1,7 @@
 package com.sast.atSast.service.impl;
 
 import com.sast.atSast.mapper.ContestMapper;
+import com.sast.atSast.mapper.TeamMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.service.ContestService;
@@ -20,10 +21,14 @@ public class ContestServiceImpl implements ContestService {
     @Autowired
     private ContestMapper contestMapper;
 
+    @Autowired
+    private TeamMapper teamMapper;
+
     @Override
     public void createContest(Contest contest){
         contestMapper.createContest(contest);
     }
+
 
     @Override
     public void updatepushLink(long contestId, String pushLink){
@@ -58,6 +63,10 @@ public class ContestServiceImpl implements ContestService {
         return contestMapper.getContestById(contestId);
     }
 
+    @Override
+    public List<Contest> findAll() {
+        return contestMapper.findAll();
+    }
 }
 
 
