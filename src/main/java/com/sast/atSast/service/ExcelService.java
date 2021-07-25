@@ -18,4 +18,5 @@ public interface ExcelService {
     String generatelist(long contestId) throws IOException;
     //导入名单报名
     String uploadlist(long contestId,MultipartFile file);
+    String importjudge(MultipartFile file,long contestId);
 }

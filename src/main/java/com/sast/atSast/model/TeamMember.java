@@ -17,4 +17,6 @@ public class TeamMember {
     private String teamName;
     private Integer score;
     private String result;
+    private String teamGroup;
+    private String subjectCategory;
 }
