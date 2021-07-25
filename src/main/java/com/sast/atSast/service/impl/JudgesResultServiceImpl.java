@@ -19,6 +19,9 @@ public class JudgesResultServiceImpl implements JudgesResultService {
         judgesResultMapper.addResult(judgesResult);
     }
 
+    @Override
+    public JudgesResult getResult(long teamId, long contestId, long judgeUid) {
+        return judgesResultMapper.getResult(teamId, contestId, judgeUid);
     public List<JudgesResult> getResults(Integer contestId){
         return judgesResultMapper.getResults(contestId);
     }

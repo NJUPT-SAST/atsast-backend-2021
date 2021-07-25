@@ -1,6 +1,7 @@
 package com.sast.atSast.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * @program: ATSAST
@@ -8,7 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
  * @author: cxy621
  * @create: 2021-07-18 10:46
  **/
-@Mapper
+@Repository
 public interface PictureMapper {
 
     void addPictures(long contestId, String picPath);

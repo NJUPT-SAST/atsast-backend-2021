@@ -65,5 +65,19 @@
         update atsast.contest set judging=#{judging} where contest_id=#{contestId} and enable=1
     </update>
 
+    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where contest_id = #{contestId}
+    </select>
+
+    <select id="getInfoById" resultType="com.sast.atSast.model.Contest">
+        select * from atsast.contest where contest_id = #{contestId}
+    </select>
+
+    <select id="findAll" resultType="com.sast.atSast.model.Contest">
+        select * from atsast.contest
+    </select>
+
 </mapper>
 
