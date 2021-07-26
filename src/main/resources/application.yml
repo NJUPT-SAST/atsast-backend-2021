@@ -15,9 +15,9 @@ spring:
     properties.mail.smtp.ssl.enable: true
     default-encoding: utf-8
   redis:
-    host: 
-    port: 
-    password: 
+    host:
+    port:
+    password:
 
 mybatis:
   type-aliases-package: com.sast.atSast.model

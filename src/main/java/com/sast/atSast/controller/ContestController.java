@@ -2,6 +2,9 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.mapper.JudgeInfoMapper;
+import com.sast.atSast.model.Contest;
+import com.sast.atSast.model.JudgeInfo;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.ExcelService;
 import com.sast.atSast.service.impl.RichtextServiceImpl;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class ContestController {
@@ -19,9 +23,11 @@ public class ContestController {
     @Autowired
     private RichtextServiceImpl richtextService;
 
-
     @Autowired
     private ExcelService excelService;
+
+    @Autowired
+    private JudgeInfoMapper judgeInfoMapper;
 
     @PostMapping("/admin/edittext")
     public String edittext(@RequestParam("contestId")long contestId,
@@ -66,16 +72,29 @@ public class ContestController {
     }
 
     @GetMapping("/admin/generate")
-    @ResponseBody
     public String generatelist(@RequestParam("contestId")long contestId) throws IOException {
         return excelService.generatelist(contestId);
     }
 
-    @ResponseBody
     @PostMapping("/admin/uploadlist")
     public String uploadList(MultipartFile file,long contestId){
         return excelService.uploadlist(contestId,file);
     }
 
+    @PostMapping("/admin/importjudges")
+    public String importjudges(MultipartFile file,long contestId){
+        return excelService.importjudge(file,contestId);
+    }
+
+    @GetMapping("/admin/deletejudge")
+    public String deletejudges(Long uid){
+        judgeInfoMapper.deleteJudge(uid);
+        return "success";
+    }
+
+    @GetMapping("/admin/judgelist")
+    public List<JudgeInfo> listjudges(){
+        return judgeInfoMapper.listJudges();
+    }
 
 }

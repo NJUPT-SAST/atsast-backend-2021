@@ -57,6 +57,9 @@ dependencies {
 	implementation("com.alibaba:easyexcel:2.2.10")
 	// minio
 	implementation("io.minio:minio:7.0.2")
+
+
+
 }
 
 test {

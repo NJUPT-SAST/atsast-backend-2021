@@ -231,21 +231,13 @@ public class AccountServiceImpl implements AccountService {
                                 account.setPassword(cellValue);
                             }
                             break;
-                        case 2:
-                            if(cellValue.equals("学生")|cellValue.equals("评委")
-                                    |cellValue.equals("管理员")|cellValue.equals("超级管理员")){
-                                account.setRole(cellValue);
-                            }else{
-                                CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行账号身份错误");
-                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
-                            }
-                            break;
                         default:
                             CustomError.EXCEL_ERROR.setErrMsg("Excel内容错误");
                             throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
                     }
                     tempEmails.add(account.getEmail());
                 }
+                account.setRole("管理员");
                 accounts.add(account);
             }
         }
