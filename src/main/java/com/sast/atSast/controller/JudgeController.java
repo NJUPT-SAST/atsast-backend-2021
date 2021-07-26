@@ -1,5 +1,6 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.pojo.JudgeResultTemp;
@@ -18,6 +19,8 @@ import java.util.List;
 @RestController
 public class JudgeController {
 
+    @Autowired
+    JudgesAuthorityService judgesAuthorityService;
 
     @Autowired
     JudgesResultService judgesResultService;

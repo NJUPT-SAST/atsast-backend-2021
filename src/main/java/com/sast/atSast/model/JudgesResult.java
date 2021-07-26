@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JudgesResult {
-  private Long teamId;
-  private Long contestId;
-  private Long judgeUid;
+  private long teamId;
+  private long contestId;
+  private long judgeUid;
   private Integer scores;
   private String comment;
   private Byte enable;
-  private Long resultId;
+  private long resultId;
 }

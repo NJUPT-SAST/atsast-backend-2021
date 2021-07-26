@@ -1,5 +1,6 @@
 package com.sast.atSast.util;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -12,7 +13,9 @@ import java.io.IOException;
  * @Author TongGuoBo
  * @Date 2019/6/19 13:48
  **/
+@Component
 public class MultipartFileToFile {
+
     public File convert(MultipartFile file) throws IOException {
         File convFile = new File(file.getOriginalFilename());
         convFile.createNewFile();
@@ -21,5 +24,6 @@ public class MultipartFileToFile {
         fos.close();
         return convFile;
     }
+
 }
 

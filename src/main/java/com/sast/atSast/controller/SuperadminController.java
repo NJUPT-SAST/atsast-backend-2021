@@ -32,7 +32,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/list")
     @ResponseBody
-    public List<Contest> contestList(){
+    public List<Contest> contestList() {
         return contestService.getContest();
     }
 
@@ -43,7 +43,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/detail/{id}")
     @ResponseBody
-    public Contest contestDetail(@PathVariable("id") int id){
+    public Contest contestDetail(@PathVariable("id") Long id) {
         return contestService.getContestById(id);
     }
 
@@ -54,15 +54,15 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/check/{contestId}")
     @ResponseBody
-    public int contestCheck(@PathVariable("contestId") int contestId,String comment,String result){
+    public int contestCheck(@PathVariable("contestId") long contestId, String comment, String result) {
 
-        int mark=Integer.parseInt(result);
-        ModelAndView mv=new ModelAndView();
-        if(mark==0){
-            contestService.updateComment(contestId,comment);
+        int mark = Integer.parseInt(result);
+        ModelAndView mv = new ModelAndView();
+        if (mark == 0) {
+            contestService.updateComment(contestId, comment);
             return 0;
         }
-        contestService.updateCurr(contestId,1);
+        contestService.updateCurr(contestId, 1);
         return 1;
     }
 
@@ -73,15 +73,15 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/checkend/{contestId}")
     @ResponseBody
-    public int contestEndCheck(@PathVariable("contestId") Integer contestId,String comment,String result){
+    public int contestEndCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
-        int mark=Integer.parseInt(result);
-        ModelAndView mv=new ModelAndView();
-        if(mark==0){
-            contestService.updateComment(contestId,comment);
+        int mark = Integer.parseInt(result);
+        ModelAndView mv = new ModelAndView();
+        if (mark == 0) {
+            contestService.updateComment(contestId, comment);
             return 0;
         }
-        contestService.updateCurr(contestId,2);
+        contestService.updateCurr(contestId, 2);
         return 1;
     }
 
@@ -92,16 +92,16 @@ public class SuperadminController {
      */
     @RequestMapping(value = "/superadmin/import", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
-    public String export(@RequestParam("file")MultipartFile file) throws IOException , LocalRuntimeException {
+    public String export(@RequestParam("file") MultipartFile file) throws IOException, LocalRuntimeException {
         accountService.readAccountExcel(file);
         return "success";
     }
 
-//    生成邀请注册链接
+    //    生成邀请注册链接
     @GetMapping("/superadmin/invite")
     @ResponseBody
-    public String invite(){
-        String url=" ";
+    public String invite() {
+        String url = " ";
         return url;
     }
 

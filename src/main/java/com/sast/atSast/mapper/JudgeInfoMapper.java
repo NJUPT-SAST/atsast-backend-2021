@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface JudgeInfoMapper {
 
-    List<JudgeInfo> getJudgeInfo(long contestId);
+    List<JudgeInfo> getJudgeInfo(Long contestId);
 
     void addSingleJudge(JudgeInfo judgeInfo);
 

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PictureMapper {
 
-    void addPictures(long contestId, String picPath);
+    void addPictures(Long contestId, String picPath);
 
 }

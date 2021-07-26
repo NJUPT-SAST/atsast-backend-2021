@@ -1,4 +1,4 @@
-              package com.sast.atSast.model;
+package com.sast.atSast.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
