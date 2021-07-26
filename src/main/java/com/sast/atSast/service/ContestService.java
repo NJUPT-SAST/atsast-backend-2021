@@ -20,8 +20,4 @@ public interface ContestService {
 
     Contest getContestById(long contestId);
 
-    List<Contest> findAll();
-
-
-
 }

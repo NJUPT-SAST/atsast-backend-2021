@@ -10,8 +10,6 @@ import com.sast.atSast.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @program: ATSAST
  * @description: 身份为学生的用户
@@ -58,18 +56,6 @@ public class StudentController {
     @ResponseBody
     @GetMapping("/user/contest/allinfo")
     public Contest getContestById(long contestId) {
-        return contestService.getContestById(contestId);
-    }
-
-    @ResponseBody
-    @GetMapping("/user/contestlist")
-    public List<Contest> getAllContests(){
-        return contestService.findAll();
-    }
-
-    @ResponseBody
-    @GetMapping ("/user/contestInfo")
-    public Contest getContestInfo(@RequestParam("contestId") Integer contestId){
         return contestService.getContestById(contestId);
     }
 
