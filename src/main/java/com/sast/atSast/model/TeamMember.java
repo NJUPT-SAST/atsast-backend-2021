@@ -8,13 +8,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TeamMember {
-    private long teamId;
-    private long memberUid;
+    private Long teamId;
+    private Long memberUid;
     private Byte enable;
-    private long leaderUid;
+    private Long leaderUid;
     private String instructor;
-    private long contestId;
+    private String instructorId;
+    private Long contestId;
     private String teamName;
     private Integer score;
     private String result;
+    private String teamGroup;
+    private String subjectCategory;
 }

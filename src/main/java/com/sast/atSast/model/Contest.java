@@ -12,8 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Contest {
-  private long contestId;
-  private long masterUid;
+  private Long contestId;
+  private Long masterUid;
   private String contestName;
   private String description;
   private Byte currAdmin;

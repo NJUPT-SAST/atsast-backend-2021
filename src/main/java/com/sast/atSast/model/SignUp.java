@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUp {
-    private long uid;
+    private Long uid;
     private String stuId;
     private String realName;
     private String contestName;
-    private long teamId;
+    private Long teamId;
     private Byte enable;
 }
