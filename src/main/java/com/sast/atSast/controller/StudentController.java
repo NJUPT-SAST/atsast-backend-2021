@@ -3,9 +3,11 @@ package com.sast.atSast.controller;
 import com.sast.atSast.mapper.FileMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.File;
+import com.sast.atSast.model.Stage;
 import com.sast.atSast.model.StudentInfo;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.FileService;
+import com.sast.atSast.service.StageService;
 import com.sast.atSast.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +31,9 @@ public class StudentController {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    StageService stageService;
 
     /**
      * @param studentInfo 学生具体信息
@@ -57,7 +62,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/contest/allinfo")
-    public Contest getContestById(long contestId) {
+    public Contest getContestById(Integer contestId) {
         return contestService.getContestById(contestId);
     }
 //
@@ -82,6 +87,17 @@ public class StudentController {
     public String updateFiles(File file) {
         fileService.updateFiles(file);
         return "ok";
+    }
+
+    /**
+     * 获取比赛状态
+     * @param contestId
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/user/conteststage")
+    public Stage getStage(@RequestParam("contestId")int contestId){
+        return stageService.findByContestId(contestId);
     }
 
 }

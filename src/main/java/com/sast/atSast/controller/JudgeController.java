@@ -32,15 +32,15 @@ public class JudgeController {
      * @param judgesAuthority 传来的json自动打包成对象
      * @desription 评委授权
      */
-    @ResponseBody
-    @PostMapping("/admin/authority")
-    public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
-        for (long teamId : judgesAuthority.getTeamIds()) {
-            judgesAuthority.setTeamId(teamId);
-            judgesAuthorityService.addAuthority(judgesAuthority);
-        }
-        return "ok";
-    }
+//    @ResponseBody
+//    @PostMapping("/admin/authority")
+//    public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
+//        for (long teamId : judgesAuthority.getTeamIds()) {
+//            judgesAuthority.setTeamId(teamId);
+//            judgesAuthorityService.addAuthority(judgesAuthority);
+//        }
+//        return "ok";
+//    }
 
     /**
      * @param judgesResult 添加授权结果

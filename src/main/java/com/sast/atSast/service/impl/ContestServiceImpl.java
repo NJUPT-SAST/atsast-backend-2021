@@ -41,9 +41,6 @@ public class ContestServiceImpl implements ContestService {
     public List<Contest> getContest(){
         return  contestMapper.getContest();
     }
-    public Contest getContestById(Integer id){
-        return contestMapper.getContestById(id);
-    }
     public void updateCurr(Integer contestId,Integer curr){
         contestMapper.updateCurr(contestId,curr);
     }
@@ -53,10 +50,13 @@ public class ContestServiceImpl implements ContestService {
     public void updateJudge(Integer judging,long contestId){
         contestMapper.updateJudge(judging, contestId);
     }
+
+
     @Override
-    public Contest getContestById(long contestId) {
+    public Contest getContestById(Integer contestId) {
         return contestMapper.getContestById(contestId);
     }
+
 
 }
 
