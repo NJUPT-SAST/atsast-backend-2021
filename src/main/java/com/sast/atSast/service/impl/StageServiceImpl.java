@@ -23,4 +23,9 @@ public class StageServiceImpl implements StageService {
         stageMapper.createStage(stage);
     }
 
+    @Override
+    public Stage findByContestId(long contestId) {
+        return stageMapper.findByContestId(contestId);
+    }
+
 }

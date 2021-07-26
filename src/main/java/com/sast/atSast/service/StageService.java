@@ -12,4 +12,6 @@ public interface StageService {
 
     void createStage(Stage stage);
 
+    Stage findByContestId(long contestId);
+
 }

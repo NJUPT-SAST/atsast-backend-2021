@@ -15,4 +15,6 @@ public interface StageMapper {
 
     void createStage(Stage stage);
 
+    Stage findByContestId(long contestId);
+
 }
