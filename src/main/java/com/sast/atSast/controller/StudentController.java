@@ -1,14 +1,8 @@
 package com.sast.atSast.controller;
 
 import com.sast.atSast.mapper.FileMapper;
-import com.sast.atSast.model.Contest;
-import com.sast.atSast.model.File;
-import com.sast.atSast.model.Stage;
-import com.sast.atSast.model.StudentInfo;
-import com.sast.atSast.service.ContestService;
-import com.sast.atSast.service.FileService;
-import com.sast.atSast.service.StageService;
-import com.sast.atSast.service.StudentInfoService;
+import com.sast.atSast.model.*;
+import com.sast.atSast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +28,9 @@ public class StudentController {
 
     @Autowired
     StageService stageService;
+
+    @Autowired
+    TeamMemberService teamMemberService;
 
     /**
      * @param studentInfo 学生具体信息
@@ -98,6 +95,16 @@ public class StudentController {
     @GetMapping("/user/conteststage")
     public Stage getStage(@RequestParam("contestId")int contestId){
         return stageService.findByContestId(contestId);
+    }
+
+    /**
+     * 报名
+     * @param teamMember
+     */
+    @ResponseBody
+    @PostMapping("/user/contestapply/team")
+    public void sign(@RequestBody TeamMember teamMember){
+        teamMemberService.insertTeam(teamMember);
     }
 
 }
