@@ -3,32 +3,32 @@ package com.sast.atSast.service.impl;
 import afu.org.checkerframework.checker.oigj.qual.O;
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
-import com.sast.atSast.mapper.ContestMapper;
-import com.sast.atSast.mapper.JudgesResultMapper;
-import com.sast.atSast.mapper.TeamMemberMapper;
-import com.sast.atSast.model.JudgesResult;
-import com.sast.atSast.model.StudentInfo;
-import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.mapper.*;
+import com.sast.atSast.model.*;
 import com.sast.atSast.server.MinioServer;
 import com.sast.atSast.service.ExcelService;
 import com.sast.atSast.service.StudentInfoService;
 import com.sast.atSast.util.MultipartFileToFile;
+import com.sast.atSast.util.SaltUtil;
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
 import io.minio.errors.MinioException;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.io.File;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,10 +50,24 @@ public class ExcelServiceImpl implements ExcelService {
     private ContestMapper contestMapper;
 
     @Autowired
+    private AccountMapper accountMapper;
+
+    @Autowired
     private MinioServer minioServer;
 
     @Autowired
     private StudentInfoService studentInfoService;
+
+    @Autowired
+    private JudgeInfoMapper judgeInfoMapper;
+
+    //邮箱的正则表达式
+    String check = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
+    Pattern emailRegex = Pattern.compile(check);
+
+    //密码的正则表达式
+    String passwordCheck="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+    Pattern pwdRegex=Pattern.compile(passwordCheck);
 
     @Override
     public String exportResult(Long contestId) throws IOException {
@@ -509,4 +523,134 @@ public class ExcelServiceImpl implements ExcelService {
         return "success";
     }
 
+
+    //导入名单 生成评委账号
+    public String importjudge(MultipartFile file,long contestId){
+            List<String> emails=new LinkedList<String>();
+            List<String> tempEmails=new LinkedList<String>();
+            List<Contest> contests=new LinkedList<>();
+            emails=accountMapper.listEmail();
+            contests=contestMapper.getContest();
+
+            MultipartFileToFile multipartFileToFile=new MultipartFileToFile();
+            List<Account> accounts=new LinkedList<Account>();
+            List<JudgeInfo> judgeInfos=new LinkedList<>();
+
+            Map<Account,JudgeInfo> juMap=new HashMap<>();
+            Map<String,Contest> conMap=new HashMap<>();
+
+            for (Contest contest:contests){
+                conMap.put(contest.getContestName(),contest);
+            }
+
+            Workbook workbook= null;
+            try {
+                InputStream inputStream=file.getInputStream();
+                inputStream = new FileInputStream(multipartFileToFile.convert(file));
+                workbook = new XSSFWorkbook(inputStream);
+            } catch (Exception e) {
+                CustomError.EXCEL_ERROR.setErrMsg("上传文件格式有误（文件后缀应为.xlsx）");
+                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+            }
+
+            Sheet sheet=workbook.getSheetAt(0);
+            Row rowTitle=sheet.getRow(0);
+
+            int rowCount=sheet.getPhysicalNumberOfRows();
+            for(int rowNum=1;rowNum<rowCount;rowNum++){
+                Row rowData=sheet.getRow(rowNum);
+                if(rowData!=null){
+                    int cellCount=rowTitle.getPhysicalNumberOfCells();
+                    Account account=new Account();
+                    JudgeInfo judgeInfo=new JudgeInfo();
+                    for(int cellNum=0;cellNum<cellCount;cellNum++){
+                        account.setUid(0);
+                        account.setEnable((byte) 1);
+
+                        Cell cell= null;
+                        try {
+                            cell = rowData.getCell(cellNum);
+                            CellType cellType=cell.getCellTypeEnum();
+                        } catch (NullPointerException e) {
+                            CustomError.EXCEL_ERROR.setErrMsg("Excel缺失数据");
+                            throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                        }
+
+                        String cellValue;
+                        if(cell.getCellTypeEnum()==CellType.STRING) {
+                            cellValue = cell.getStringCellValue();
+                        }else if(cell.getCellTypeEnum()==CellType.NUMERIC){
+                            cellValue=String.valueOf(cell.getNumericCellValue());
+                        }else {
+                            CustomError.EXCEL_ERROR.setErrMsg("Excel内存放数据类型有误");
+                            throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                        }
+
+                        switch (cellNum){
+                            case 0:
+                                judgeInfo.setJudgeName(cellValue);
+                                break;
+                            case 1:
+                                if(emails.contains(cellValue)|tempEmails.contains(cellValue)){
+                                    CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行邮箱已存在");
+                                    throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                                }else if(!emailRegex.matcher(cellValue).matches()){
+                                    CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行邮箱格式错误");
+                                    throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                                }else {
+                                    account.setEmail(cellValue);
+                                    judgeInfo.setEmail(cellValue);
+                                    tempEmails.add(account.getEmail());
+                                }
+                                break;
+                            case 2:
+                                if(!pwdRegex.matcher(cellValue).matches()){
+                                    CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行密码格式错误");
+                                    throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                                }else {
+                                    account.setPassword(cellValue);
+                                }
+                                break;
+                            case 3:
+                                judgeInfo.setJudgeId(cellValue);
+                                break;
+                            case 4:
+                                judgeInfo.setFaculty(cellValue);
+                                break;
+                            case 5:
+                                if(conMap.containsKey(cellValue)){
+                                    judgeInfo.setContestId(conMap.get(cellValue).getContestId());
+                                }else {
+                                    CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行比赛名称不存在");
+                                    throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                                }
+                                break;
+                            default:
+                                CustomError.EXCEL_ERROR.setErrMsg("Excel内容错误");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
+                        }
+                    }
+
+                    judgeInfo.setUid(0);
+                    account.setRole("评委");
+                    juMap.put(account,judgeInfo);
+                }
+            }
+            tempEmails.clear();
+
+
+            for(Map.Entry<Account,JudgeInfo> entry : juMap.entrySet()){
+                String salt = SaltUtil.getSalt(8);
+                Md5Hash md5Hash = new Md5Hash(entry.getKey().getPassword(), salt, 1024);
+                String md5Password = md5Hash.toHex();
+                entry.getKey().setSalt(salt);
+                entry.getKey().setPassword(md5Password);
+                accountMapper.importAccount(entry.getKey());
+                entry.getValue().setUid(accountMapper.selectAccountByEmail(entry.getValue().getEmail()).getUid());
+                entry.getValue().setJudgeStage("未开始");
+                judgeInfoMapper.insertJudge(entry.getValue());
+            }
+
+            return "success";
+    }
 }

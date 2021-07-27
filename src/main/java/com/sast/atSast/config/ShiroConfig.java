@@ -26,9 +26,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         Map<String,String> map = new HashMap<>();
-//        map.put("/user/login","anon");//anon表示公共资源
-//        map.put("/user/register","anon");//anon表示公共资源
-//        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
+        map.put("/user/login","anon");//anon表示公共资源
+        map.put("/user/register","anon");//anon表示公共资源
+        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
         //设置过滤链
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 
@@ -47,6 +47,7 @@ public class ShiroConfig {
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
+
     @Bean
     public Realm getRealm(){
         AccountRealm accountRealm = new AccountRealm();

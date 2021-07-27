@@ -9,8 +9,6 @@ import com.sast.atSast.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * @program: ATSAST
  * @description: 身份为学生的用户
@@ -59,6 +57,7 @@ public class StudentController {
     public Contest getContestById(Long contestId) {
         return contestService.getContestById(contestId);
     }
+
 
     /**
      * @return 返回所有比赛信息

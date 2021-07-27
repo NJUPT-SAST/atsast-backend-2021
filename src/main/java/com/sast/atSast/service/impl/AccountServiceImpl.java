@@ -248,6 +248,7 @@ public class AccountServiceImpl implements AccountService {
                     }
                     tempEmails.add(account.getEmail());
                 }
+                account.setRole("管理员");
                 accounts.add(account);
             }
         }
