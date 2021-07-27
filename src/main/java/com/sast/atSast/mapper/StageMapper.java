@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
  * @author: cxy621
  * @create: 2021-07-17 22:14
  **/
+@Mapper
 @Repository
 public interface StageMapper {
 

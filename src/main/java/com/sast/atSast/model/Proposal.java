@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Proposal {
     private String proposalPath;
-    private long contestId;
+    private Long contestId;
     private Byte enable;
 }

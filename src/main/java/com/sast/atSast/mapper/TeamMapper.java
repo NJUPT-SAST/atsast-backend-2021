@@ -2,6 +2,7 @@ package com.sast.atSast.mapper;
 
 import com.sast.atSast.model.TeamMember;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Mapper
+@Repository
 public interface TeamMapper {
     int teamCreated(TeamMember teamMember);
 

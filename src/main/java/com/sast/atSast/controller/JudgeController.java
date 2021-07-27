@@ -1,5 +1,6 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.pojo.JudgeResultTemp;
@@ -24,6 +25,9 @@ public class JudgeController {
 
     @Autowired
     ContestService contestService;
+
+    @Autowired
+    JudgesAuthorityService judgesAuthorityService;
 
     @Autowired
     FileService fileService;

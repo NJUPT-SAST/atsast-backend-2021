@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  * @desription 授权评委能够评价哪些队伍,以数组的形式传递过来
  * @date 2021/7/16 20:15:03
  */
+@Mapper
 @Repository
 public interface JudgesAuthorityMapper {
 

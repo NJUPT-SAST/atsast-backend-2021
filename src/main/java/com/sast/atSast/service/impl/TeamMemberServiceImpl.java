@@ -15,13 +15,13 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private TeamMemberMapper teamMemberMapper;
 
     @Override
-    public List<TeamMember> getTeams(Integer contestId) {
+    public List<TeamMember> getTeams(Long contestId) {
         return teamMemberMapper.getTeams(contestId);
     }
 
     @Override
-    public void updateTeam(Long teamId,Integer score,String result){
-        teamMemberMapper.updateTeam(teamId,score,result);
+    public void updateTeam(Long teamId, Integer score, String result) {
+        teamMemberMapper.updateTeam(teamId, score, result);
     }
 
     @Override

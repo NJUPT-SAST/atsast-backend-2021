@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JudgeInfo {
-    private long uid;
+    private Long uid;
     private String judgeName;
     private String judgeId;
     private String faculty;
@@ -23,5 +23,5 @@ public class JudgeInfo {
     private String judgeCurr;
     private String judgeTotal;
     private String email;
-    private long contestId;
+    private Long contestId;
 }

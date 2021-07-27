@@ -33,7 +33,7 @@ public class EmailServiceImpl implements EmailService {
                 "有效时间为1小时");
         try {
             mailSender.send(message);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new LocalRuntimeException(CustomError.EMAIL_SENDING_ABNORMAL);
         }
 

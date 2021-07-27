@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Stage {
-    private long contestId;
-    private long stageId;
+    private Long contestId;
+    private Long stageId;
     private String stageName;
     private String stageType;
     private String displayText;
     private String stageBegin;
     private String stageEnd;
-    private long id;
+    private Long id;
 }

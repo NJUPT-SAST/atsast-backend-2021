@@ -1,3 +1,4 @@
+
 package com.sast.atSast.model;
 
 import lombok.AllArgsConstructor;
@@ -11,11 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class JudgesAuthority {
-    private long contestId;
-    private long judgeUid;
+    private Long contestId;
+    private Long judgeUid;
     private Byte enable;
-    private long id;
-    private long teamId;
+    private Long id;
+    private Long teamId;
 
     @Transient
     private List<Long> teamIds;

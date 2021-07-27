@@ -13,20 +13,31 @@
     </resultMap>
 
 
-    <update id="deleteTeam" parameterType="java.lang.Integer" >
-        update atsast.team_member set enable = 0 where team_id = #{teamId}
+    <update id="deleteTeam" parameterType="java.lang.Integer">
+        update atsast.team_member
+        set enable = 0
+        where team_id = #{teamId}
     </update>
 
     <select id="getTeam" parameterType="java.lang.Integer" resultType="com.sast.atSast.model.TeamMember">
-        select * from atsast.team_member where team_id = #{teamId} and enable = 1
+        select *
+        from atsast.team_member
+        where team_id = #{teamId}
+          and enable = 1
     </select>
 
-    <update id="updateScore" >
-        update atsast.team_member set score = #{score} where team_id = #{teamId} and enable =1
+    <update id="updateScore">
+        update atsast.team_member
+        set score = #{score}
+        where team_id = #{teamId}
+          and enable = 1
     </update>
 
-    <update id="updateResult" >
-        update atsast.team_member set result = #{result} where team_id = #{teamId} and enable =1
+    <update id="updateResult">
+        update atsast.team_member
+        set result = #{result}
+        where team_id = #{teamId}
+          and enable = 1
     </update>
 
 </mapper>

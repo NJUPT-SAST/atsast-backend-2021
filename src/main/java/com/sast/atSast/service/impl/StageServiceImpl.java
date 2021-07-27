@@ -19,7 +19,7 @@ public class StageServiceImpl implements StageService {
     StageMapper stageMapper;
 
     @Override
-    public void createStage(Stage stage){
+    public void createStage(Stage stage) {
         stageMapper.createStage(stage);
     }
 

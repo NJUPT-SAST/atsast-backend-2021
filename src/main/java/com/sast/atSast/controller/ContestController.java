@@ -2,12 +2,16 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.mapper.AccountMapper;
 import com.sast.atSast.mapper.JudgeInfoMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.JudgeInfo;
+import com.sast.atSast.pojo.JugdeTemp;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.ExcelService;
+import com.sast.atSast.service.RichtextService;
 import com.sast.atSast.service.impl.RichtextServiceImpl;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +32,9 @@ public class ContestController {
 
     @Autowired
     private JudgeInfoMapper judgeInfoMapper;
+
+    @Autowired
+    private AccountMapper accountMapper;
 
     @PostMapping("/admin/edittext")
     public String edittext(@RequestParam("contestId")long contestId,
@@ -53,7 +60,7 @@ public class ContestController {
     }
 
     @GetMapping("/admin/exportresult")
-    public String exportresult(@RequestParam("contestId")Integer contestId) throws IOException {
+    public String exportresult(@RequestParam("contestId")Long contestId) throws IOException {
         return excelService.exportresult(contestId);
     }
 
@@ -82,12 +89,13 @@ public class ContestController {
     }
 
     @PostMapping("/admin/importjudges")
-    public String importjudges(MultipartFile file,long contestId){
-        return excelService.importjudge(file,contestId);
+    public List<JugdeTemp> importjudges(MultipartFile file){
+        return excelService.importjudge(file);
     }
 
     @GetMapping("/admin/deletejudge")
     public String deletejudges(Long uid){
+        accountMapper.deleteAccountByUid(uid);
         judgeInfoMapper.deleteJudge(uid);
         return "success";
     }

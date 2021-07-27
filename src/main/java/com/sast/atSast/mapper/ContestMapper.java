@@ -12,8 +12,8 @@ import java.util.List;
  * @Date: 2021/4/20 13:48
  * @Description: 比赛管理相关，主要是contest表
  **/
-@Repository
 @Mapper
+@Repository
 public interface ContestMapper {
 
     void createContest(Contest contest);
@@ -27,5 +27,19 @@ public interface ContestMapper {
     FileStd getFileMessageById(long stageId, long contestId);
 
     Contest getContestById(long contestId);
+
+    List<Contest> getContest();
+
+    void updateCurr(Long contestId, Integer curr);
+
+    void updateComment(Long contestId, String comment);
+
+    void updateJudge(Integer judging, long contestId);
+
+    List<Contest> getContestByCurr(Integer curr);
+
+    List<Contest> findAll();
+
+    Contest getInfoById(Long contestId);
 
 }

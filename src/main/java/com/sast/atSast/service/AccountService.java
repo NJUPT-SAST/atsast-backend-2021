@@ -15,15 +15,26 @@ public interface AccountService {
     void login(String username, String password);
 
     void logout();
-    void register(String username,String password, String role);
+
+    void deleteAccountByUid(Long uid);
+
+    void register(String username, String password, String role);
+
     Account findAccountByEmail(String email);
+
     List<String> findRolesByEmail(String email);
 
     void sendVerificationCodeEmail();
+
     boolean judgeVerificationCode(String inputVerificationCode);
+
     void forgetPassword(String password);
+
     void updatePassword(String oldPassword, String newPassword);
-    void importAccount(@Param("account") Account account);
+
+    void importAccount(Account account);
+
     void readAccountExcel(MultipartFile file) throws IOException;
+
     List<String> listEmail();
 }

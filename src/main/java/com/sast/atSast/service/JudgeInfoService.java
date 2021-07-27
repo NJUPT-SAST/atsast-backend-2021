@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface JudgeInfoService {
     void insertJudge(JudgeInfo judgeInfo);
+
     void deleteJudge(Long uid);
+
     List<JudgeInfo> listJudges();
 }

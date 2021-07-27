@@ -8,7 +8,7 @@ public interface StudentInfoService {
 
     void addStudentInfo(StudentInfo studentInfo);
 
-    StudentInfo getStudentInfoById(long Uid);
+    StudentInfo getStudentInfoById(long uid);
 
     String getRealName(long uid);
 

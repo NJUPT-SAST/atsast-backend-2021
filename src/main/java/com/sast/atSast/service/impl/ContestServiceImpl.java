@@ -25,13 +25,13 @@ public class ContestServiceImpl implements ContestService {
     private TeamMapper teamMapper;
 
     @Override
-    public void createContest(Contest contest){
+    public void createContest(Contest contest) {
         contestMapper.createContest(contest);
     }
 
 
     @Override
-    public void updatepushLink(long contestId, String pushLink){
+    public void updatepushLink(long contestId, String pushLink) {
         contestMapper.updatepushLink(contestId, pushLink);
     }
 
@@ -40,24 +40,30 @@ public class ContestServiceImpl implements ContestService {
         return contestMapper.getTeamById(contestId);
     }
 
-    public List<Contest> getContestByCurr(Integer curr){
+    public List<Contest> getContestByCurr(Integer curr) {
         return contestMapper.getContestByCurr(curr);
     }
-    public List<Contest> getContest(){
-        return  contestMapper.getContest();
+
+    public List<Contest> getContest() {
+        return contestMapper.getContest();
     }
-    public Contest getContestById(Integer id){
+
+    public Contest getContestById(Integer id) {
         return contestMapper.getContestById(id);
     }
-    public void updateCurr(Integer contestId,Integer curr){
-        contestMapper.updateCurr(contestId,curr);
+
+    public void updateCurr(Long contestId, Integer curr) {
+        contestMapper.updateCurr(contestId, curr);
     }
-    public void updateComment(Integer contestId,String comment){
-        contestMapper.updateComment(contestId,comment);
+
+    public void updateComment(Long contestId, String comment) {
+        contestMapper.updateComment(contestId, comment);
     }
-    public void updateJudge(Integer judging,long contestId){
+
+    public void updateJudge(Integer judging, long contestId) {
         contestMapper.updateJudge(judging, contestId);
     }
+
     @Override
     public Contest getContestById(long contestId) {
         return contestMapper.getContestById(contestId);

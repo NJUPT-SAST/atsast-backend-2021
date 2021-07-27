@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  * @author: cxy621
  * @create: 2021-07-18 10:46
  **/
+@Mapper
 @Repository
 public interface PictureMapper {
 

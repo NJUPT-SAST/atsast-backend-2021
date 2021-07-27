@@ -2,12 +2,15 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.exception.LocalRuntimeException;
 import com.sast.atSast.model.Contest;
+import com.sast.atSast.server.RedisServer;
 import com.sast.atSast.service.AccountService;
 import com.sast.atSast.service.ContestService;
+import com.sast.atSast.util.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,6 +28,9 @@ public class SuperadminController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    RedisServer redisServer = new RedisServer();
+
     /**
      * @param
      * @return 所有比赛信息
@@ -32,7 +38,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/list")
     @ResponseBody
-    public List<Contest> contestList(){
+    public List<Contest> contestList() {
         return contestService.getContest();
     }
 
@@ -43,7 +49,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/detail/{id}")
     @ResponseBody
-    public Contest contestDetail(@PathVariable("id") int id){
+    public Contest contestDetail(@PathVariable("id") int id) {
         return contestService.getContestById(id);
     }
 
@@ -54,15 +60,15 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/check/{contestId}")
     @ResponseBody
-    public int contestCheck(@PathVariable("contestId") int contestId,String comment,String result){
+    public int contestCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
-        int mark=Integer.parseInt(result);
-        ModelAndView mv=new ModelAndView();
-        if(mark==0){
-            contestService.updateComment(contestId,comment);
+        int mark = Integer.parseInt(result);
+        ModelAndView mv = new ModelAndView();
+        if (mark == 0) {
+            contestService.updateComment(contestId, comment);
             return 0;
         }
-        contestService.updateCurr(contestId,1);
+        contestService.updateCurr(contestId, 1);
         return 1;
     }
 
@@ -73,15 +79,15 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/checkend/{contestId}")
     @ResponseBody
-    public int contestEndCheck(@PathVariable("contestId") Integer contestId,String comment,String result){
+    public int contestEndCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
-        int mark=Integer.parseInt(result);
-        ModelAndView mv=new ModelAndView();
-        if(mark==0){
-            contestService.updateComment(contestId,comment);
+        int mark = Integer.parseInt(result);
+        ModelAndView mv = new ModelAndView();
+        if (mark == 0) {
+            contestService.updateComment(contestId, comment);
             return 0;
         }
-        contestService.updateCurr(contestId,2);
+        contestService.updateCurr(contestId, 2);
         return 1;
     }
 
@@ -92,17 +98,28 @@ public class SuperadminController {
      */
     @RequestMapping(value = "/superadmin/import", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
-    public String export(@RequestParam("file")MultipartFile file) throws IOException , LocalRuntimeException {
+    public String export(@RequestParam("file") MultipartFile file) throws IOException, LocalRuntimeException {
         accountService.readAccountExcel(file);
         return "success";
     }
 
-//    生成邀请注册链接
+    //    生成邀请注册链接
     @GetMapping("/superadmin/invite")
     @ResponseBody
-    public String invite(){
-        String url=" ";
-        return url;
+    public String invite() {
+        String key = "key";
+        Jedis jedis = new Jedis(redisServer.getHost());
+        jedis.auth(redisServer.getPassword());
+
+        if (jedis.get(key) != null) {
+            return jedis.get(key);
+        }
+
+        String value = RandomString.getRandomString(8);
+        jedis.set(key, value);
+        jedis.expire(key, 60 * 30);
+
+        return value;
     }
 
 

@@ -20,13 +20,15 @@ public class JudgeInfoServiceImpl {
     @Autowired
     JudgeInfoMapper judgeInfoMapper;
 
-    public void insertJudge(JudgeInfo judgeInfo){
+    public void insertJudge(JudgeInfo judgeInfo) {
         judgeInfoMapper.insertJudge(judgeInfo);
     }
-    public void deleteJudge(Long uid){
+
+    public void deleteJudge(Long uid) {
         judgeInfoMapper.deleteJudge(uid);
     }
-    public List<JudgeInfo> listJudges(){
+
+    public List<JudgeInfo> listJudges() {
         return judgeInfoMapper.listJudges();
     }
 }

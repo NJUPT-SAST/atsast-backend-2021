@@ -27,12 +27,6 @@ public class AccountController {
     @Autowired
     ContestMapper contestMapper;
 
-    @GetMapping("/hello")
-    public String helloWorld(){
-        contestMapper.updateCurr(1,2);
-        return "hello, world";
-    }
-
     @GetMapping("/exception")
     public String except(){
         throw new LocalRuntimeException(CustomError.REQUEST_ERROR);
@@ -51,7 +45,9 @@ public class AccountController {
     }
 
     @PostMapping("/user/register")
-    public String register(String email, String password, String role) {
+    public String register(String email, String password, String role,String key) {
+
+
         accountService.register(email, password, role);
         return "ok";
     }
