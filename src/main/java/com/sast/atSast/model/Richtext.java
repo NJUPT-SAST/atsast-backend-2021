@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Richtext {
-    private long richtextId;
+    private Long richtextId;
     private String content;
-    private long stageId;
-    private long contestId;
+    private Long stageId;
+    private Long contestId;
 }

@@ -4,6 +4,8 @@ import com.sast.atSast.model.Stage;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @program: ATSAST
  * @description: stage表操作
@@ -14,5 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface StageMapper {
 
     void createStage(Stage stage);
+
+    List<Stage> getStagesById(Long contestId);
 
 }

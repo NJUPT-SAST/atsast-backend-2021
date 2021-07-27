@@ -15,7 +15,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     private TeamMemberMapper teamMemberMapper;
 
     @Override
-    public List<TeamMember> getTeams(Integer contestId) {
+    public List<TeamMember> getTeams(Long contestId) {
         return teamMemberMapper.getTeams(contestId);
     }
 
@@ -28,4 +28,5 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void insertTeam(TeamMember teamMember) {
         teamMemberMapper.insertTeam(teamMember);
     }
+
 }

@@ -21,41 +21,56 @@ public class ContestServiceImpl implements ContestService {
     private ContestMapper contestMapper;
 
     @Override
-    public void createContest(Contest contest){
+    public void createContest(Contest contest) {
         contestMapper.createContest(contest);
     }
 
     @Override
-    public void updatepushLink(long contestId, String pushLink){
+    public void updatepushLink(Long contestId, String pushLink) {
         contestMapper.updatepushLink(contestId, pushLink);
     }
 
     @Override
-    public List<TeamMember> getTeamById(long contestId) {
+    public List<TeamMember> getTeamById(Long contestId) {
         return contestMapper.getTeamById(contestId);
     }
 
-    public List<Contest> getContestByCurr(Integer curr){
+    public List<Contest> getContestByCurr(Integer curr) {
         return contestMapper.getContestByCurr(curr);
     }
-    public List<Contest> getContest(){
-        return  contestMapper.getContest();
+
+    public List<Contest> getContest() {
+        return contestMapper.getContest();
     }
-    public Contest getContestById(Integer id){
-        return contestMapper.getContestById(id);
+
+    @Override
+    public Contest getContestById(Long contestId) {
+        return contestMapper.getContestById(contestId);
     }
-    public void updateCurr(Integer contestId,Integer curr){
-        contestMapper.updateCurr(contestId,curr);
+
+    @Override
+    public void updateCurr(Long contestId, Integer curr) {
+        contestMapper.updateCurr(contestId, curr);
     }
-    public void updateComment(Integer contestId,String comment){
-        contestMapper.updateComment(contestId,comment);
+
+    @Override
+    public void updateComment(Long contestId, String comment) {
+        contestMapper.updateComment(contestId, comment);
     }
-    public void updateJudge(Integer judging,long contestId){
+
+    @Override
+    public void updateJudge(Long judging, Long contestId) {
         contestMapper.updateJudge(judging, contestId);
     }
+
     @Override
-    public Contest getContestById(long contestId) {
-        return contestMapper.getContestById(contestId);
+    public String getpushLinkById(Long contestId) {
+        return contestMapper.getpushLinkById(contestId);
+    }
+
+    @Override
+    public String getfileUrlById(Long contestId) {
+        return contestMapper.getfileUrlById(contestId);
     }
 
 }

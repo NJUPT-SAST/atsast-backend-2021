@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class Proposal {
-    private String proposalPath;
-    private long contestId;
+    private String proposalUrl;
+    private Long contestId;
     private Byte enable;
 }

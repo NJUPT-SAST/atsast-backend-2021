@@ -16,4 +16,9 @@ public class VideoServiceImpl implements VideoService {
         videoMapper.addVideo(contestId, videoPath);
     }
 
+    @Override
+    public String getUrlById(Long contestId) {
+        return videoMapper.getUrlById(contestId);
+    }
+
 }

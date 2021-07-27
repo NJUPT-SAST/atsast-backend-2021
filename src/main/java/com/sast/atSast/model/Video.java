@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Video {
-    private long videoId;
+    private Long videoId;
     private String videoPath;
     private Byte enable;
-    private long contestId;
+    private Long contestId;
 }

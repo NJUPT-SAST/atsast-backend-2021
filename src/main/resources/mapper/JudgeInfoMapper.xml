@@ -3,17 +3,23 @@
 
 <mapper namespace="com.sast.atSast.mapper.JudgeInfoMapper">
 
-    <insert id="insertJudge" parameterType="com.sast.atSast.model.JudgeInfo">
-            insert into atsast.judge_info (judge_name,judge_id,uid,faculty,email,contest_id,judge_stage)
-            values (#{judgeInfo.judgeName},#{judgeInfo.judgeId},#{judgeInfo.uid},#{judgeInfo.faculty},#{judgeInfo.email},#{judgeInfo.contestId},#{judgeInfo.judgeStage})
+    <insert id="addSingleJudge" parameterType="com.sast.atSast.model.JudgeInfo">
+        insert into atsast.judge_info(uid, judge_name, judge_id, faculty, email, contest_id)
+        values (#{uid}, #{judgeName}, #{judgeId}, #{faculty}, #{email}, #{contestId})
     </insert>
 
-    <update id="deleteJudge">
-           update atsast.judge_info set enable=0 where uid=#{uid}
-    </update>
+    <select id="getJudgeInfo" resultType="com.sast.atSast.model.JudgeInfo">
+        select *
+        from atsast.judge_info
+        where contest_id = #{contestId}
+          and enable = 1
+        order by uid
+    </select>
 
-    <select id="listJudges" resultType="com.sast.atSast.model.JudgeInfo">
-        select * from atsast.judge_info where enable=1
+    <select id="getUidByEmail" resultType="java.lang.Long">
+        select uid
+        from atsast.account
+        where email = #{email}
     </select>
 
 </mapper>

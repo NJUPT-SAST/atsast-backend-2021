@@ -22,7 +22,10 @@ public class JudgesResultServiceImpl implements JudgesResultService {
     @Override
     public JudgesResult getResult(long teamId, long contestId, long judgeUid) {
         return judgesResultMapper.getResult(teamId, contestId, judgeUid);
-    public List<JudgesResult> getResults(Integer contestId){
+    }
+
+    @Override
+    public List<JudgesResult> getResults(long contestId) {
         return judgesResultMapper.getResults(contestId);
     }
 

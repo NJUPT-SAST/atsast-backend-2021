@@ -3,12 +3,18 @@
 
 <mapper namespace="com.sast.atSast.mapper.RichtextMapper">
     <update id="updateRichtext">
-        update atsast.richtext set content=#{content} where contest_id=#{contestId}
-                                                        and stage_id=#{stageId} and enable=1
+        update atsast.richtext
+        set content=#{content}
+        where contest_id = #{contestId}
+          and stage_id = #{stageId}
+          and enable = 1
     </update>
 
     <select id="selectRichtext" resultType="com.sast.atSast.model.Richtext">
-        select * from atsast.richtext where contest_id=#{contestId}
-                                        and stage_id=#{stageId} and enable=1
+        select *
+        from atsast.richtext
+        where contest_id = #{contestId}
+          and stage_id = #{stageId}
+          and enable = 1
     </select>
 </mapper>

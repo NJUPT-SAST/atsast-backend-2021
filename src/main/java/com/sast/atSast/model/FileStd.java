@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileStd {
-    private long stageId;
-    private long fileId;
+    private Long stageId;
+    private Long fileId;
     private String filePath;
     private String fileDescription;
     private String fileLimit;
-    private long contestId;
+    private Long contestId;
 }

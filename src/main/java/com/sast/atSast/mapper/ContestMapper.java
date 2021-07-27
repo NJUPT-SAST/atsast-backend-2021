@@ -18,23 +18,28 @@ public interface ContestMapper {
 
     void createContest(Contest contest);
 
-    void updatepushLink(long contestId, String pushLink);
+    void updatepushLink(Long contestId, String pushLink);
 
-    List<TeamMember> getTeamById(long contestId);
+    String getpushLinkById(Long contestId);
+
+    String getfileUrlById(Long contestId);
+
+    List<TeamMember> getTeamById(Long contestId);
 
     void addFile(FileStd fileStd);
 
-    FileStd getFileMessageById(long stageId, long contestId);
+    FileStd getFileMessageById(Long stageId, Long contestId);
 
     List<Contest> getContestByCurr(@Param("curr")Integer curr);
 
-    Contest getContestById(@Param("id")Integer id);
+    Contest getContestById(Long contestId);
 
     List<Contest> getContest();
 
-    void updateCurr(@Param("contestId")Integer contestId,@Param("curr")Integer curr);
+    void updateCurr(Long contestId, @Param("curr")Integer curr);
 
-    void updateComment(@Param("contestId")Integer contestId,@Param("comment")String comment);
+    void updateComment(Long contestId, String comment);
 
-    void updateJudge(@Param("judging")Integer judging,@Param("contestId")long contestId);
+    void updateJudge(Long judging, Long contestId);
+
 }

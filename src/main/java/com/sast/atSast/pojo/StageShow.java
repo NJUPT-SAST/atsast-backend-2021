@@ -1,21 +1,21 @@
-package com.sast.atSast.model;
+package com.sast.atSast.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
+/**
+ * @program: ATSAST
+ * @description: 审批展示的阶段数据
+ * @author: cxy621
+ * @create: 2021-07-27 12:06
+ **/
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Stage {
-    private Long contestId;
-    private Long stageId;
+@AllArgsConstructor
+public class StageShow {
     private String stageName;
     private String stageType;
-    private String displayText;
     private String stageBegin;
     private String stageEnd;
-    private Long id;
 }

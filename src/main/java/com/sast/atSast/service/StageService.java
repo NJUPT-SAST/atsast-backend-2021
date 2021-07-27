@@ -2,6 +2,8 @@ package com.sast.atSast.service;
 
 import com.sast.atSast.model.Stage;
 
+import java.util.List;
+
 /**
  * @program: ATSAST
  * @description: stage业务层
@@ -11,5 +13,7 @@ import com.sast.atSast.model.Stage;
 public interface StageService {
 
     void createStage(Stage stage);
+
+    List<Stage> getStagesById(Long contestId);
 
 }
