@@ -10,5 +10,12 @@
                 #{stageType}, #{stageBegin}, #{stageEnd})
     </insert>
 
+    <select id="getStagesById" resultType="com.sast.atSast.model.Stage">
+        select *
+        from atsast.stage
+        where contest_id = #{contestId}
+        order by stage_id
+    </select>
+
 </mapper>
 

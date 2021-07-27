@@ -11,6 +11,8 @@ public interface ContestService {
 
     void updatepushLink(Long contestId, String pushLink);
 
+    String getpushLinkById(Long contestId);
+
     List<TeamMember> getTeamById(Long contestId);
 
     List<Contest> getContestByCurr(Integer curr);
@@ -24,5 +26,7 @@ public interface ContestService {
     void updateJudge(Long judging, Long contestId);
 
     Contest getContestById(Long contestId);
+
+    String getfileUrlById(Long contestId);
 
 }

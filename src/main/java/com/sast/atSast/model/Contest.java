@@ -43,4 +43,5 @@ public class Contest {
     @Transient
     private List<Stage> stageTemps;
     private Integer stages;
+    private String fileUrl;
 }

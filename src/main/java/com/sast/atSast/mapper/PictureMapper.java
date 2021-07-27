@@ -14,4 +14,6 @@ public interface PictureMapper {
 
     void addPictures(Long contestId, String picPath);
 
+    String getUrlsById(Long contestId);
+
 }

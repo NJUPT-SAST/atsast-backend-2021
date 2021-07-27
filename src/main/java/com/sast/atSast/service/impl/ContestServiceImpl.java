@@ -63,6 +63,16 @@ public class ContestServiceImpl implements ContestService {
         contestMapper.updateJudge(judging, contestId);
     }
 
+    @Override
+    public String getpushLinkById(Long contestId) {
+        return contestMapper.getpushLinkById(contestId);
+    }
+
+    @Override
+    public String getfileUrlById(Long contestId) {
+        return contestMapper.getfileUrlById(contestId);
+    }
+
 }
 
 

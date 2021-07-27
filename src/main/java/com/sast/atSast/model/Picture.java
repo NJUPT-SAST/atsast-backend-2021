@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Picture {
-    private Long picId;
     private String picPath;
     private Byte enable;
     private Long contestId;

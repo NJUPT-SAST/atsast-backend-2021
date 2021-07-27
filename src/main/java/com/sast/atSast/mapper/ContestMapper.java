@@ -20,6 +20,10 @@ public interface ContestMapper {
 
     void updatepushLink(Long contestId, String pushLink);
 
+    String getpushLinkById(Long contestId);
+
+    String getfileUrlById(Long contestId);
+
     List<TeamMember> getTeamById(Long contestId);
 
     void addFile(FileStd fileStd);
