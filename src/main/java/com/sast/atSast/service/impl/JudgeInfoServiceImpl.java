@@ -21,7 +21,7 @@ public class JudgeInfoServiceImpl implements JudgeInfoService {
     JudgeInfoMapper judgeInfoMapper;
 
     @Override
-    public List<JudgeInfo> getJudgeInfo(long contestId) {
+    public List<JudgeInfo> getJudgeInfo(Long contestId) {
         return judgeInfoMapper.getJudgeInfo(contestId);
     }
 

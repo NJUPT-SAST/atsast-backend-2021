@@ -12,7 +12,7 @@ import java.util.List;
  **/
 public interface JudgeInfoService {
 
-    List<JudgeInfo> getJudgeInfo(long contestId);
+    List<JudgeInfo> getJudgeInfo(Long contestId);
 
     void addSingleJudge(JudgeInfo judgeInfo);
 
