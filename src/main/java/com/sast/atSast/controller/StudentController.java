@@ -1,6 +1,5 @@
 package com.sast.atSast.controller;
 
-import com.sast.atSast.mapper.FileMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.File;
 import com.sast.atSast.model.StudentInfo;
@@ -47,7 +46,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/selfinfo")
-    public StudentInfo getStudentInfoById(long uid) {
+    public StudentInfo getStudentInfoById(Long uid) {
         return studentInfoService.getStudentInfoById(uid);
     }
 
@@ -57,20 +56,18 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/contest/allinfo")
-    public Contest getContestById(long contestId) {
+    public Contest getContestById(Long contestId) {
         return contestService.getContestById(contestId);
     }
 
+
+    /**
+     * @return 返回所有比赛信息
+     */
     @ResponseBody
     @GetMapping("/user/contestlist")
-    public List<Contest> getAllContests(){
-        return contestService.findAll();
-    }
-
-    @ResponseBody
-    @GetMapping ("/user/contestInfo")
-    public Contest getContestInfo(@RequestParam("contestId") Integer contestId){
-        return contestService.getContestById(contestId);
+    public List<Contest> getAllContests() {
+        return contestService.getContest();
     }
 
     /**

@@ -4,6 +4,7 @@ import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.FileStd;
 import com.sast.atSast.model.TeamMember;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,17 +19,23 @@ public interface ContestMapper {
 
     void createContest(Contest contest);
 
-    void updatepushLink(long contestId, String pushLink);
+    void updatepushLink(Long contestId, String pushLink);
 
-    List<TeamMember> getTeamById(long contestId);
+    String getpushLinkById(Long contestId);
+
+    String getfileUrlById(Long contestId);
+
+    List<TeamMember> getTeamById(Long contestId);
 
     void addFile(FileStd fileStd);
 
-    FileStd getFileMessageById(long stageId, long contestId);
+    FileStd getFileMessageById(Long stageId, Long contestId);
 
-    Contest getContestById(long contestId);
+    Contest getContestById(Long contestId);
 
     List<Contest> getContest();
+
+    void updateJudge(Long judging, Long contestId);
 
     void updateCurr(Long contestId, Integer curr);
 

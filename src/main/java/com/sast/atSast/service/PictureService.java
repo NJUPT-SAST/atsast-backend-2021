@@ -10,4 +10,6 @@ public interface PictureService {
 
     void addPictures(long contestId, String picPath);
 
+    String getUrlsById(Long contestId);
+
 }

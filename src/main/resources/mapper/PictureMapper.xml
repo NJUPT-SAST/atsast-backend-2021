@@ -8,5 +8,12 @@
         values (#{picPath}, #{contestId})
     </insert>
 
+    <select id="getUrlsById" resultType="java.lang.String">
+        select pic_path
+        from atsast.picture
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
 </mapper>
 

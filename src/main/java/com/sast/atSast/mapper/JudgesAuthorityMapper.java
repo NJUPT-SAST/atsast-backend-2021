@@ -4,6 +4,8 @@ import com.sast.atSast.model.JudgesAuthority;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author cxy621
  * @desription 授权评委能够评价哪些队伍,以数组的形式传递过来
@@ -14,5 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface JudgesAuthorityMapper {
 
     void addAuthority(JudgesAuthority judgesAuthority);
+
+    List<Long> getTeamIdsByUid(Long judgeUid);
 
 }

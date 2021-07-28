@@ -16,6 +16,6 @@ public interface FileMapper {
 
     void updateFiles(File file);
 
-    String getFileUrls(long teamId);
+    String getFileUrls(Long teamId);
 
 }

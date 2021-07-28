@@ -21,5 +21,24 @@
         where enable = 1
     </select>
 
+    <insert id="addSingleJudge" parameterType="com.sast.atSast.model.JudgeInfo">
+        insert into atsast.judge_info(uid, judge_name, judge_id, faculty, email, contest_id)
+        values (#{uid}, #{judgeName}, #{judgeId}, #{faculty}, #{email}, #{contestId})
+    </insert>
+
+    <select id="getJudgeInfo" resultType="com.sast.atSast.model.JudgeInfo">
+        select *
+        from atsast.judge_info
+        where contest_id = #{contestId}
+          and enable = 1
+        order by uid
+    </select>
+
+    <select id="getUidByEmail" resultType="java.lang.Long">
+        select uid
+        from atsast.account
+        where email = #{email}
+    </select>
+
 </mapper>
 

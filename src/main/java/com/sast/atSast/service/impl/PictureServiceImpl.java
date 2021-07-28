@@ -22,4 +22,9 @@ public class PictureServiceImpl implements PictureService {
         pictureMapper.addPictures(contestId, picPath);
     }
 
+    @Override
+    public String getUrlsById(Long contestId) {
+        return pictureMapper.getUrlsById(contestId);
+    }
+
 }

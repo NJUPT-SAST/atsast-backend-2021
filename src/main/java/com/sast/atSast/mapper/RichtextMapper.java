@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface RichtextMapper {
-    void updateRichtext(@Param("contestId") long contestId,
-                        @Param("stageId") long stageId,
+    void updateRichtext(@Param("contestId") Long contestId,
+                        @Param("stageId") Long stageId,
                         @Param("content") String content);
 
-    Richtext selectRichtext(@Param("contestId") long contestId,
-                            @Param("stageId") long stageId);
+    Richtext selectRichtext(@Param("contestId") Long contestId,
+                            @Param("stageId") Long stageId);
 
 }

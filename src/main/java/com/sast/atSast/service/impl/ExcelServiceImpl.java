@@ -70,7 +70,9 @@ public class ExcelServiceImpl implements ExcelService {
     String passwordCheck = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
     Pattern pwdRegex = Pattern.compile(passwordCheck);
 
-    public String exportresult(Long contestId) throws IOException {
+
+    @Override
+    public String exportResult(Long contestId) throws IOException {
 
         //分配好列表数据
         List<JudgesResult> results = new LinkedList<JudgesResult>();
@@ -202,7 +204,7 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     @Override
-    public String importresult(MultipartFile file, long contestId) {
+    public String importResult(MultipartFile file, Long contestId) {
         List<TeamMember> teamMembers = new LinkedList<>();
         teamMembers = teamMemberService.getTeams(contestId);
 
@@ -307,7 +309,8 @@ public class ExcelServiceImpl implements ExcelService {
         return "success";
     }
 
-    public String generatelist(long contestId) throws IOException {
+    @Override
+    public String generateList(Long contestId) throws IOException {
 
         //分配好列表数据
         List<JudgesResult> results = new LinkedList<JudgesResult>();
@@ -315,7 +318,7 @@ public class ExcelServiceImpl implements ExcelService {
         List<StudentInfo> studentInfos = new LinkedList<>();
         studentInfos = studentInfoService.listStudentInfos();
         teamMembers = teamMemberService.getTeams(contestId);
-        String contestName = contestMapper.getContestById((int) contestId).getContestName();
+        String contestName = contestMapper.getContestById(contestId).getContestName();
 
         //分配好要用的map
         Map<String, Long> teamMap = new HashMap<>();
@@ -412,7 +415,8 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     //导入报名成员
-    public String uploadlist(long contestId, MultipartFile file) {
+    @Override
+    public String uploadList(Long contestId, MultipartFile file) {
         List<StudentInfo> studentInfos = new LinkedList<>();
         List<TeamMember> teamMembers = new LinkedList<>();
         studentInfos = studentInfoService.listStudentInfos();
@@ -524,7 +528,7 @@ public class ExcelServiceImpl implements ExcelService {
 
 
     //导入名单 生成评委账号
-    public List<JugdeTemp> importjudge(MultipartFile file) {
+    public List<JugdeTemp> importjudge(MultipartFile file, Long contestId) {
         List<String> emails = new LinkedList<String>();
         List<String> tempEmails = new LinkedList<String>();
         List<JudgeInfo> exsitedJudges = new LinkedList<>();
@@ -603,14 +607,6 @@ public class ExcelServiceImpl implements ExcelService {
                         case 2:
                             judgeInfo.setFaculty(cellValue);
                             break;
-                        case 3:
-                            if (conMap.containsKey(cellValue)) {
-                                judgeInfo.setContestId(conMap.get(cellValue).getContestId());
-                            } else {
-                                CustomError.EXCEL_ERROR.setErrMsg("第" + rowNum + "行比赛名称不存在");
-                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
-                            }
-                            break;
                         default:
                             CustomError.EXCEL_ERROR.setErrMsg("Excel内容错误");
                             throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
@@ -618,12 +614,14 @@ public class ExcelServiceImpl implements ExcelService {
                 }
 
                 if (temMap.containsKey(judgeInfo.getJudgeId())) {
-                    CustomError.EXCEL_ERROR.setErrMsg("第"+rowNum+"行工号发生重复(请检测先前评完作品的评委账号是否已经删除)");
+                    CustomError.EXCEL_ERROR.setErrMsg("第" + rowNum + "行工号发生重复(请检测先前评完作品的评委账号是否已经删除)");
                     throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
                 }
 
                 temMap.put(judgeInfo.getJudgeId(), judgeInfo);
                 judgeInfo.setUid(Long.parseLong("0"));
+                judgeInfo.setContestId(contestId);
+                judgeInfo.setJudgeStage("未开始");
                 account.setRole("评委");
                 account.setEmail(RandomString.getRandomString(10));
                 juMap.put(account, judgeInfo);

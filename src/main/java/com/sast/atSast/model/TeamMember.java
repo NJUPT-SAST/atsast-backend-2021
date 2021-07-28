@@ -1,3 +1,4 @@
+
 package com.sast.atSast.model;
 
 import lombok.AllArgsConstructor;
@@ -21,3 +22,4 @@ public class TeamMember {
     private String instructorId;
     private String subjectCategory;
 }
+

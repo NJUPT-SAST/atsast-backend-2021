@@ -19,6 +19,6 @@ public interface JudgesResultMapper {
   
     List<JudgesResult> getResults(@Param("contestId") Long contestId);
 
-    JudgesResult getResult(long teamId, long contestId, long judgeUid);
+    JudgesResult getResult(Long teamId, Long contestId, Long judgeUid);
 
 }

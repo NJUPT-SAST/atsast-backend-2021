@@ -15,11 +15,18 @@ import java.util.List;
 @Repository
 public interface AccountMapper {
     void insertAccount(Account account);
+
     void deleteAccountByUid(Long uid);
+
     Account selectAccountByEmail(@Param("email") String email);
+
     List<String> selectRolesByEmail(@Param("email") String email);
-    void updatePasswordByEmail(@Param("email") String email,@Param("password")String password,@Param("salt") String salt);
+
+    void updatePasswordByEmail(@Param("email") String email, @Param("password") String password, @Param("salt") String salt);
+
     String findPasswordByEmail(@Param("email") String email);
+
     void importAccount(@Param("account") Account account);
+
     List<String> listEmail();
 }

@@ -28,4 +28,5 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     public void insertTeam(TeamMember teamMember) {
         teamMemberMapper.insertTeam(teamMember);
     }
+
 }

@@ -26,13 +26,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     }
 
     @Override
-    public StudentInfo getStudentInfoById(long Uid) {
+    public StudentInfo getStudentInfoById(Long Uid) {
         return studentInfoMapper.getStudentInfoById(Uid);
     }
 
     @Override
-    public String getRealName(long uid) {
-        return getRealName(uid);
+    public String getRealName(Long uid) {
+        return studentInfoMapper.getRealName(uid);
     }
 
     @Override

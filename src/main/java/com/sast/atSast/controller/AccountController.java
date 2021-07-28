@@ -25,7 +25,7 @@ public class AccountController {
     private ContestServiceImpl contestService;
 
     @Autowired
-    ContestMapper contestMapper;
+    private ContestMapper contestMapper;
 
     @GetMapping("/exception")
     public String except(){
@@ -46,8 +46,6 @@ public class AccountController {
 
     @PostMapping("/user/register")
     public String register(String email, String password, String role,String key) {
-
-
         accountService.register(email, password, role);
         return "ok";
     }

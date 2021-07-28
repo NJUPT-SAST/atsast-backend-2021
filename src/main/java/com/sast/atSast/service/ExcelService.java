@@ -1,5 +1,4 @@
 package com.sast.atSast.service;
-
 import com.sast.atSast.pojo.JugdeTemp;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,15 +14,16 @@ import java.util.List;
  * @Description:
  */
 public interface ExcelService {
-    //根据比赛ID导出比赛结果的EXCEL并返回URL
-    String exportresult(Long contestId) throws IOException;
 
-    String importresult(MultipartFile file, long contestId);
+    List<JugdeTemp> importjudge(MultipartFile file,Long contestId);
 
-    String generatelist(long contestId) throws IOException;
+    String exportResult(Long contestId) throws IOException;
+
+    String importResult(MultipartFile file, Long contestId);
+
+    String generateList(Long contestId) throws IOException;
 
     //导入名单报名
-    String uploadlist(long contestId, MultipartFile file);
+    String uploadList(Long contestId, MultipartFile file);
 
-    List<JugdeTemp> importjudge(MultipartFile file);
 }

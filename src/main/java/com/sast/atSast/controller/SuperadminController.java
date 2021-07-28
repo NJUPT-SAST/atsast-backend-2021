@@ -6,6 +6,11 @@ import com.sast.atSast.server.RedisServer;
 import com.sast.atSast.service.AccountService;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.util.RandomString;
+import com.sast.atSast.model.Stage;
+import com.sast.atSast.pojo.JudgeContestEnd;
+import com.sast.atSast.pojo.JudgeCreateContest;
+import com.sast.atSast.pojo.StageShow;
+import com.sast.atSast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -31,8 +38,20 @@ public class SuperadminController {
     @Autowired
     RedisServer redisServer = new RedisServer();
 
+    @Autowired
+    private PictureService pictureService;
+
+    @Autowired
+    private VideoService videoService;
+
+    @Autowired
+    private ProposalService proposalService;
+
+    @Autowired
+    private StageService stageService;
+
+
     /**
-     * @param
      * @return 所有比赛信息
      * @desription 列出所有状态的比赛
      */
@@ -49,7 +68,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/detail/{id}")
     @ResponseBody
-    public Contest contestDetail(@PathVariable("id") int id) {
+    public Contest contestDetail(@PathVariable("id") Long id) {
         return contestService.getContestById(id);
     }
 
@@ -92,7 +111,6 @@ public class SuperadminController {
     }
 
     /**
-     * @param file
      * @return 成功则返回"success"
      * @desription 导入Excel生成账号
      */
@@ -122,5 +140,64 @@ public class SuperadminController {
         return value;
     }
 
+    /**
+     * @param contestId 比赛id
+     * @return 包括照片、视频、推送链节和报销材料
+     * @desription 超管审批结束的比赛信息
+     */
+    @ResponseBody
+    @GetMapping("/superadmin/checkend")
+    public JudgeContestEnd getContestFiles(Long contestId) {
+        JudgeContestEnd judgeContestEnd = new JudgeContestEnd();
+        judgeContestEnd.setPictureUrls(Arrays.asList(pictureService.getUrlsById(contestId).split("#")));
+        judgeContestEnd.setVideoUrl(videoService.getUrlById(contestId));
+        judgeContestEnd.setPushLinkUrls(Arrays.asList(contestService.getpushLinkById(contestId).split("#")));
+        judgeContestEnd.setProposalUrl(proposalService.getProposalById(contestId));
+        return judgeContestEnd;
+    }
+
+    /**
+     * @param contestId 比赛id
+     * @return 返回比赛信息、状态信息
+     * @desription 超管审批管理员创建的比赛
+     */
+    @ResponseBody
+    @GetMapping("/superadmin/check")
+    public JudgeCreateContest judgeContestBegin(Long contestId) {
+        Contest contest = contestService.getContestById(contestId);
+        JudgeCreateContest judgeCreateContest = new JudgeCreateContest();
+        judgeCreateContest.setContestName(contest.getContestName());
+        judgeCreateContest.setDescription(contest.getDescription());
+        judgeCreateContest.setContestOrganizer(contest.getContestOrganizer());
+        judgeCreateContest.setContestHost(contest.getContestHost());
+        judgeCreateContest.setContestHelper(contest.getContestHelper());
+        judgeCreateContest.setIsTeam(contest.getIsTeam());
+        judgeCreateContest.setTeamGroup(contest.getTeamGroup());
+        judgeCreateContest.setJoinGrade(contest.getJoinGrade());
+        judgeCreateContest.setIsInstructor(contest.getIsInstructor());
+        judgeCreateContest.setWorkCategory(contest.getWorkCategory());
+        judgeCreateContest.setSubjectCategory(contest.getSubjectCategory());
+        judgeCreateContest.setFileUrl(contest.getFileUrl());
+        judgeCreateContest.setBanners(Arrays.asList(contest.getBanners().split("#")));
+        judgeCreateContest.setMinMember(contest.getMinMember());
+        judgeCreateContest.setMaxMember(contest.getMaxMember());
+        judgeCreateContest.setMinInstructor(contest.getMinInstructor());
+        judgeCreateContest.setMaxInstructor(contest.getMaxInstructor());
+
+        List<Stage> stages = stageService.getStagesById(contestId);
+        List<StageShow> stageShows = new ArrayList<>();
+
+        for (Stage stage : stages) {
+            StageShow stageShow = new StageShow();
+            stageShow.setStageName(stage.getStageName());
+            stageShow.setStageType(stage.getStageType());
+            stageShow.setStageBegin(stage.getStageBegin());
+            stageShow.setStageEnd(stage.getStageEnd());
+            stageShows.add(stageShow);
+        }
+        judgeCreateContest.setStages(stageShows);
+
+        return judgeCreateContest;
+    }
 
 }

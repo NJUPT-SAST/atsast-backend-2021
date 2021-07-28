@@ -37,13 +37,16 @@ import java.util.regex.Pattern;
  * @Date: 2021/4/20 13:44
  * @Description: 登陆相关逻辑的实现
  **/
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
     AccountMapper accountMapper;
+
     @Autowired
     EmailService emailService;
+
     @Autowired
     RedisService redisService;
 
@@ -229,6 +232,15 @@ public class AccountServiceImpl implements AccountService {
                                 throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
                             } else {
                                 account.setPassword(cellValue);
+                            }
+                            break;
+                        case 2:
+                            if (cellValue.equals("学生") | cellValue.equals("评委")
+                                    | cellValue.equals("管理员") | cellValue.equals("超级管理员")) {
+                                account.setRole(cellValue);
+                            } else {
+                                CustomError.EXCEL_ERROR.setErrMsg("第" + rowNum + "行账号身份错误");
+                                throw new LocalRuntimeException(CustomError.EXCEL_ERROR);
                             }
                             break;
                         default:

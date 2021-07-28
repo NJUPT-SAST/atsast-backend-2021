@@ -33,7 +33,6 @@
     <insert id="addFile" parameterType="com.sast.atSast.model.FileStd">
         insert into atsast.file_std (stage_id, file_description, file_limit, contest_id)
         values (#{stageId}, #{fileDescription}, #{fileLimit}, #{contestId})
-            #待讨论逻辑
     </insert>
 
     <select id="getFileMessageById" resultType="com.sast.atSast.model.FileStd">
@@ -41,7 +40,6 @@
         from atsast.file_std
         where stage_id = #{stageId}
           and contest_id = #{contestId}
-          and enable = 1
     </select>
 
     <select id="getContestByCurr" resultType="com.sast.atSast.model.Contest">
@@ -55,6 +53,21 @@
         select *
         from atsast.contest
         where enable = 1
+    </select>
+
+
+    <select id="getpushLinkById" resultType="java.lang.String">
+        select pushlink
+        from atsast.contest
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
+    <select id="getfileUrlById" resultType="java.lang.String">
+        select file_url
+        from atsast.contest
+        where contest_id = #{contestId}
+          and enable = 1
     </select>
 
     <update id="updateCurr">
@@ -93,7 +106,9 @@
     <select id="findAll" resultType="com.sast.atSast.model.Contest">
         select *
         from atsast.contest
+        where enable = 1
     </select>
+
 
 </mapper>
 

@@ -1,3 +1,4 @@
+
 package com.sast.atSast.model;
 
 import lombok.AllArgsConstructor;
@@ -23,3 +24,4 @@ public class StudentInfo {
   private String email;
   private Byte enable;
 }
+

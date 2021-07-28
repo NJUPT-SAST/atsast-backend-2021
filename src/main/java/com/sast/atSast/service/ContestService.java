@@ -5,30 +5,28 @@ import com.sast.atSast.model.TeamMember;
 
 import java.util.List;
 
-
 public interface ContestService {
 
     void createContest(Contest contest);
 
-    void updatepushLink(long contestId, String pushLink);
+    void updatepushLink(Long contestId, String pushLink);
 
-    List<TeamMember> getTeamById(long contestId);
+    String getpushLinkById(Long contestId);
+
+    List<TeamMember> getTeamById(Long contestId);
 
     List<Contest> getContestByCurr(Integer curr);
 
     List<Contest> getContest();
 
-    Contest getContestById(Integer id);
-
     void updateCurr(Long contestId, Integer curr);
 
     void updateComment(Long contestId, String comment);
 
-    void updateJudge(Integer judging, long contestId);
+    void updateJudge(Long judging, Long contestId);
 
-    Contest getContestById(long contestId);
+    Contest getContestById(Long contestId);
 
-    List<Contest> findAll();
-
+    String getfileUrlById(Long contestId);
 
 }

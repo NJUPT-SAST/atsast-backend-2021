@@ -12,9 +12,9 @@ public interface StudentInfoMapper {
 
     void addStudentInfo(StudentInfo studentInfo);
 
-    StudentInfo getStudentInfoById(long Uid);
+    StudentInfo getStudentInfoById(Long uid);
 
-    String getRealName(long uid);
+    String getRealName(Long uid);
 
     List<StudentInfo> listStudentInfos();
 

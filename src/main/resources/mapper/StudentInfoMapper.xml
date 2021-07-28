@@ -13,11 +13,11 @@
     <select id="getStudentInfoById" resultType="com.sast.atSast.model.StudentInfo">
         select *
         from atsast.student_info
-        where uid = #{Uid}
+        where uid = #{uid}
           and enable = 1
     </select>
 
-    <select id="getRealName" resultType="com.sast.atSast.model.StudentInfo">
+    <select id="getRealName" resultType="java.lang.String">
         select real_name
         from atsast.student_info
         where uid = #{uid}

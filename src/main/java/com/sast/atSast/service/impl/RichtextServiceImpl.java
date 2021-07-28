@@ -11,11 +11,11 @@ public class RichtextServiceImpl implements RichtextMapper {
     @Autowired
     private RichtextMapper richtextMapper;
 
-    public void updateRichtext(long contestId, long stageId, String content) {
-        richtextMapper.updateRichtext(contestId, stageId, content);
+    public void updateRichtext(Long contestId, Long stageId, String content){
+        richtextMapper.updateRichtext(contestId,stageId,content);
     }
 
-    public Richtext selectRichtext(long contestId, long stageId) {
-        return richtextMapper.selectRichtext(contestId, stageId);
+    public Richtext selectRichtext(Long contestId, Long stageId){
+        return richtextMapper.selectRichtext(contestId,stageId);
     }
 }
