@@ -38,10 +38,14 @@ public class JudgeController {
     @ResponseBody
     @PostMapping("/admin/authority")
     public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
-        for (long teamId : judgesAuthority.getTeamIds()) {
+        for (Long teamId : judgesAuthority.getTeamIds()) {
             judgesAuthority.setTeamId(teamId);
             judgesAuthorityService.addAuthority(judgesAuthority);
         }
+
+        Long uid = judgesAuthority.getJudgeUid();
+        Integer judgeTotal = judgesAuthority.getTeamIds().size();
+        judgesAuthorityService.updateStageAfterAuthority(uid, judgeTotal);
         return "ok";
     }
 
@@ -83,7 +87,7 @@ public class JudgeController {
      */
     @ResponseBody
     @GetMapping("/judge/getcomment")
-    public JudgeResultTemp getLastResult(long teamId, long contestId, long judgeUid) {
+    public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
         JudgesResult judgesResult = judgesResultService.getResult(teamId, contestId, judgeUid);
         String comment = judgesResult.getComment();
         Integer scores = judgesResult.getScores();

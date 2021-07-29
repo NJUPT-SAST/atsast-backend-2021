@@ -8,5 +8,12 @@
         values (#{teamId}, #{judgeUid}, #{contestId})
     </insert>
 
+    <update id="updateStageAfterAuthority">
+        update atsast.judge_info
+        set judge_total = #{judgeTotal},
+            judge_stage = '评审中'
+        where uid = #{uid}
+    </update>
+
 </mapper>
 

@@ -525,7 +525,8 @@ public class ExcelServiceImpl implements ExcelService {
 
 
     //导入名单 生成评委账号
-    public String importjudge(MultipartFile file,long contestId){
+    @Override
+    public String importJudge(MultipartFile file,long contestId){
             List<String> emails=new LinkedList<String>();
             List<String> tempEmails=new LinkedList<String>();
             List<Contest> contests=new LinkedList<>();
@@ -564,7 +565,7 @@ public class ExcelServiceImpl implements ExcelService {
                     Account account=new Account();
                     JudgeInfo judgeInfo=new JudgeInfo();
                     for(int cellNum=0;cellNum<cellCount;cellNum++){
-                        account.setUid(0);
+                        account.setUid(0L);
                         account.setEnable((byte) 1);
 
                         Cell cell= null;
@@ -631,7 +632,7 @@ public class ExcelServiceImpl implements ExcelService {
                         }
                     }
 
-                    judgeInfo.setUid(0);
+                    judgeInfo.setUid(0L);
                     account.setRole("评委");
                     juMap.put(account,judgeInfo);
                 }

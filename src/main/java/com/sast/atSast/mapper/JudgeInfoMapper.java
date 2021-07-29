@@ -20,4 +20,8 @@ public interface JudgeInfoMapper {
 
     Long getUidByEmail(String email);
 
+    void deleteJudge(Long uid);
+
+    void insertJudge(JudgeInfo judgeInfo);
+
 }

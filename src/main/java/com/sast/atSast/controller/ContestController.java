@@ -78,19 +78,14 @@ public class ContestController {
     }
 
     @PostMapping("/admin/importjudges")
-    public String importjudges(MultipartFile file,long contestId){
-        return excelService.importjudge(file,contestId);
+    public String importJudges(MultipartFile file, Long contestId) {
+        return excelService.importJudge(file, contestId);
     }
 
     @GetMapping("/admin/deletejudge")
-    public String deletejudges(Long uid){
+    public String deleteJudges(Long uid) {
         judgeInfoMapper.deleteJudge(uid);
         return "success";
-    }
-
-    @GetMapping("/admin/judgelist")
-    public List<JudgeInfo> listjudges(){
-        return judgeInfoMapper.listJudges();
     }
 
 }

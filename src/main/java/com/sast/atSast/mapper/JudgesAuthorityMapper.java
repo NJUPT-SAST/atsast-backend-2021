@@ -14,4 +14,6 @@ public interface JudgesAuthorityMapper {
 
     void addAuthority(JudgesAuthority judgesAuthority);
 
+    void updateStageAfterAuthority(Long uid, Integer judgeTotal);
+
 }

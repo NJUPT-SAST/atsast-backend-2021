@@ -16,4 +16,10 @@ public class JudgesAuthorityServiceImpl implements JudgesAuthorityService {
     public void addAuthority(JudgesAuthority judgesAuthority) {
         judgesAuthorityMapper.addAuthority(judgesAuthority);
     }
+
+    @Override
+    public void updateStageAfterAuthority(Long uid, Integer judgeTotal) {
+        judgesAuthorityMapper.updateStageAfterAuthority(uid, judgeTotal);
+    }
+
 }
