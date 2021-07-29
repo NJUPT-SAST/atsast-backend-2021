@@ -19,6 +19,8 @@ public interface AccountService {
     void deleteAccountByUid(Long uid);
 
     void register(String username, String password, String role);
+    
+    void register(String username, String password, String role, String key);
 
     Account findAccountByEmail(String email);
 

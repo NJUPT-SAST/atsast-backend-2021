@@ -51,6 +51,7 @@ dependencies {
 	implementation("org.apache.shiro:shiro-core:1.4.0")
 	implementation("org.apache.shiro:shiro-web:1.4.0")
 	implementation("org.apache.shiro:shiro-spring:1.4.0")
+	implementation("org.apache.shiro:shiro-ehcache:1.4.0")
 	//email
 	compile('org.springframework.boot:spring-boot-starter-mail')
 	// easyexcel
