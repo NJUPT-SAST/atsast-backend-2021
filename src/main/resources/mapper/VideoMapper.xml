@@ -8,5 +8,12 @@
         values (#{videoPath}, #{contestId})
     </insert>
 
+    <select id="getUrlById" resultType="java.lang.String">
+        select video_path
+        from atsast.video
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
 </mapper>
 

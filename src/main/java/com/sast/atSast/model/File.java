@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class File {
-    private long fileId;
+    private Long fileId;
     private String filePath;
-    private long teamId;
+    private Long teamId;
 }

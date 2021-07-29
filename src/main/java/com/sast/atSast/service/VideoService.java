@@ -4,4 +4,6 @@ public interface VideoService {
 
     void addVideo(long contestId, String videoPath);
 
+    String getUrlById(Long contestId);
+
 }

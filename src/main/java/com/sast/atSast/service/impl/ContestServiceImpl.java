@@ -2,7 +2,6 @@ package com.sast.atSast.service.impl;
 
 import com.sast.atSast.mapper.ContestMapper;
 import com.sast.atSast.model.Contest;
-import com.sast.atSast.model.Stage;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.service.ContestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,19 +21,58 @@ public class ContestServiceImpl implements ContestService {
     private ContestMapper contestMapper;
 
     @Override
-    public void createContest(Contest contest){
+    public void createContest(Contest contest) {
         contestMapper.createContest(contest);
     }
 
     @Override
-    public void updatepushLink(long contestId, String pushLink){
+    public void updatepushLink(Long contestId, String pushLink) {
         contestMapper.updatepushLink(contestId, pushLink);
     }
 
     @Override
-    public List<TeamMember> getTeamById(long contestId) {
+    public List<TeamMember> getTeamById(Long contestId) {
         return contestMapper.getTeamById(contestId);
     }
+
+    public List<Contest> getContestByCurr(Integer curr) {
+        return contestMapper.getContestByCurr(curr);
+    }
+
+    public List<Contest> getContest() {
+        return contestMapper.getContest();
+    }
+
+    @Override
+    public Contest getContestById(Long contestId) {
+        return contestMapper.getContestById(contestId);
+    }
+
+    @Override
+    public void updateCurr(Long contestId, Integer curr) {
+        contestMapper.updateCurr(contestId, curr);
+    }
+
+    @Override
+    public void updateComment(Long contestId, String comment) {
+        contestMapper.updateComment(contestId, comment);
+    }
+
+    @Override
+    public void updateJudge(Long judging, Long contestId) {
+        contestMapper.updateJudge(judging, contestId);
+    }
+
+    @Override
+    public String getpushLinkById(Long contestId) {
+        return contestMapper.getpushLinkById(contestId);
+    }
+
+    @Override
+    public String getfileUrlById(Long contestId) {
+        return contestMapper.getfileUrlById(contestId);
+    }
+
 }
 
 

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
  * @date 2021/7/16 20:15:03
  */
 @Repository
-@Mapper
 public interface JudgesAuthorityMapper {
 
     void addAuthority(JudgesAuthority judgesAuthority);

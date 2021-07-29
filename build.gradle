@@ -54,8 +54,16 @@ dependencies {
 	implementation("org.apache.shiro:shiro-ehcache:1.4.0")
 	//email
 	compile('org.springframework.boot:spring-boot-starter-mail')
+	// easyexcel
+	implementation("com.alibaba:easyexcel:2.2.10")
+	// minio
+	implementation("io.minio:minio:7.0.2")
+
+
+
 }
 
 test {
+
 	useJUnitPlatform()
 }

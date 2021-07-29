@@ -1,7 +1,6 @@
 package com.sast.atSast.service.impl;
 
 import com.sast.atSast.mapper.VideoMapper;
-import com.sast.atSast.model.Video;
 import com.sast.atSast.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,11 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void addVideo(long contestId, String videoPath) {
         videoMapper.addVideo(contestId, videoPath);
+    }
+
+    @Override
+    public String getUrlById(Long contestId) {
+        return videoMapper.getUrlById(contestId);
     }
 
 }

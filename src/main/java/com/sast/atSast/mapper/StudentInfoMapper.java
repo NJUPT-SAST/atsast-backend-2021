@@ -4,12 +4,17 @@ import com.sast.atSast.model.StudentInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-@Mapper
 public interface StudentInfoMapper {
 
     void addStudentInfo(StudentInfo studentInfo);
 
-    StudentInfo getStudentInfoById(long Uid);
+    StudentInfo getStudentInfoById(Long Uid);
+
+    String getRealName(Long uid);
+
+    List<StudentInfo> listStudentInfos();
 
 }

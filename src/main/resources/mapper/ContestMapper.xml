@@ -20,18 +20,19 @@
         update atsast.contest
         set pushlink = #{pushLink}
         where contest_id = #{contestId}
+          and enable = 1
     </update>
 
     <select id="getTeamById" resultType="com.sast.atSast.model.TeamMember">
         select distinct team_name, team_id
         from atsast.team_member
         where contest_id = #{contestId}
+          and enable = 1
     </select>
 
     <insert id="addFile" parameterType="com.sast.atSast.model.FileStd">
         insert into atsast.file_std (stage_id, file_description, file_limit, contest_id)
         values (#{stageId}, #{fileDescription}, #{fileLimit}, #{contestId})
-        #待讨论逻辑
     </insert>
 
     <select id="getFileMessageById" resultType="com.sast.atSast.model.FileStd">
@@ -40,6 +41,62 @@
         where stage_id = #{stageId}
           and contest_id = #{contestId}
     </select>
+
+    <select id="getContestByCurr" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where curr_stu = #{curr}
+          and enable = 1
+    </select>
+
+    <select id="getContest" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where enable = 1
+    </select>
+
+    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where contest_id = #{id}
+          and enable = 1
+    </select>
+
+    <select id="getpushLinkById" resultType="java.lang.String">
+        select pushlink
+        from atsast.contest
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
+    <select id="getfileUrlById" resultType="java.lang.String">
+        select file_url
+        from atsast.contest
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
+    <update id="updateCurr">
+        update atsast.contest
+        set curr_admin=#{curr}
+        where contest_id = #{contestId}
+          and enable = 1
+    </update>
+
+    <update id="updateComment">
+        update atsast.contest
+        set comment=#{comment}
+        where contest_id = #{contestId}
+          and enable = 1
+    </update>
+
+    <update id="updateJudge">
+        update atsast.contest
+        set judging=#{judging}
+        where contest_id = #{contestId}
+          and enable = 1
+    </update>
+
 
 </mapper>
 

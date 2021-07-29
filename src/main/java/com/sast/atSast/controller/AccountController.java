@@ -1,5 +1,7 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.enums.CustomError;
+import com.sast.atSast.exception.LocalRuntimeException;
 import com.sast.atSast.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,11 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @GetMapping("/exception")
+    public String except(){
+        throw new LocalRuntimeException(CustomError.REQUEST_ERROR);
+    }
 
     @PostMapping("/user/login")
     public String login(String email, String password) {

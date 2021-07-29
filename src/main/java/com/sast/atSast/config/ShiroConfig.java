@@ -48,6 +48,7 @@ public class ShiroConfig {
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
+
     @Bean
     public Realm getRealm(){
         AccountRealm accountRealm = new AccountRealm();
