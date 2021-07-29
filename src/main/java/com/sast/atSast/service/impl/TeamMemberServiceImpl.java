@@ -20,8 +20,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    public void updateTeam(Long teamId,Integer score,String result){
-        teamMemberMapper.updateTeam(teamId,score,result);
+    public void updateTeam(Long teamId, Integer score, String result) {
+        teamMemberMapper.updateTeam(teamId, score, result);
     }
 
     @Override

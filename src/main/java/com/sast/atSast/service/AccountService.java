@@ -16,6 +16,8 @@ public interface AccountService {
 
     void logout();
 
+    void deleteAccountByUid(Long uid);
+
     void register(String username, String password, String role);
     
     void register(String username, String password, String role, String key);
@@ -32,7 +34,7 @@ public interface AccountService {
 
     void updatePassword(String oldPassword, String newPassword);
 
-    void importAccount(@Param("account") Account account);
+    void importAccount(Account account);
 
     void readAccountExcel(MultipartFile file) throws IOException;
 

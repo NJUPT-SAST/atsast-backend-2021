@@ -8,5 +8,9 @@
         values (#{teamId}, #{judgeUid}, #{contestId})
     </insert>
 
+    <select id="getTeamIdsByUid" resultType="Long">
+        select team_id from atsast.judges_result where judge_uid=#{judgeUid} and enable=1
+    </select>
+
 </mapper>
 

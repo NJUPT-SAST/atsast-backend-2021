@@ -21,6 +21,19 @@ public class JudgeInfoServiceImpl implements JudgeInfoService {
     @Autowired
     JudgeInfoMapper judgeInfoMapper;
 
+    public void insertJudge(JudgeInfo judgeInfo) {
+        judgeInfoMapper.insertJudge(judgeInfo);
+    }
+
+    public void deleteJudge(Long uid) {
+        judgeInfoMapper.deleteJudge(uid);
+    }
+
+    public List<JudgeInfo> listJudges() {
+        return judgeInfoMapper.listJudges();
+    }
+
+
     @Override
     public List<JudgeInfo> getJudgeInfo(Long contestId) {
         return judgeInfoMapper.getJudgeInfo(contestId);

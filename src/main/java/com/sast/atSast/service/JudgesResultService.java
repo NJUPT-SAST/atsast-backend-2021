@@ -10,6 +10,5 @@ public interface JudgesResultService {
 
     JudgesResult getResult(long teamId, long contestId, long judgeUid);
 
-    List<JudgesResult> getResults(long contestId);
-
+    List<JudgesResult> getResults(Long contestId);
 }

@@ -1,3 +1,4 @@
+
 package com.sast.atSast.model;
 
 import lombok.AllArgsConstructor;
@@ -13,11 +14,12 @@ public class TeamMember {
     private Byte enable;
     private Long leaderUid;
     private String instructor;
-    private String instructorId;
     private Long contestId;
     private String teamName;
     private Integer score;
     private String result;
     private String teamGroup;
+    private String instructorId;
     private String subjectCategory;
 }
+

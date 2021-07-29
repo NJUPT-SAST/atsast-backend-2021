@@ -10,9 +10,8 @@ import java.util.List;
 @Repository
 @Mapper
 public interface TeamMemberMapper {
-    List<TeamMember> getTeams(@Param("contestId") Long contestId);
+    List<TeamMember> getTeams(@Param("contestId")Long contestId);
+    void updateTeam(@Param("teamId")Long teamId,@Param("score")Integer score,@Param("result")String result);
+    void insertTeam(@Param("teamMember")TeamMember teamMember);
 
-    void updateTeam(@Param("teamId") Long teamId, @Param("score") Integer score, @Param("result") String result);
-
-    void insertTeam(@Param("teamMember") TeamMember teamMember);
 }

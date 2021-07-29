@@ -9,6 +9,8 @@ import com.sast.atSast.service.StudentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @program: ATSAST
  * @description: 身份为学生的用户

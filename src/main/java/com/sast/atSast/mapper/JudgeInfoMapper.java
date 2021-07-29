@@ -1,6 +1,7 @@
 package com.sast.atSast.mapper;
 
 import com.sast.atSast.model.JudgeInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,11 +14,15 @@ import java.util.List;
  **/
 @Repository
 public interface JudgeInfoMapper {
-
     List<JudgeInfo> getJudgeInfo(Long contestId);
 
     void addSingleJudge(JudgeInfo judgeInfo);
 
     Long getUidByEmail(String email);
 
+    void insertJudge(@Param("judgeInfo") JudgeInfo judgeInfo);
+
+    void deleteJudge(Long uid);
+
+    List<JudgeInfo> listJudges();
 }

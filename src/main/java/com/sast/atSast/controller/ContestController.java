@@ -2,12 +2,16 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.mapper.AccountMapper;
 import com.sast.atSast.mapper.JudgeInfoMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.JudgeInfo;
+import com.sast.atSast.pojo.JugdeTemp;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.ExcelService;
+import com.sast.atSast.service.RichtextService;
 import com.sast.atSast.service.impl.RichtextServiceImpl;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +34,9 @@ public class ContestController {
     @Autowired
     private JudgeInfoMapper judgeInfoMapper;
 
+    @Autowired
+    private AccountMapper accountMapper;
+
     @PostMapping("/admin/edittext")
     public String editText(Long contestId, Long stageId, String content) {
         if (richtextService.selectRichtext(contestId, stageId) != null) {
@@ -51,7 +58,7 @@ public class ContestController {
     }
 
     @GetMapping("/admin/exportresult")
-    public String exportResult(Long contestId) throws IOException {
+    public String exportresult(@RequestParam("contestId") Long contestId) throws IOException {
         return excelService.exportResult(contestId);
     }
 
@@ -78,19 +85,31 @@ public class ContestController {
     }
 
     @PostMapping("/admin/importjudges")
-    public String importjudges(MultipartFile file,long contestId){
-        return excelService.importjudge(file,contestId);
+    public List<JugdeTemp> importjudges(MultipartFile file, Long contestId) {
+        return excelService.importjudge(file, contestId);
     }
 
     @GetMapping("/admin/deletejudge")
-    public String deletejudges(Long uid){
+    public String deletejudges(Long uid) {
+        accountMapper.deleteAccountByUid(uid);
         judgeInfoMapper.deleteJudge(uid);
         return "success";
     }
 
     @GetMapping("/admin/judgelist")
-    public List<JudgeInfo> listjudges(){
-        return judgeInfoMapper.listJudges();
+    public List<JudgeInfo> listjudges(Long contestId) {
+
+        Contest contest = contestService.getContestById(contestId);
+
+        if (contest.getCurrAdmin() == 0) {
+            CustomError.CONTEST_CURR_ERROR.setErrMsg("比赛尚未审批通过!");
+            throw new LocalRuntimeException(CustomError.CONTEST_CURR_ERROR);
+        } else if (contest.getCurrAdmin() == 2) {
+            CustomError.CONTEST_CURR_ERROR.setErrMsg("比赛已经结束!");
+            throw new LocalRuntimeException(CustomError.CONTEST_CURR_ERROR);
+        }
+
+        return judgeInfoMapper.getJudgeInfo(contestId);
     }
 
 }

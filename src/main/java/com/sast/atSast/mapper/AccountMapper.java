@@ -11,9 +11,12 @@ import java.util.List;
  * @Date: 2021/4/20 13:48
  * @Description: 账号相关，account表、student_info表
  **/
+@Mapper
 @Repository
 public interface AccountMapper {
     void insertAccount(Account account);
+
+    void deleteAccountByUid(Long uid);
 
     Account selectAccountByEmail(@Param("email") String email);
 

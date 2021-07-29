@@ -55,12 +55,6 @@
         where enable = 1
     </select>
 
-    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
-        select *
-        from atsast.contest
-        where contest_id = #{id}
-          and enable = 1
-    </select>
 
     <select id="getpushLinkById" resultType="java.lang.String">
         select pushlink
@@ -96,6 +90,24 @@
         where contest_id = #{contestId}
           and enable = 1
     </update>
+
+    <select id="getContestById" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where contest_id = #{contestId}
+    </select>
+
+    <select id="getInfoById" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where contest_id = #{contestId}
+    </select>
+
+    <select id="findAll" resultType="com.sast.atSast.model.Contest">
+        select *
+        from atsast.contest
+        where enable = 1
+    </select>
 
 
 </mapper>

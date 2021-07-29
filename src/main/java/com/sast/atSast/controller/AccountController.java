@@ -2,7 +2,9 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.mapper.ContestMapper;
 import com.sast.atSast.service.AccountService;
+import com.sast.atSast.service.impl.ContestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private ContestServiceImpl contestService;
+
+    @Autowired
+    private ContestMapper contestMapper;
 
     @GetMapping("/exception")
     public String except(){
