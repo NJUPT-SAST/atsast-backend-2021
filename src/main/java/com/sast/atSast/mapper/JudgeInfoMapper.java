@@ -3,6 +3,7 @@ package com.sast.atSast.mapper;
 import com.sast.atSast.model.JudgeInfo;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,5 +24,11 @@ public interface JudgeInfoMapper {
     void deleteJudge(Long uid);
 
     void insertJudge(JudgeInfo judgeInfo);
+
+    void addJudgeCurr(Long uid);
+
+    JudgeInfo getJudgeInfoById(Long uid);
+
+    void updateJudgeStage(Long uid);
 
 }

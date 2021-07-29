@@ -1,20 +1,16 @@
 package com.sast.atSast.controller;
 
+import com.sast.atSast.model.JudgeInfo;
 import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.pojo.JudgeResultTemp;
 import com.sast.atSast.pojo.TeamMemberTemp;
-import com.sast.atSast.service.ContestService;
-import com.sast.atSast.service.FileService;
-import com.sast.atSast.service.JudgesAuthorityService;
-import com.sast.atSast.service.JudgesResultService;
+import com.sast.atSast.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class JudgeController {
@@ -30,6 +26,9 @@ public class JudgeController {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    JudgeInfoService judgeInfoService;
 
     /**
      * @param judgesAuthority 传来的json自动打包成对象
@@ -56,7 +55,21 @@ public class JudgeController {
     @ResponseBody
     @PostMapping("/judge/comment")
     public String addResult(@RequestBody JudgesResult judgesResult) {
-        judgesResultService.addResult(judgesResult);
+        if (judgesResultService.getScore(judgesResult) == null) {
+            judgesResultService.addResult(judgesResult);
+
+            Long uid = judgesResult.getJudgeUid();
+            judgeInfoService.addJudgeCurr(uid);
+            JudgeInfo judgeInfo = judgeInfoService.getJudgeInfoById(uid);
+            if (judgeInfo.getJudgeCurr().equals(judgeInfo.getJudgeTotal())){
+                judgeInfoService.updateJudgeStage(uid);
+                return "队伍已全部评分完毕";
+            }
+
+        } else {
+            judgesResultService.updateResult(judgesResult);
+        }
+
         return "ok";
     }
 

@@ -2,6 +2,7 @@ package com.sast.atSast.service;
 
 import com.sast.atSast.model.JudgeInfo;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -17,5 +18,11 @@ public interface JudgeInfoService {
     void addSingleJudge(JudgeInfo judgeInfo);
 
     Long getUidByEmail(String email);
+
+    void addJudgeCurr(Long uid);
+
+    JudgeInfo getJudgeInfoById(Long uid);
+
+    void updateJudgeStage(Long uid);
 
 }

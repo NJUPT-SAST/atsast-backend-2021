@@ -12,4 +12,8 @@ public interface JudgesResultService {
 
     List<JudgesResult> getResults(long contestId);
 
+    Integer getScore(JudgesResult judgesResult);
+
+    void updateResult(JudgesResult judgesResult);
+
 }

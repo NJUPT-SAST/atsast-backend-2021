@@ -17,8 +17,12 @@ public interface JudgesResultMapper {
 
     void addResult(JudgesResult judgesResult);
 
-    List<JudgesResult> getResults(@Param("contestId") long contestId);
+    List<JudgesResult> getResults(Long contestId);
 
     JudgesResult getResult(Long teamId, Long contestId, Long judgeUid);
+
+    Integer getScore(JudgesResult judgesResult);
+
+    void updateResult(JudgesResult judgesResult);
 
 }

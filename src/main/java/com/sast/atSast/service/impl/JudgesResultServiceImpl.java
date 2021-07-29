@@ -29,4 +29,14 @@ public class JudgesResultServiceImpl implements JudgesResultService {
         return judgesResultMapper.getResults(contestId);
     }
 
+    @Override
+    public Integer getScore(JudgesResult judgesResult) {
+        return judgesResultMapper.getScore(judgesResult);
+    }
+
+    @Override
+    public void updateResult(JudgesResult judgesResult) {
+        judgesResultMapper.updateResult(judgesResult);
+    }
+
 }
