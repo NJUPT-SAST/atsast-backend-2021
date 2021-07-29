@@ -37,20 +37,20 @@ public class AccountController {
     }
 
     @PostMapping("/user/register")
-    public String register(String email, String password, String role) {
-        accountService.register(email, password, role);
+    public String register(String email, String password, String role, String key) {
+        accountService.register(email, password, role, key);
         return "ok";
     }
 
     //发送验证码邮件
-    @PostMapping("/user/sendemail")
+    @PutMapping("/user/sendemail")
     public String sendVerificationCodeEmail() {
         accountService.sendVerificationCodeEmail();
         return "ok";
     }
 
     //判断验证码是否正确
-    @GetMapping("/user/judgecode")
+    @PostMapping("/user/judgecode")
     public boolean judgeVerificationCode(String inputVerificationCode) {
         return accountService.judgeVerificationCode(inputVerificationCode);
     }

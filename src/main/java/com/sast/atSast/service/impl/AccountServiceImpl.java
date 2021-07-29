@@ -76,12 +76,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void register(String email, String password, String role) {
+    public void register(String email, String password, String role, String key) {
+
         String salt = SaltUtil.getSalt(8);
         Md5Hash md5Hash = new Md5Hash(password, salt, 1024);
         String md5Password = md5Hash.toHex();
         Account account = new Account(email, md5Password, role, salt);
-        accountMapper.insertAccount(account);
+        if(role.equals("admin")){
+            if (redisService.getFromCache("key").equals(key)) {
+                accountMapper.insertAccount(account);
+            }else {
+                throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
+            }
+        }else {
+            accountMapper.insertAccount(account);
+        }
     }
 
     @Override
