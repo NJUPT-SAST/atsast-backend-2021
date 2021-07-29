@@ -4,6 +4,7 @@ import com.sast.atSast.model.JudgeInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -26,5 +27,11 @@ public interface JudgeInfoMapper {
     void deleteJudge(Long uid);
 
     List<JudgeInfo> listJudges();
+
+    void addJudgeCurr(Long uid);
+
+    JudgeInfo getJudgeInfoById(Long uid);
+
+    void updateJudgeStage(Long uid);
 
 }
