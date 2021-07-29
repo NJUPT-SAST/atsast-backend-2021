@@ -42,10 +42,14 @@ public class JudgeController {
     @PostMapping("/admin/authority")
     @RequiresRoles("judge")
     public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
-        for (long teamId : judgesAuthority.getTeamIds()) {
+        for (Long teamId : judgesAuthority.getTeamIds()) {
             judgesAuthority.setTeamId(teamId);
             judgesAuthorityService.addAuthority(judgesAuthority);
         }
+
+        Long uid = judgesAuthority.getJudgeUid();
+        Integer judgeTotal = judgesAuthority.getTeamIds().size();
+        judgesAuthorityService.updateStageAfterAuthority(uid, judgeTotal);
         return "ok";
     }
 
@@ -90,7 +94,7 @@ public class JudgeController {
     @ResponseBody
     @GetMapping("/judge/getcomment")
     @RequiresRoles("judge")
-    public JudgeResultTemp getLastResult(long teamId, long contestId, long judgeUid) {
+    public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
 
         List<Long> list=judgesAuthorityService.getTeamIdsByUid(judgeUid);
 

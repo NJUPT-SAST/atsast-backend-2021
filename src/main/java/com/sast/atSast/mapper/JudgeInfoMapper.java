@@ -14,6 +14,7 @@ import java.util.List;
  **/
 @Repository
 public interface JudgeInfoMapper {
+
     List<JudgeInfo> getJudgeInfo(Long contestId);
 
     void addSingleJudge(JudgeInfo judgeInfo);
@@ -25,4 +26,5 @@ public interface JudgeInfoMapper {
     void deleteJudge(Long uid);
 
     List<JudgeInfo> listJudges();
+
 }
