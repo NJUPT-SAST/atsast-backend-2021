@@ -6,6 +6,8 @@ import com.sast.atSast.service.JudgesAuthorityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class JudgesAuthorityServiceImpl implements JudgesAuthorityService {
 
@@ -20,6 +22,10 @@ public class JudgesAuthorityServiceImpl implements JudgesAuthorityService {
     @Override
     public void updateStageAfterAuthority(Long uid, Integer judgeTotal) {
         judgesAuthorityMapper.updateStageAfterAuthority(uid, judgeTotal);
+    }
+
+    public List<Long> getTeamIdsByUid(Long judgeUid){
+        return judgesAuthorityMapper.getTeamIdsByUid(judgeUid);
     }
 
 }

@@ -4,6 +4,7 @@ import com.sast.atSast.filter.ShiroFormAuthenticationFilter;
 import com.sast.atSast.filter.ShiroRolesAuthorizationFilter;
 import com.sast.atSast.shiro.realm.AccountRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -51,10 +52,22 @@ public class ShiroConfig {
     @Bean
     public Realm getRealm(){
         AccountRealm accountRealm = new AccountRealm();
+
+        //修改凭证匹配器
         HashedCredentialsMatcher credentialsMatcher = new HashedCredentialsMatcher();
         credentialsMatcher.setHashAlgorithmName("Md5");
         credentialsMatcher.setHashIterations(1024);
         accountRealm.setCredentialsMatcher(credentialsMatcher);
+
+//        开启缓存管理(ehcache)
+        accountRealm.setCacheManager(new EhCacheManager());
+        accountRealm.setCachingEnabled(true);//开启全局缓存
+        accountRealm.setAuthenticationCachingEnabled(true);//开启认证缓存
+        accountRealm.setAuthenticationCacheName("authenticationCache");//重命名（可以不加）
+        accountRealm.setAuthorizationCachingEnabled(true);//开启授权缓存
+        accountRealm.setAuthorizationCacheName("authorizationCache");//重命名（可以不加）
+
+
         return accountRealm;
     }
 }

@@ -43,6 +43,7 @@ public class ContestServiceImpl implements ContestService {
         return contestMapper.getContest();
     }
 
+
     @Override
     public Contest getContestById(Long contestId) {
         return contestMapper.getContestById(contestId);
@@ -52,6 +53,7 @@ public class ContestServiceImpl implements ContestService {
     public void updateCurr(Long contestId, Integer curr) {
         contestMapper.updateCurr(contestId, curr);
     }
+
 
     @Override
     public void updateComment(Long contestId, String comment) {

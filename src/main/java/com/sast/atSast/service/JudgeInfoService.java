@@ -12,6 +12,11 @@ import java.util.List;
  * @create: 2021-07-24 20:49
  **/
 public interface JudgeInfoService {
+    void insertJudge(JudgeInfo judgeInfo);
+
+    void deleteJudge(Long uid);
+
+    List<JudgeInfo> listJudges();
 
     List<JudgeInfo> getJudgeInfo(Long contestId);
 

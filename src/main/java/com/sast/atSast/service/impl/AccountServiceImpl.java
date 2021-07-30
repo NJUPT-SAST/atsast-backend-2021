@@ -37,6 +37,7 @@ import java.util.regex.Pattern;
  * @Date: 2021/4/20 13:44
  * @Description: 登陆相关逻辑的实现
  **/
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -76,12 +77,21 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void register(String email, String password, String role) {
+    public void register(String email, String password, String role, String key) {
+
         String salt = SaltUtil.getSalt(8);
         Md5Hash md5Hash = new Md5Hash(password, salt, 1024);
         String md5Password = md5Hash.toHex();
         Account account = new Account(email, md5Password, role, salt);
-        accountMapper.insertAccount(account);
+        if(role.equals("admin")){
+            if (redisService.getFromCache("key").equals(key)) {
+                accountMapper.insertAccount(account);
+            }else {
+                throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
+            }
+        }else {
+            accountMapper.insertAccount(account);
+        }
     }
 
     @Override
@@ -158,7 +168,7 @@ public class AccountServiceImpl implements AccountService {
         }
     }
 
-    public void importAccount(@Param("account") Account account) {
+    public void importAccount(Account account) {
         accountMapper.insertAccount(account);
     }
 
@@ -191,7 +201,7 @@ public class AccountServiceImpl implements AccountService {
                 int cellCount = rowTitle.getPhysicalNumberOfCells();
                 Account account = new Account();
                 for (int cellNum = 0; cellNum < cellCount; cellNum++) {
-                    account.setUid(0L);
+                    account.setUid(Long.parseLong("0"));
                     account.setEnable((byte) 1);
 
                     Cell cell = null;
@@ -266,4 +276,9 @@ public class AccountServiceImpl implements AccountService {
     public List<String> listEmail() {
         return accountMapper.listEmail();
     }
+
+    public void deleteAccountByUid(Long uid){
+        accountMapper.deleteAccountByUid(uid);
+    }
+
 }

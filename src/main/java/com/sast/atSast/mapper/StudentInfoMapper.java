@@ -6,12 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Mapper
 @Repository
 public interface StudentInfoMapper {
 
     void addStudentInfo(StudentInfo studentInfo);
 
-    StudentInfo getStudentInfoById(Long Uid);
+    StudentInfo getStudentInfoById(Long uid);
 
     String getRealName(Long uid);
 

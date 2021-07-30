@@ -24,3 +24,10 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+minio:
+  endpoint:
+  accessKey:
+  secretKey:
+  bucketImageName:
+  port:

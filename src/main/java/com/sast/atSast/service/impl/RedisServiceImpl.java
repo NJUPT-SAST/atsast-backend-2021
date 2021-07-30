@@ -23,10 +23,10 @@ public class RedisServiceImpl implements RedisService {
 
     private static final long DEFAULT_TIMEOUT = 60;
     private static final TimeUnit DEFAULT_TIME_UNIT = TimeUnit.MINUTES;
-    private final RedisTemplate<String,String> template;
+    private final RedisTemplate<String, String> template;
 
     @Autowired
-    public RedisServiceImpl(RedisTemplate<String,String> template){
+    public RedisServiceImpl(RedisTemplate<String, String> template) {
         this.template = template;
     }
 
@@ -38,7 +38,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public void setToCache(String key, String value, long timeout) {
-        setToCache(key,value,timeout,DEFAULT_TIME_UNIT);
+        setToCache(key, value, timeout, DEFAULT_TIME_UNIT);
     }
 
     @Override
@@ -48,18 +48,18 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public <T> void setToCache(String key, T value) {
-        setToCache(key,value,DEFAULT_TIMEOUT,DEFAULT_TIME_UNIT);
+        setToCache(key, value, DEFAULT_TIMEOUT, DEFAULT_TIME_UNIT);
     }
 
     @Override
     public <T> void setToCache(String key, T value, long timeout) {
-        setToCache(key, value, timeout,DEFAULT_TIME_UNIT);
+        setToCache(key, value, timeout, DEFAULT_TIME_UNIT);
     }
 
     @Override
     public <T> void setToCache(String key, T value, long timeout, TimeUnit timeUnit) {
         String content = JSON.toJSONString(value);
-        setToCache(key,content,timeout,timeUnit);
+        setToCache(key, content, timeout, timeUnit);
     }
 
     @Override
@@ -79,7 +79,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public void expandExpireTime(String key, long timeout, TimeUnit timeUnit) {
-        template.boundValueOps(key).expire(timeout,timeUnit);
+        template.boundValueOps(key).expire(timeout, timeUnit);
     }
 
     @Override
@@ -94,26 +94,26 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public Boolean setBit(String key, long offset, boolean value) {
-        return template.opsForValue().setBit(key,offset,value);
+        return template.opsForValue().setBit(key, offset, value);
     }
 
     @Override
     public Boolean getBit(String key, long offset) {
-        return template.opsForValue().getBit(key,offset);
+        return template.opsForValue().getBit(key, offset);
     }
 
     @Override
-    public <T> void pushHash(String key, String field, T value){
+    public <T> void pushHash(String key, String field, T value) {
         template.boundHashOps(key).put(field, value);
     }
 
     @Override
-    public Object getHash(String key, String field){
+    public Object getHash(String key, String field) {
         return template.opsForHash().get(key, field);
     }
 
     @Override
-    public Long incrHash(String key, String field){
+    public Long incrHash(String key, String field) {
         return template.opsForHash().increment(key, field, 1);
     }
 

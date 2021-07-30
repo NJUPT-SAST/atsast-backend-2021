@@ -21,6 +21,7 @@ public enum CustomError {
     FAILED_VERIFICATION(4010, "验证未通过"),
     UN_LOGIN(4011, "未登录"),
     VERIFICATION_CODE_NOT_SENT(4012, "未发送验证码"),
+    CONTEST_CURR_ERROR(4500,"比赛状态错误"),
     MINIO_ERROR(5000, "minio出现错误");
 
 

@@ -39,7 +39,6 @@ public class Contest {
     private Byte maxInstructor;
     private String isTech;
     private Byte contestType;
-
     @Transient
     private List<Stage> stageTemps;
     private Integer stages;

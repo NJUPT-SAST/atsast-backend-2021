@@ -2,16 +2,20 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.exception.LocalRuntimeException;
 import com.sast.atSast.model.Contest;
+import com.sast.atSast.server.RedisServer;
+import com.sast.atSast.service.AccountService;
+import com.sast.atSast.service.ContestService;
+import com.sast.atSast.util.RandomString;
 import com.sast.atSast.model.Stage;
 import com.sast.atSast.pojo.JudgeContestEnd;
 import com.sast.atSast.pojo.JudgeCreateContest;
 import com.sast.atSast.pojo.StageShow;
 import com.sast.atSast.service.*;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,6 +36,9 @@ public class SuperadminController {
     private AccountService accountService;
 
     @Autowired
+    RedisServer redisServer = new RedisServer();
+
+    @Autowired
     private PictureService pictureService;
 
     @Autowired
@@ -42,6 +49,7 @@ public class SuperadminController {
 
     @Autowired
     private StageService stageService;
+
 
     /**
      * @return 所有比赛信息
@@ -71,7 +79,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/check/{contestId}")
     @ResponseBody
-    public int contestCheck(@PathVariable("contestId") long contestId, String comment, String result) {
+    public int contestCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
         int mark = Integer.parseInt(result);
         ModelAndView mv = new ModelAndView();
@@ -108,7 +116,7 @@ public class SuperadminController {
      */
     @RequestMapping(value = "/superadmin/import", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
-    public String export(MultipartFile file) throws IOException, LocalRuntimeException {
+    public String export(@RequestParam("file") MultipartFile file) throws IOException, LocalRuntimeException {
         accountService.readAccountExcel(file);
         return "success";
     }
@@ -117,8 +125,19 @@ public class SuperadminController {
     @GetMapping("/superadmin/invite")
     @ResponseBody
     public String invite() {
-        String url = " ";
-        return url;
+        String key = "key";
+        Jedis jedis = new Jedis(redisServer.getHost());
+        jedis.auth(redisServer.getPassword());
+
+        if (jedis.get(key) != null) {
+            return jedis.get(key);
+        }
+
+        String value = RandomString.getRandomString(8);
+        jedis.set(key, value);
+        jedis.expire(key, 60 * 30);
+
+        return value;
     }
 
     /**

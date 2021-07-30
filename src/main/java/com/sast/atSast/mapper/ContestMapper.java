@@ -13,6 +13,7 @@ import java.util.List;
  * @Date: 2021/4/20 13:48
  * @Description: 比赛管理相关，主要是contest表
  **/
+@Mapper
 @Repository
 public interface ContestMapper {
 
@@ -30,16 +31,22 @@ public interface ContestMapper {
 
     FileStd getFileMessageById(Long stageId, Long contestId);
 
-    List<Contest> getContestByCurr(@Param("curr")Integer curr);
-
     Contest getContestById(Long contestId);
 
     List<Contest> getContest();
 
-    void updateCurr(Long contestId, @Param("curr")Integer curr);
+    void updateJudge(Long judging, Long contestId);
+
+    void updateCurr(Long contestId, Integer curr);
 
     void updateComment(Long contestId, String comment);
 
-    void updateJudge(Long judging, Long contestId);
+    void updateJudge(Integer judging, long contestId);
+
+    List<Contest> getContestByCurr(Integer curr);
+
+    List<Contest> findAll();
+
+    Contest getInfoById(Long contestId);
 
 }

@@ -12,6 +12,7 @@ import java.util.List;
  * @author: cxy621
  * @create: 2021-07-17 22:14
  **/
+@Mapper
 @Repository
 public interface StageMapper {
 

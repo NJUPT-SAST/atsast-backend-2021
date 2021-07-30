@@ -2,7 +2,9 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.mapper.ContestMapper;
 import com.sast.atSast.service.AccountService;
+import com.sast.atSast.service.impl.ContestServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,12 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private ContestServiceImpl contestService;
+
+    @Autowired
+    private ContestMapper contestMapper;
 
     @GetMapping("/exception")
     public String except(){
@@ -37,20 +45,20 @@ public class AccountController {
     }
 
     @PostMapping("/user/register")
-    public String register(String email, String password, String role) {
-        accountService.register(email, password, role);
+    public String register(String email, String password, String role, String key) {
+        accountService.register(email, password, role, key);
         return "ok";
     }
 
     //发送验证码邮件
-    @PostMapping("/user/sendemail")
+    @PutMapping("/user/sendemail")
     public String sendVerificationCodeEmail() {
         accountService.sendVerificationCodeEmail();
         return "ok";
     }
 
     //判断验证码是否正确
-    @GetMapping("/user/judgecode")
+    @PostMapping("/user/judgecode")
     public boolean judgeVerificationCode(String inputVerificationCode) {
         return accountService.judgeVerificationCode(inputVerificationCode);
     }

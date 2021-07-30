@@ -2,27 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sast.atSast.mapper.AccountMapper">
     <insert id="insertAccount" useGeneratedKeys="true" keyProperty="uid">
-        insert into account (uid,email,password,`role`,salt)
-        values(#{uid},#{email},#{password},#{role},#{salt})
+        insert into account (uid, email, password, `role`, salt)
+        values (#{uid}, #{email}, #{password}, #{role}, #{salt})
     </insert>
     <insert id="importAccount" parameterType="com.sast.atSast.model.Account">
-        insert into account(email,password,role,salt) values(#{account.email},#{account.password},#{account.role},#{account.salt})
+        insert into account(email, password, role, salt)
+        values (#{account.email}, #{account.password}, #{account.role}, #{account.salt})
     </insert>
     <select id="selectAccountByEmail" resultType="com.sast.atSast.model.Account">
-        select uid,email,password,`role`,salt,enable from account where email=#{email} and enable=1
+        select uid, email, password, `role`, salt, enable
+        from account
+        where email = #{email}
+          and enable = 1
     </select>
     <select id="selectRolesByEmail" resultType="java.lang.String">
-        select email from account where email=#{email} and enable=1
+        select email
+        from account
+        where email = #{email}
+          and enable = 1
     </select>
     <update id="updatePasswordByEmail">
         update account
-        set password=#{password},salt=#{salt}
-        where email = #{email} and enable=1
+        set password=#{password},
+            salt=#{salt}
+        where email = #{email}
+          and enable = 1
     </update>
     <select id="findPasswordByEmail" resultType="java.lang.String">
-        select psssword from account where email=#{email} and enable=1
+        select psssword
+        from account
+        where email = #{email}
+          and enable = 1
     </select>
     <select id="listEmail" resultType="java.lang.String">
-        select email from account where enable=1
+        select email
+        from account
+        where enable = 1
     </select>
+    <update id="deleteAccountByUid">
+        update account
+        set enable=0
+        where uid = #{uid}
+    </update>
 </mapper>

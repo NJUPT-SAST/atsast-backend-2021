@@ -20,13 +20,13 @@ public class JudgesResultServiceImpl implements JudgesResultService {
     }
 
     @Override
-    public JudgesResult getResult(long teamId, long contestId, long judgeUid) {
-        return judgesResultMapper.getResult(teamId, contestId, judgeUid);
+    public List<JudgesResult> getResults(Long contestId){
+        return judgesResultMapper.getResults(contestId);
     }
 
     @Override
-    public List<JudgesResult> getResults(long contestId) {
-        return judgesResultMapper.getResults(contestId);
+    public JudgesResult getResult(long teamId, long contestId, long judgeUid) {
+        return judgesResultMapper.getResult(teamId,contestId,judgeUid);
     }
 
     @Override

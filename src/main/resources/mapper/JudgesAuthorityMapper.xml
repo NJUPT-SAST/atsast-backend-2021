@@ -15,5 +15,9 @@
         where uid = #{uid}
     </update>
 
+    <select id="getTeamIdsByUid" resultType="Long">
+        select team_id from atsast.judges_result where judge_uid=#{judgeUid} and enable=1
+    </select>
+
 </mapper>
 

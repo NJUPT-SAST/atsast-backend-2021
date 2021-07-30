@@ -10,10 +10,10 @@ public interface JudgesResultService {
 
     JudgesResult getResult(long teamId, long contestId, long judgeUid);
 
-    List<JudgesResult> getResults(long contestId);
-
     Integer getScore(JudgesResult judgesResult);
 
     void updateResult(JudgesResult judgesResult);
+
+    List<JudgesResult> getResults(Long contestId);
 
 }

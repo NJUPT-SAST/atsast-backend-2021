@@ -1,6 +1,8 @@
 package com.sast.atSast.controller;
 
 import com.sast.atSast.model.JudgeInfo;
+import com.sast.atSast.enums.CustomError;
+import com.sast.atSast.exception.LocalRuntimeException;
 import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
@@ -101,6 +103,13 @@ public class JudgeController {
     @ResponseBody
     @GetMapping("/judge/getcomment")
     public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
+
+        List<Long> list=judgesAuthorityService.getTeamIdsByUid(judgeUid);
+
+        if(!list.contains(teamId)){
+            throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
+        }
+
         JudgesResult judgesResult = judgesResultService.getResult(teamId, contestId, judgeUid);
         String comment = judgesResult.getComment();
         Integer scores = judgesResult.getScores();
