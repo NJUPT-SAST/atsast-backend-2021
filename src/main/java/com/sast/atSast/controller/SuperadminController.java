@@ -11,6 +11,7 @@ import com.sast.atSast.pojo.JudgeContestEnd;
 import com.sast.atSast.pojo.JudgeCreateContest;
 import com.sast.atSast.pojo.StageShow;
 import com.sast.atSast.service.*;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +58,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/list")
     @ResponseBody
+    @RequiresRoles("superadmin")
     public List<Contest> contestList() {
         return contestService.getContest();
     }
@@ -68,6 +70,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/detail/{id}")
     @ResponseBody
+    @RequiresRoles("superadmin")
     public Contest contestDetail(@PathVariable("id") Long id) {
         return contestService.getContestById(id);
     }
@@ -79,6 +82,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/check/{contestId}")
     @ResponseBody
+    @RequiresRoles("superadmin")
     public int contestCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
         int mark = Integer.parseInt(result);
@@ -98,6 +102,7 @@ public class SuperadminController {
      */
     @GetMapping("/superadmin/checkend/{contestId}")
     @ResponseBody
+    @RequiresRoles("superadmin")
     public int contestEndCheck(@PathVariable("contestId") Long contestId, String comment, String result) {
 
         int mark = Integer.parseInt(result);
@@ -116,6 +121,7 @@ public class SuperadminController {
      */
     @RequestMapping(value = "/superadmin/import", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
+    @RequiresRoles("superadmin")
     public String export(@RequestParam("file") MultipartFile file) throws IOException, LocalRuntimeException {
         accountService.readAccountExcel(file);
         return "success";
@@ -124,6 +130,7 @@ public class SuperadminController {
     //    生成邀请注册链接
     @GetMapping("/superadmin/invite")
     @ResponseBody
+    @RequiresRoles("superadmin")
     public String invite() {
         String key = "key";
         Jedis jedis = new Jedis(redisServer.getHost());
@@ -147,6 +154,7 @@ public class SuperadminController {
      */
     @ResponseBody
     @GetMapping("/superadmin/checkend")
+    @RequiresRoles("superadmin")
     public JudgeContestEnd getContestFiles(Long contestId) {
         JudgeContestEnd judgeContestEnd = new JudgeContestEnd();
         judgeContestEnd.setPictureUrls(Arrays.asList(pictureService.getUrlsById(contestId).split("#")));
@@ -163,6 +171,7 @@ public class SuperadminController {
      */
     @ResponseBody
     @GetMapping("/superadmin/check")
+    @RequiresRoles("superadmin")
     public JudgeCreateContest judgeContestBegin(Long contestId) {
         Contest contest = contestService.getContestById(contestId);
         JudgeCreateContest judgeCreateContest = new JudgeCreateContest();

@@ -6,6 +6,7 @@ import com.sast.atSast.model.Proposal;
 import com.sast.atSast.model.Stage;
 import com.sast.atSast.pojo.FileTemp;
 import com.sast.atSast.service.*;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,6 +40,7 @@ public class AdminController {
      * @description 前端传递json字符串，springboot中可以自动打包
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/createcontest")
     public String createContest(@RequestBody Contest contest) {
         contest.setStages(contest.getStageTemps().size());
@@ -55,6 +57,7 @@ public class AdminController {
      * @description 通过对应的比赛id，更新对应的推送链接
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/uploadlink")
     public String addpushLink(long contestId, String pushLink) {
         contestService.updatepushLink(contestId, pushLink);
@@ -67,6 +70,7 @@ public class AdminController {
      * @desription 上传视频url（单个）
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/uploadvideo")
     public String getVideo(long contestId, String videoUrl) {
         videoService.addVideo(contestId, videoUrl);
@@ -79,6 +83,7 @@ public class AdminController {
      * @desription 上传照片urls
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/updatepic")
     public String addPictures(long contestId, String picUrls) {
         pictureService.addPictures(contestId, picUrls);
@@ -90,6 +95,7 @@ public class AdminController {
      * @desription 管理员设定提交文件的各种信息
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/editfilestd")
     public String addFile(@RequestBody FileStd fileStd) {
         fileStdService.addFile(fileStd);
@@ -102,6 +108,7 @@ public class AdminController {
      * @desription 获取设定文件信息
      */
     @ResponseBody
+    @RequiresRoles("admin")
     @GetMapping("/admin/editfilestd")
     public FileTemp getFileMessageById(long stageId, long contestId) {
         FileStd fileStd = fileStdService.getFileMessageById(stageId, contestId);
@@ -110,6 +117,7 @@ public class AdminController {
 
 
     @ResponseBody
+    @RequiresRoles("admin")
     @PostMapping("/admin/addendfile")
     public String addProposalFile(@RequestBody Proposal proposal){
         proposalService.addProposalFile(proposal);

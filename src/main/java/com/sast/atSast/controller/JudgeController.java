@@ -11,6 +11,7 @@ import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.FileService;
 import com.sast.atSast.service.JudgesAuthorityService;
 import com.sast.atSast.service.JudgesResultService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,7 @@ public class JudgeController {
      */
     @ResponseBody
     @PostMapping("/admin/authority")
+    @RequiresRoles("judge")
     public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
         for (long teamId : judgesAuthority.getTeamIds()) {
             judgesAuthority.setTeamId(teamId);
@@ -53,6 +55,7 @@ public class JudgeController {
      */
     @ResponseBody
     @PostMapping("/judge/comment")
+    @RequiresRoles("judge")
     public String addResult(@RequestBody JudgesResult judgesResult) {
         judgesResultService.addResult(judgesResult);
         return "ok";
@@ -65,6 +68,7 @@ public class JudgeController {
      */
     @ResponseBody
     @GetMapping("/judge/list")
+    @RequiresRoles("judge")
     public Object[] getTeamById(long contestId) {
         List<TeamMember> teamMembers = contestService.getTeamById(contestId);
         List<TeamMemberTemp> teamMemberTemps = new ArrayList<>();
@@ -85,6 +89,7 @@ public class JudgeController {
      */
     @ResponseBody
     @GetMapping("/judge/getcomment")
+    @RequiresRoles("judge")
     public JudgeResultTemp getLastResult(long teamId, long contestId, long judgeUid) {
 
         List<Long> list=judgesAuthorityService.getTeamIdsByUid(judgeUid);

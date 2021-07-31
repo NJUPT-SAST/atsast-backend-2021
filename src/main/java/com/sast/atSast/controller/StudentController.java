@@ -6,6 +6,7 @@ import com.sast.atSast.model.StudentInfo;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.FileService;
 import com.sast.atSast.service.StudentInfoService;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class StudentController {
      */
     @ResponseBody
     @PostMapping("/user/selfinfo")
+    @RequiresRoles("student")
     public String addStudentInfo(@RequestBody StudentInfo studentInfo) {
         studentInfoService.addStudentInfo(studentInfo);
         return "ok";
@@ -46,6 +48,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/selfinfo")
+    @RequiresRoles("student")
     public StudentInfo getStudentInfoById(Long uid) {
         return studentInfoService.getStudentInfoById(uid);
     }
@@ -56,6 +59,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/contest/allinfo")
+    @RequiresRoles("student")
     public Contest getContestById(Long contestId) {
         return contestService.getContestById(contestId);
     }
@@ -66,6 +70,7 @@ public class StudentController {
      */
     @ResponseBody
     @GetMapping("/user/contestlist")
+    @RequiresRoles("student")
     public List<Contest> getAllContests() {
         return contestService.getContest();
     }
@@ -76,6 +81,7 @@ public class StudentController {
      */
     @ResponseBody
     @PostMapping("/user/addfiles")
+    @RequiresRoles("student")
     public String updateFiles(File file) {
         fileService.updateFiles(file);
         return "ok";

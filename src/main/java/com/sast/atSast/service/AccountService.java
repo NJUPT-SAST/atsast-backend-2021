@@ -17,8 +17,6 @@ public interface AccountService {
     void logout();
 
     void deleteAccountByUid(Long uid);
-
-    void register(String username, String password, String role);
     
     void register(String username, String password, String role, String key);
 

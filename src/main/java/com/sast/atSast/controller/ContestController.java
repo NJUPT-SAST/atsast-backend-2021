@@ -11,6 +11,7 @@ import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.ExcelService;
 import com.sast.atSast.service.RichtextService;
 import com.sast.atSast.service.impl.RichtextServiceImpl;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +39,7 @@ public class ContestController {
     private AccountMapper accountMapper;
 
     @PostMapping("/admin/edittext")
+    @RequiresRoles("admin")
     public String editText(Long contestId, Long stageId, String content) {
         if (richtextService.selectRichtext(contestId, stageId) != null) {
             richtextService.updateRichtext(contestId, stageId, content);
@@ -49,6 +51,7 @@ public class ContestController {
     }
 
     @GetMapping("/admin/edittext")
+    @RequiresRoles("admin")
     public String listText(Long contestId, Long stageId) {
         if (richtextService.selectRichtext(contestId, stageId) == null) {
             CustomError.RICH_TEXT_ERROR.setErrMsg("展示富文本信息失败");
@@ -58,38 +61,45 @@ public class ContestController {
     }
 
     @GetMapping("/admin/exportresult")
+    @RequiresRoles("admin")
     public String exportresult(@RequestParam("contestId") Long contestId) throws IOException {
         return excelService.exportResult(contestId);
     }
 
     @PostMapping("/admin/importresult")
+    @RequiresRoles("admin")
     public String importResult(MultipartFile file, Long contestId) {
         return excelService.importResult(file, contestId);
     }
 
     @PostMapping("/admin/judging")
+    @RequiresRoles("admin")
     public String changeJudge(Long judging, Long contestId) {
         contestService.updateJudge(judging, contestId);
         return "success";
     }
 
     @GetMapping("/admin/generate")
+    @RequiresRoles("admin")
     @ResponseBody
     public String generateList(Long contestId) throws IOException {
         return excelService.generateList(contestId);
     }
 
     @PostMapping("/admin/uploadlist")
+    @RequiresRoles("admin")
     public String uploadList(MultipartFile file, Long contestId) {
         return excelService.uploadList(contestId, file);
     }
 
     @PostMapping("/admin/importjudges")
+    @RequiresRoles("admin")
     public List<JugdeTemp> importjudges(MultipartFile file, Long contestId) {
         return excelService.importjudge(file, contestId);
     }
 
     @GetMapping("/admin/deletejudge")
+    @RequiresRoles("admin")
     public String deletejudges(Long uid) {
         accountMapper.deleteAccountByUid(uid);
         judgeInfoMapper.deleteJudge(uid);
@@ -97,6 +107,7 @@ public class ContestController {
     }
 
     @GetMapping("/admin/judgelist")
+    @RequiresRoles("admin")
     public List<JudgeInfo> listjudges(Long contestId) {
 
         Contest contest = contestService.getContestById(contestId);
