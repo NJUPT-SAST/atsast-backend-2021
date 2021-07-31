@@ -112,7 +112,7 @@ public class SuperadminController {
 
     /**
      * @return 成功则返回"success"
-     * @desription 导入Excel生成账号
+     * @desription 导入Excel生成管理员账号
      */
     @RequestMapping(value = "/superadmin/import", headers = "content-type=multipart/*", method = RequestMethod.POST)
     @ResponseBody
@@ -121,7 +121,11 @@ public class SuperadminController {
         return "success";
     }
 
-    //    生成邀请注册链接
+    /**
+     *
+     * @return 返回一个value 为一个随机字符串 前端携带用来注册使用
+     * @description 生成邀请注册链接
+     */
     @GetMapping("/superadmin/invite")
     @ResponseBody
     public String invite() {
