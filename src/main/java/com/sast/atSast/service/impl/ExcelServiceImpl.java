@@ -70,7 +70,7 @@ public class ExcelServiceImpl implements ExcelService {
     String passwordCheck = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
     Pattern pwdRegex = Pattern.compile(passwordCheck);
 
-
+  
     //导出评审结果
     @Override
     public String exportResult(Long contestId) throws IOException {
@@ -578,7 +578,7 @@ public class ExcelServiceImpl implements ExcelService {
                 Account account = new Account();
                 JudgeInfo judgeInfo = new JudgeInfo();
                 for (int cellNum = 0; cellNum < cellCount; cellNum++) {
-                    account.setUid(Long.parseLong("0"));
+                    account.setUid(0L);
                     account.setEnable((byte) 1);
 
                     Cell cell = null;
@@ -622,7 +622,7 @@ public class ExcelServiceImpl implements ExcelService {
                 }
 
                 temMap.put(judgeInfo.getJudgeId(), judgeInfo);
-                judgeInfo.setUid(Long.parseLong("0"));
+                judgeInfo.setUid(0L);
                 judgeInfo.setContestId(contestId);
                 judgeInfo.setJudgeStage("未开始");
                 account.setRole("评委");

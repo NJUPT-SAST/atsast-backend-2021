@@ -8,6 +8,15 @@
         values (#{teamId}, #{contestId}, #{judgeUid}, #{scores}, #{comment})
     </insert>
 
+    <update id="updateResult" parameterType="com.sast.atSast.model.JudgesResult">
+        update atsast.judges_result
+        set scores  = #{scores},
+            comment = #{comment}
+        where team_id = #{teamId}
+          and contest_id = #{contestId}
+          and judge_uid = #{judgeUid}
+    </update>
+
     <select id="getResult" resultType="com.sast.atSast.model.JudgesResult">
         select *
         from atsast.judges_result
@@ -15,11 +24,20 @@
           and contest_id = #{contestId}
           and judge_uid = #{judgeUid}
     </select>
+
     <select id="getResults" resultType="com.sast.atSast.model.JudgesResult">
         select *
         from atsast.judges_result
         where contest_id = #{contestId}
           and enable = 1
+    </select>
+
+    <select id="getScore" resultType="java.lang.Integer">
+        select scores
+        from atsast.judges_result
+        where team_id = #{teamId}
+          and contest_id = #{contestId}
+          and judge_uid = #{judgeUid}
     </select>
 
 </mapper>

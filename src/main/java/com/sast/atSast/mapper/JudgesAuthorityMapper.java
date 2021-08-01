@@ -17,6 +17,10 @@ public interface JudgesAuthorityMapper {
 
     void addAuthority(JudgesAuthority judgesAuthority);
 
+    void updateStageAfterAuthority(Long uid, Integer judgeTotal);
+  
     List<Long> getTeamIdsByUid(Long judgeUid);
+
+    List<Long> getJudgeUidsById(Long contestId);
 
 }

@@ -1,15 +1,14 @@
 package com.sast.atSast.controller;
 
-import com.sast.atSast.model.Contest;
-import com.sast.atSast.model.FileStd;
-import com.sast.atSast.model.Proposal;
-import com.sast.atSast.model.Stage;
+import com.sast.atSast.model.*;
 import com.sast.atSast.pojo.FileTemp;
 import com.sast.atSast.service.*;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @RestController
 public class AdminController {
@@ -35,6 +34,9 @@ public class AdminController {
     @Autowired
     private ProposalService proposalService;
 
+    @Autowired
+    private JudgeInfoService judgeInfoService;
+
     /**
      * @param contest 前端传递json字符串自动打包成对象
      * @description 前端传递json字符串，springboot中可以自动打包
@@ -59,20 +61,20 @@ public class AdminController {
     @ResponseBody
     @RequiresRoles("admin")
     @PostMapping("/admin/uploadlink")
-    public String addpushLink(long contestId, String pushLink) {
+    public String addpushLink(Long contestId, String pushLink) {
         contestService.updatepushLink(contestId, pushLink);
         return "ok";
     }
 
     /**
      * @param contestId 比赛id
-     * @param videoUrl 视频url
+     * @param videoUrl  视频url
      * @desription 上传视频url（单个）
      */
     @ResponseBody
     @RequiresRoles("admin")
     @PostMapping("/admin/uploadvideo")
-    public String getVideo(long contestId, String videoUrl) {
+    public String getVideo(Long contestId, String videoUrl) {
         videoService.addVideo(contestId, videoUrl);
         return "ok";
     }
@@ -85,7 +87,7 @@ public class AdminController {
     @ResponseBody
     @RequiresRoles("admin")
     @PostMapping("/admin/updatepic")
-    public String addPictures(long contestId, String picUrls) {
+    public String addPictures(Long contestId, String picUrls) {
         pictureService.addPictures(contestId, picUrls);
         return "ok";
     }
@@ -110,18 +112,44 @@ public class AdminController {
     @ResponseBody
     @RequiresRoles("admin")
     @GetMapping("/admin/editfilestd")
-    public FileTemp getFileMessageById(long stageId, long contestId) {
+    public FileTemp getFileMessageById(Long stageId, Long contestId) {
         FileStd fileStd = fileStdService.getFileMessageById(stageId, contestId);
         return new FileTemp(fileStd.getFileDescription(), fileStd.getFileLimit());
     }
 
-
+    /**
+     * @param proposal 报销材料的所需要的信息
+     * @description 提交报销材料
+     */
     @ResponseBody
     @RequiresRoles("admin")
     @PostMapping("/admin/addendfile")
-    public String addProposalFile(@RequestBody Proposal proposal){
+    public String addProposalFile(@RequestBody Proposal proposal) {
         proposalService.addProposalFile(proposal);
         return "ok";
+    }
+
+    /**
+     * @param judgeInfo 评委的具体信息
+     * @description 创建单个评委
+     */
+    @ResponseBody
+    @PostMapping("/admin/addsingle")
+    public String addSingleJudge(@RequestBody JudgeInfo judgeInfo) {
+        Long uid = judgeInfoService.getUidByEmail(judgeInfo.getEmail());
+        judgeInfo.setUid(uid);
+        judgeInfoService.addSingleJudge(judgeInfo);
+        return "ok";
+    }
+
+    /**
+     * @param contestId 比赛id
+     * @description 获得一个比赛所有的评委信息
+     */
+    @ResponseBody
+    @GetMapping("/admin/judgelist")
+    List<JudgeInfo> getJudgeInfo(Long contestId) {
+        return judgeInfoService.getJudgeInfo(contestId);
     }
 
 }

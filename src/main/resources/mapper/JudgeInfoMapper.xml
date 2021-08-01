@@ -26,6 +26,30 @@
         values (#{uid}, #{judgeName}, #{judgeId}, #{faculty}, #{email}, #{contestId})
     </insert>
 
+    <insert id="insertJudge" parameterType="com.sast.atSast.model.JudgeInfo">
+        insert into atsast.judge_info (judge_name, judge_id, uid, faculty, email, contest_id, judge_stage)
+        values (#{judgeInfo.judgeName}, #{judgeInfo.judgeId}, #{judgeInfo.uid}, #{judgeInfo.faculty},
+                #{judgeInfo.email}, #{judgeInfo.contestId}, #{judgeInfo.judgeStage})
+    </insert>
+
+    <update id="addJudgeCurr" parameterType="java.lang.Long">
+        update atsast.judge_info
+        set judge_curr = judge_curr + 1
+        where uid = #{uid}
+    </update>
+
+    <update id="deleteJudge" parameterType="java.lang.Long">
+        update atsast.judge_info
+        set enable = 0
+        where uid = #{uid}
+    </update>
+
+    <update id="updateJudgeStage" parameterType="java.lang.Long">
+        update atsast.judge_info
+        set judge_stage = '已结束'
+        where uid = #{uid}
+    </update>
+
     <select id="getJudgeInfo" resultType="com.sast.atSast.model.JudgeInfo">
         select *
         from atsast.judge_info
@@ -38,6 +62,12 @@
         select uid
         from atsast.account
         where email = #{email}
+    </select>
+
+    <select id="getJudgeInfoById" resultType="com.sast.atSast.model.JudgeInfo">
+        select *
+        from atsast.judge_info
+        where uid = #{uid}
     </select>
 
 </mapper>
