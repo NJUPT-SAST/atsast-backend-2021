@@ -71,6 +71,7 @@ public class ExcelServiceImpl implements ExcelService {
     Pattern pwdRegex = Pattern.compile(passwordCheck);
 
 
+    //导出评审结果
     @Override
     public String exportResult(Long contestId) throws IOException {
 
@@ -203,6 +204,7 @@ public class ExcelServiceImpl implements ExcelService {
         return url;
     }
 
+    //导入最终结果
     @Override
     public String importResult(MultipartFile file, Long contestId) {
         List<TeamMember> teamMembers = new LinkedList<>();
@@ -309,6 +311,7 @@ public class ExcelServiceImpl implements ExcelService {
         return "success";
     }
 
+    //生成签到表格
     @Override
     public String generateList(Long contestId) throws IOException {
 
