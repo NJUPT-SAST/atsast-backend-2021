@@ -8,14 +8,12 @@ public interface JudgesResultService {
 
     void addResult(JudgesResult judgesResult);
 
-    JudgesResult getResult(long teamId, long contestId, long judgeUid);
+    JudgesResult getResult(Long teamId, Long contestId, Long judgeUid);
 
-    List<JudgesResult> getResults(long contestId);
+    List<JudgesResult> getResults(Long contestId);
 
     Integer getScore(JudgesResult judgesResult);
 
     void updateResult(JudgesResult judgesResult);
-
-    List<JudgesResult> getResults(Long contestId);
 
 }

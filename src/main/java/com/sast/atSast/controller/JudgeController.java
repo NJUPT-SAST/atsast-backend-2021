@@ -68,7 +68,7 @@ public class JudgeController {
             Long uid = judgesResult.getJudgeUid();
             judgeInfoService.addJudgeCurr(uid);
             JudgeInfo judgeInfo = judgeInfoService.getJudgeInfoById(uid);
-            if (judgeInfo.getJudgeCurr().equals(judgeInfo.getJudgeTotal())){
+            if (judgeInfo.getJudgeCurr().equals(judgeInfo.getJudgeTotal())) {
                 judgeInfoService.updateJudgeStage(uid);
                 return "队伍已全部评分完毕";
             }
@@ -111,9 +111,9 @@ public class JudgeController {
     @RequiresRoles("judge")
     public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
 
-        List<Long> list=judgesAuthorityService.getTeamIdsByUid(judgeUid);
+        List<Long> list = judgesAuthorityService.getTeamIdsByUid(judgeUid);
 
-        if(!list.contains(teamId)){
+        if (!list.contains(teamId)) {
             throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
         }
 
@@ -122,6 +122,21 @@ public class JudgeController {
         Integer scores = judgesResult.getScores();
         List<String> url = Arrays.asList(fileService.getFileUrls(teamId).split("#"));
         return new JudgeResultTemp(comment, scores, url);
+    }
+
+    @GetMapping("/judge/right")
+    @RequiresRoles("judge")
+    public String getJudgeUidById(Long contestId, Long judgeUid) {
+        List<Long> uids = judgesAuthorityService.getJudgeUidsById(contestId);
+        if (uids == null) {
+            throw new LocalRuntimeException(CustomError.NO_JUDGES);
+        }
+        for (Long uid : uids) {
+            if (uid.equals(judgeUid)) {
+                return "ok";
+            }
+        }
+        throw new LocalRuntimeException(CustomError.NO_RIGHTS);
     }
 
 }

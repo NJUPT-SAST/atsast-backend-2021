@@ -20,13 +20,18 @@ public class JudgesAuthorityServiceImpl implements JudgesAuthorityService {
     }
 
     @Override
-    public List<Long> getTeamIdsByUid(Long judgeUid){
+    public List<Long> getTeamIdsByUid(Long judgeUid) {
         return judgesAuthorityMapper.getTeamIdsByUid(judgeUid);
     }
 
     @Override
     public void updateStageAfterAuthority(Long uid, Integer judgeTotal) {
         judgesAuthorityMapper.updateStageAfterAuthority(uid, judgeTotal);
+    }
+
+    @Override
+    public List<Long> getJudgeUidsById(Long contestId) {
+        return judgesAuthorityMapper.getJudgeUidsById(contestId);
     }
 
 }

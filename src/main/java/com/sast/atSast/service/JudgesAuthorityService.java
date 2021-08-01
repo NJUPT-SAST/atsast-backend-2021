@@ -12,6 +12,6 @@ public interface JudgesAuthorityService {
 
     List<Long> getTeamIdsByUid(Long judgeUid);
 
-    void updateStageAfterAuthority(Long uid, Integer judgeTotal);
+    List<Long> getJudgeUidsById(Long contestId);
 
 }

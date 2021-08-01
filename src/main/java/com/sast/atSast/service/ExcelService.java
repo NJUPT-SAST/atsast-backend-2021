@@ -26,7 +26,4 @@ public interface ExcelService {
     //导入名单报名
     String uploadList(Long contestId, MultipartFile file);
 
-    //导入名单 生成评委账号
-    String importJudge(MultipartFile file, long contestId);
-
 }

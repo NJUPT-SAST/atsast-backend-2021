@@ -129,6 +129,10 @@ public class AdminController {
         return "ok";
     }
 
+    /**
+     * @param judgeInfo 评委的具体信息
+     * @description 创建单个评委
+     */
     @ResponseBody
     @PostMapping("/admin/addsingle")
     public String addSingleJudge(@RequestBody JudgeInfo judgeInfo) {
@@ -138,6 +142,10 @@ public class AdminController {
         return "ok";
     }
 
+    /**
+     * @param contestId 比赛id
+     * @description 获得一个比赛所有的评委信息
+     */
     @ResponseBody
     @GetMapping("/admin/judgelist")
     List<JudgeInfo> getJudgeInfo(Long contestId) {
