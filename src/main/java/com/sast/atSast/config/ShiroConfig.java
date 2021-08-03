@@ -23,10 +23,10 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager){
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
 //        map.put("/user/login","anon");//anon表示公共资源
 //        map.put("/user/register","anon");//anon表示公共资源
 //        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
@@ -42,15 +42,16 @@ public class ShiroConfig {
 
         return shiroFilterFactoryBean;
     }
+
     @Bean
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm){
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
 
     @Bean
-    public Realm getRealm(){
+    public Realm getRealm() {
         AccountRealm accountRealm = new AccountRealm();
 
         //修改凭证匹配器

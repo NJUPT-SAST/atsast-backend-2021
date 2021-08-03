@@ -88,7 +88,7 @@ public class JudgeController {
     @ResponseBody
     @GetMapping("/judge/list")
     @RequiresRoles("judge")
-    public Object[] getTeamById(long contestId) {
+    public Object[] getTeamById(Long contestId) {
         List<TeamMember> teamMembers = contestService.getTeamById(contestId);
         List<TeamMemberTemp> teamMemberTemps = new ArrayList<>();
         for (TeamMember teamMember : teamMembers) {
