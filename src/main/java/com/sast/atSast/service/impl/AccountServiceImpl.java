@@ -57,10 +57,11 @@ public class AccountServiceImpl implements AccountService {
     Pattern pwdRegex = Pattern.compile(passwordCheck);
 
     @Override
-    public void login(String email, String password) {
+    public String login(String email, String password) {
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(new UsernamePasswordToken(email, password));
+            return accountMapper.selectRoleByEmail(email);
         } catch (UnknownAccountException e) {
             throw new LocalRuntimeException(CustomError.UNKNOWN_ACCOUNT);
         } catch (IncorrectCredentialsException e) {
