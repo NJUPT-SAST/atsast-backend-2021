@@ -8,8 +8,24 @@
         values (#{teamId}, #{judgeUid}, #{contestId})
     </insert>
 
+    <update id="updateStageAfterAuthority">
+        update atsast.judge_info
+        set judge_total = #{judgeTotal},
+            judge_stage = '评审中'
+        where uid = #{uid}
+    </update>
+
     <select id="getTeamIdsByUid" resultType="Long">
-        select team_id from atsast.judges_result where judge_uid=#{judgeUid} and enable=1
+        select team_id
+        from atsast.judges_result
+        where judge_uid = #{judgeUid}
+          and enable = 1
+    </select>
+
+    <select id="getJudgeUidsById" resultType="java.lang.Long">
+        select distinct judge_uid
+        from atsast.judges_authority
+        where contest_id = #{contestId}
     </select>
 
 </mapper>

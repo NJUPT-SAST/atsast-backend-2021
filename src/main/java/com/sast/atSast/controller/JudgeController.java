@@ -2,15 +2,13 @@ package com.sast.atSast.controller;
 
 import com.sast.atSast.enums.CustomError;
 import com.sast.atSast.exception.LocalRuntimeException;
+import com.sast.atSast.model.JudgeInfo;
 import com.sast.atSast.model.JudgesAuthority;
 import com.sast.atSast.model.JudgesResult;
 import com.sast.atSast.model.TeamMember;
 import com.sast.atSast.pojo.JudgeResultTemp;
 import com.sast.atSast.pojo.TeamMemberTemp;
-import com.sast.atSast.service.ContestService;
-import com.sast.atSast.service.FileService;
-import com.sast.atSast.service.JudgesAuthorityService;
-import com.sast.atSast.service.JudgesResultService;
+import com.sast.atSast.service.*;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +32,9 @@ public class JudgeController {
     @Autowired
     FileService fileService;
 
+    @Autowired
+    JudgeInfoService judgeInfoService;
+
     /**
      * @param judgesAuthority 传来的json自动打包成对象
      * @desription 评委授权
@@ -42,10 +43,14 @@ public class JudgeController {
     @PostMapping("/admin/authority")
     @RequiresRoles("judge")
     public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
-        for (long teamId : judgesAuthority.getTeamIds()) {
+        for (Long teamId : judgesAuthority.getTeamIds()) {
             judgesAuthority.setTeamId(teamId);
             judgesAuthorityService.addAuthority(judgesAuthority);
         }
+
+        Long uid = judgesAuthority.getJudgeUid();
+        Integer judgeTotal = judgesAuthority.getTeamIds().size();
+        judgesAuthorityService.updateStageAfterAuthority(uid, judgeTotal);
         return "ok";
     }
 
@@ -57,7 +62,21 @@ public class JudgeController {
     @PostMapping("/judge/comment")
     @RequiresRoles("judge")
     public String addResult(@RequestBody JudgesResult judgesResult) {
-        judgesResultService.addResult(judgesResult);
+        if (judgesResultService.getScore(judgesResult) == null) {
+            judgesResultService.addResult(judgesResult);
+
+            Long uid = judgesResult.getJudgeUid();
+            judgeInfoService.addJudgeCurr(uid);
+            JudgeInfo judgeInfo = judgeInfoService.getJudgeInfoById(uid);
+            if (judgeInfo.getJudgeCurr().equals(judgeInfo.getJudgeTotal())) {
+                judgeInfoService.updateJudgeStage(uid);
+                return "队伍已全部评分完毕";
+            }
+
+        } else {
+            judgesResultService.updateResult(judgesResult);
+        }
+
         return "ok";
     }
 
@@ -90,11 +109,11 @@ public class JudgeController {
     @ResponseBody
     @GetMapping("/judge/getcomment")
     @RequiresRoles("judge")
-    public JudgeResultTemp getLastResult(long teamId, long contestId, long judgeUid) {
+    public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
 
-        List<Long> list=judgesAuthorityService.getTeamIdsByUid(judgeUid);
+        List<Long> list = judgesAuthorityService.getTeamIdsByUid(judgeUid);
 
-        if(!list.contains(teamId)){
+        if (!list.contains(teamId)) {
             throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
         }
 
@@ -103,6 +122,21 @@ public class JudgeController {
         Integer scores = judgesResult.getScores();
         List<String> url = Arrays.asList(fileService.getFileUrls(teamId).split("#"));
         return new JudgeResultTemp(comment, scores, url);
+    }
+
+    @GetMapping("/judge/right")
+    @RequiresRoles("judge")
+    public String getJudgeUidById(Long contestId, Long judgeUid) {
+        List<Long> uids = judgesAuthorityService.getJudgeUidsById(contestId);
+        if (uids == null) {
+            throw new LocalRuntimeException(CustomError.NO_JUDGES);
+        }
+        for (Long uid : uids) {
+            if (uid.equals(judgeUid)) {
+                return "ok";
+            }
+        }
+        throw new LocalRuntimeException(CustomError.NO_RIGHTS);
     }
 
 }
