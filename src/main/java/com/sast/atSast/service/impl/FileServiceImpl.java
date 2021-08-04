@@ -23,9 +23,4 @@ public class FileServiceImpl implements FileService {
         fileMapper.updateFiles(file);
     }
 
-    @Override
-    public String getFileUrls(long teamId) {
-        return fileMapper.getFileUrls(teamId);
-    }
-
 }

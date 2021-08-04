@@ -8,8 +8,6 @@ package com.sast.atSast.service;
  **/
 public interface PictureService {
 
-    void addPictures(long contestId, String picPath);
-
-    String getUrlsById(Long contestId);
+    void addPictures(Long contestId, String picPath);
 
 }

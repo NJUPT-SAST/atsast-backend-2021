@@ -12,6 +12,4 @@ public interface FileService {
 
     void updateFiles(File file);
 
-    String getFileUrls(long teamId);
-
 }

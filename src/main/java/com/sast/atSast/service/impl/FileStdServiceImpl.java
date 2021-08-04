@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class FileStdServiceImpl implements FileStdService {
 
     @Autowired
-    ContestMapper contestMapper;
+    private ContestMapper contestMapper;
 
     @Override
     public void addFile(FileStd fileStd) {

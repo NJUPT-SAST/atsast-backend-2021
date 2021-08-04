@@ -18,7 +18,7 @@ import java.util.List;
 public class StudentInfoServiceImpl implements StudentInfoService {
 
     @Autowired
-    StudentInfoMapper studentInfoMapper;
+    private StudentInfoMapper studentInfoMapper;
 
     @Override
     public void addStudentInfo(StudentInfo studentInfo) {

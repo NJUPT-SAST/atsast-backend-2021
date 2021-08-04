@@ -6,8 +6,6 @@ import com.sast.atSast.service.StageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @program: ATSAST
  * @description: 业务层实现
@@ -23,11 +21,6 @@ public class StageServiceImpl implements StageService {
     @Override
     public void createStage(Stage stage) {
         stageMapper.createStage(stage);
-    }
-
-    @Override
-    public List<Stage> getStagesById(Long contestId) {
-        return stageMapper.getStagesById(contestId);
     }
 
 }

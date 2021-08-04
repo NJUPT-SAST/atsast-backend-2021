@@ -28,6 +28,7 @@ public class AccountRealm extends AuthorizingRealm {
     @Autowired
     private AccountService accountService;
 
+    //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String primaryPrincipal = (String) principals.getPrimaryPrincipal();
@@ -37,10 +38,12 @@ public class AccountRealm extends AuthorizingRealm {
             roles.forEach(role->{
                 simpleAuthorizationInfo.addRole(role);
             });
+
         }
         return null;
     }
 
+    //认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         String principal = (String) token.getPrincipal();//得到账号（邮箱）

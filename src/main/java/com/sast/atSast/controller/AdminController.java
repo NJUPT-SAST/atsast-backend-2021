@@ -17,9 +17,6 @@ public class AdminController {
     private ContestService contestService;
 
     @Autowired
-    private StageService stageService;
-
-    @Autowired
     private VideoService videoService;
 
     @Autowired
@@ -45,11 +42,7 @@ public class AdminController {
     @RequiresRoles("admin")
     @PostMapping("/admin/createcontest")
     public String createContest(@RequestBody Contest contest) {
-        contest.setStages(contest.getStageTemps().size());
         contestService.createContest(contest);
-        for (Stage stage : contest.getStageTemps()) {
-            stageService.createStage(stage);
-        }
         return "ok";
     }
 

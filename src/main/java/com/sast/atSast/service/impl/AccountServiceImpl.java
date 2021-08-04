@@ -42,13 +42,13 @@ import java.util.regex.Pattern;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    AccountMapper accountMapper;
+    private AccountMapper accountMapper;
 
     @Autowired
-    EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
-    RedisService redisService;
+    private RedisService redisService;
 
     String check = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
     Pattern emailRegex = Pattern.compile(check);

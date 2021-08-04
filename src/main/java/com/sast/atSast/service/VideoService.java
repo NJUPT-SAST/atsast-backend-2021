@@ -2,8 +2,6 @@ package com.sast.atSast.service;
 
 public interface VideoService {
 
-    void addVideo(long contestId, String videoPath);
-
-    String getUrlById(Long contestId);
+    void addVideo(Long contestId, String videoPath);
 
 }

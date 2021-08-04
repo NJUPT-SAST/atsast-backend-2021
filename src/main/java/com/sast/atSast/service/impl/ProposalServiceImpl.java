@@ -16,16 +16,11 @@ import org.springframework.stereotype.Service;
 public class ProposalServiceImpl implements ProposalService {
 
     @Autowired
-    ProposalMapper proposalMapper;
+    private ProposalMapper proposalMapper;
 
     @Override
     public void addProposalFile(Proposal proposal) {
         proposalMapper.addProposalFile(proposal);
-    }
-
-    @Override
-    public String getProposalById(Long contestId) {
-        return proposalMapper.getProposalById(contestId);
     }
 
 }

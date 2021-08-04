@@ -15,16 +15,11 @@ import org.springframework.stereotype.Service;
 public class PictureServiceImpl implements PictureService {
 
     @Autowired
-    PictureMapper pictureMapper;
+    private PictureMapper pictureMapper;
 
     @Override
-    public void addPictures(long contestId, String picPath) {
+    public void addPictures(Long contestId, String picPath) {
         pictureMapper.addPictures(contestId, picPath);
-    }
-
-    @Override
-    public String getUrlsById(Long contestId) {
-        return pictureMapper.getUrlsById(contestId);
     }
 
 }

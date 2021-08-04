@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,6 +21,7 @@ import java.util.Map;
  **/
 @Configuration
 public class ShiroConfig {
+
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -36,7 +36,7 @@ public class ShiroConfig {
         //使用自定义的过滤器
         Map<String, Filter> customizeMap = new HashMap<>();
         customizeMap.put("authc", new ShiroFormAuthenticationFilter());
-        customizeMap.put("roles", new ShiroRolesAuthorizationFilter());
+        customizeMap.put("roles", new ShiroRolesAuthorizationFilter());// role 表示必须具有某个角色权限才能访问
         // 添加自定义的过滤器
         shiroFilterFactoryBean.setFilters(customizeMap);
 
