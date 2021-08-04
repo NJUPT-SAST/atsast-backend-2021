@@ -9,16 +9,11 @@ import org.springframework.stereotype.Service;
 public class VideoServiceImpl implements VideoService {
 
     @Autowired
-    VideoMapper videoMapper;
+    private VideoMapper videoMapper;
 
     @Override
-    public void addVideo(long contestId, String videoPath) {
+    public void addVideo(Long contestId, String videoPath) {
         videoMapper.addVideo(contestId, videoPath);
-    }
-
-    @Override
-    public String getUrlById(Long contestId) {
-        return videoMapper.getUrlById(contestId);
     }
 
 }

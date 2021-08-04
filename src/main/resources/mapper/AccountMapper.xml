@@ -16,7 +16,7 @@
           and enable = 1
     </select>
     <select id="selectRolesByEmail" resultType="java.lang.String">
-        select email
+        select role
         from account
         where email = #{email}
           and enable = 1
@@ -29,7 +29,7 @@
           and enable = 1
     </update>
     <select id="findPasswordByEmail" resultType="java.lang.String">
-        select psssword
+        select password
         from account
         where email = #{email}
           and enable = 1

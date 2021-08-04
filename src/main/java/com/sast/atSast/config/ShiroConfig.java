@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -22,11 +21,12 @@ import java.util.Map;
  **/
 @Configuration
 public class ShiroConfig {
+
     @Bean
-    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager){
+    public ShiroFilterFactoryBean getShiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
 //        map.put("/user/login","anon");//anon表示公共资源
 //        map.put("/user/register","anon");//anon表示公共资源
 //        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
@@ -36,21 +36,22 @@ public class ShiroConfig {
         //使用自定义的过滤器
         Map<String, Filter> customizeMap = new HashMap<>();
         customizeMap.put("authc", new ShiroFormAuthenticationFilter());
-        customizeMap.put("roles", new ShiroRolesAuthorizationFilter());
+        customizeMap.put("roles", new ShiroRolesAuthorizationFilter());// role 表示必须具有某个角色权限才能访问
         // 添加自定义的过滤器
         shiroFilterFactoryBean.setFilters(customizeMap);
 
         return shiroFilterFactoryBean;
     }
+
     @Bean
-    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm){
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(Realm realm) {
         DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager();
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
 
     @Bean
-    public Realm getRealm(){
+    public Realm getRealm() {
         AccountRealm accountRealm = new AccountRealm();
 
         //修改凭证匹配器

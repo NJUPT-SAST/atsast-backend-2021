@@ -43,100 +43,58 @@ public class JudgeController {
     @PostMapping("/admin/authority")
     @RequiresRoles("judge")
     public String addAuthority(@RequestBody JudgesAuthority judgesAuthority) {
-        for (Long teamId : judgesAuthority.getTeamIds()) {
-            judgesAuthority.setTeamId(teamId);
-            judgesAuthorityService.addAuthority(judgesAuthority);
-        }
-
-        Long uid = judgesAuthority.getJudgeUid();
-        Integer judgeTotal = judgesAuthority.getTeamIds().size();
-        judgesAuthorityService.updateStageAfterAuthority(uid, judgeTotal);
+        judgesAuthorityService.addAuthority(judgesAuthority);
         return "ok";
     }
 
     /**
      * @param judgesResult 添加授权结果
+     * @return 如果没有全部完成返回 "ok"，全部完成返回 “队伍已全部评分完毕”
      * @desription 评委打分
      */
     @ResponseBody
     @PostMapping("/judge/comment")
     @RequiresRoles("judge")
     public String addResult(@RequestBody JudgesResult judgesResult) {
-        if (judgesResultService.getScore(judgesResult) == null) {
-            judgesResultService.addResult(judgesResult);
-
-            Long uid = judgesResult.getJudgeUid();
-            judgeInfoService.addJudgeCurr(uid);
-            JudgeInfo judgeInfo = judgeInfoService.getJudgeInfoById(uid);
-            if (judgeInfo.getJudgeCurr().equals(judgeInfo.getJudgeTotal())) {
-                judgeInfoService.updateJudgeStage(uid);
-                return "队伍已全部评分完毕";
-            }
-
-        } else {
-            judgesResultService.updateResult(judgesResult);
-        }
-
-        return "ok";
+        return judgesResultService.addResult(judgesResult);
     }
 
     /**
      * @param contestId 比赛id
-     * @return 所有符合比赛id的队伍名和id
+     * @return 给前端返回一个队伍的队伍名和 id 的列表
      * @desription 评审列表
      */
     @ResponseBody
     @GetMapping("/judge/list")
     @RequiresRoles("judge")
-    public Object[] getTeamById(long contestId) {
-        List<TeamMember> teamMembers = contestService.getTeamById(contestId);
-        List<TeamMemberTemp> teamMemberTemps = new ArrayList<>();
-        for (TeamMember teamMember : teamMembers) {
-            String name = teamMember.getTeamName();
-            long id = teamMember.getTeamId();
-            TeamMemberTemp teamMemberTemp = new TeamMemberTemp(name, id);
-            teamMemberTemps.add(teamMemberTemp);
-        }
-        return teamMemberTemps.toArray();
+    public Object[] getJudgeList(Long contestId) {
+        return contestService.getJudgeList(contestId);
     }
 
     /**
      * @param teamId    队伍id
      * @param contestId 比赛id
      * @param judgeUid  评委uid
+     * @return 返回一个 pojo 中的类
      * @desription 获取队伍评分
      */
     @ResponseBody
     @GetMapping("/judge/getcomment")
     @RequiresRoles("judge")
     public JudgeResultTemp getLastResult(Long teamId, Long contestId, Long judgeUid) {
-
-        List<Long> list = judgesAuthorityService.getTeamIdsByUid(judgeUid);
-
-        if (!list.contains(teamId)) {
-            throw new LocalRuntimeException(CustomError.PERMISSION_DENY);
-        }
-
-        JudgesResult judgesResult = judgesResultService.getResult(teamId, contestId, judgeUid);
-        String comment = judgesResult.getComment();
-        Integer scores = judgesResult.getScores();
-        List<String> url = Arrays.asList(fileService.getFileUrls(teamId).split("#"));
-        return new JudgeResultTemp(comment, scores, url);
+        return judgesAuthorityService.getLastResult(teamId, contestId, judgeUid);
     }
 
+    /**
+     * @param contestId 比赛 id
+     * @param judgeUid  评委 uid
+     * @return 如果正常返回 ok，否则提出报错
+     * @description 判断该评委是否有评论这个队伍的权限
+     */
     @GetMapping("/judge/right")
     @RequiresRoles("judge")
-    public String getJudgeUidById(Long contestId, Long judgeUid) {
-        List<Long> uids = judgesAuthorityService.getJudgeUidsById(contestId);
-        if (uids == null) {
-            throw new LocalRuntimeException(CustomError.NO_JUDGES);
-        }
-        for (Long uid : uids) {
-            if (uid.equals(judgeUid)) {
-                return "ok";
-            }
-        }
-        throw new LocalRuntimeException(CustomError.NO_RIGHTS);
+    public String JudgeAuthority(Long contestId, Long judgeUid) {
+        return judgesAuthorityService.JudgeAuthority(contestId, judgeUid);
     }
 
 }

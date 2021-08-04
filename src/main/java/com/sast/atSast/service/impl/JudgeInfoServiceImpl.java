@@ -20,7 +20,7 @@ import java.util.List;
 public class JudgeInfoServiceImpl implements JudgeInfoService {
 
     @Autowired
-    JudgeInfoMapper judgeInfoMapper;
+    private JudgeInfoMapper judgeInfoMapper;
 
     public void insertJudge(JudgeInfo judgeInfo) {
         judgeInfoMapper.insertJudge(judgeInfo);

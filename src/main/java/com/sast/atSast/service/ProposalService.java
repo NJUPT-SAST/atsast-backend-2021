@@ -12,6 +12,4 @@ public interface ProposalService {
 
     void addProposalFile(Proposal proposal);
 
-    String getProposalById(Long contestId);
-
 }

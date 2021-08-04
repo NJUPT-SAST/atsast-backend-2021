@@ -2,6 +2,8 @@ package com.sast.atSast.service;
 
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.pojo.JudgeContestEnd;
+import com.sast.atSast.pojo.JudgeCreateContest;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public interface ContestService {
 
     String getpushLinkById(Long contestId);
 
-    List<TeamMember> getTeamById(Long contestId);
+    Object[] getJudgeList(Long contestId);
 
     List<Contest> getContestByCurr(Integer curr);
 
@@ -28,5 +30,9 @@ public interface ContestService {
     Contest getContestById(Long contestId);
 
     String getfileUrlById(Long contestId);
+
+    JudgeCreateContest judgeContestBegin(Long contestId);
+
+    JudgeContestEnd getContestFiles(Long contestId);
 
 }

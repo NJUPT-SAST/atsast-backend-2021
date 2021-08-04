@@ -39,19 +39,6 @@ public class SuperadminController {
     @Autowired
     RedisServer redisServer = new RedisServer();
 
-    @Autowired
-    private PictureService pictureService;
-
-    @Autowired
-    private VideoService videoService;
-
-    @Autowired
-    private ProposalService proposalService;
-
-    @Autowired
-    private StageService stageService;
-
-
     /**
      * @return 所有比赛信息
      * @desription 列出所有状态的比赛
@@ -128,7 +115,6 @@ public class SuperadminController {
     }
 
     /**
-     *
      * @return 返回一个value 为一个随机字符串 前端携带用来注册使用
      * @description 生成邀请注册链接
      */
@@ -160,57 +146,19 @@ public class SuperadminController {
     @GetMapping("/superadmin/checkend")
     @RequiresRoles("superadmin")
     public JudgeContestEnd getContestFiles(Long contestId) {
-        JudgeContestEnd judgeContestEnd = new JudgeContestEnd();
-        judgeContestEnd.setPictureUrls(Arrays.asList(pictureService.getUrlsById(contestId).split("#")));
-        judgeContestEnd.setVideoUrl(videoService.getUrlById(contestId));
-        judgeContestEnd.setPushLinkUrls(Arrays.asList(contestService.getpushLinkById(contestId).split("#")));
-        judgeContestEnd.setProposalUrl(proposalService.getProposalById(contestId));
-        return judgeContestEnd;
+        return contestService.getContestFiles(contestId);
     }
 
     /**
      * @param contestId 比赛id
-     * @return 返回比赛信息、状态信息
+     * @return 返回管理创建的比赛的所有信息
      * @desription 超管审批管理员创建的比赛
      */
     @ResponseBody
     @GetMapping("/superadmin/check")
     @RequiresRoles("superadmin")
     public JudgeCreateContest judgeContestBegin(Long contestId) {
-        Contest contest = contestService.getContestById(contestId);
-        JudgeCreateContest judgeCreateContest = new JudgeCreateContest();
-        judgeCreateContest.setContestName(contest.getContestName());
-        judgeCreateContest.setDescription(contest.getDescription());
-        judgeCreateContest.setContestOrganizer(contest.getContestOrganizer());
-        judgeCreateContest.setContestHost(contest.getContestHost());
-        judgeCreateContest.setContestHelper(contest.getContestHelper());
-        judgeCreateContest.setIsTeam(contest.getIsTeam());
-        judgeCreateContest.setTeamGroup(contest.getTeamGroup());
-        judgeCreateContest.setJoinGrade(contest.getJoinGrade());
-        judgeCreateContest.setIsInstructor(contest.getIsInstructor());
-        judgeCreateContest.setWorkCategory(contest.getWorkCategory());
-        judgeCreateContest.setSubjectCategory(contest.getSubjectCategory());
-        judgeCreateContest.setFileUrl(contest.getFileUrl());
-        judgeCreateContest.setBanners(Arrays.asList(contest.getBanners().split("#")));
-        judgeCreateContest.setMinMember(contest.getMinMember());
-        judgeCreateContest.setMaxMember(contest.getMaxMember());
-        judgeCreateContest.setMinInstructor(contest.getMinInstructor());
-        judgeCreateContest.setMaxInstructor(contest.getMaxInstructor());
-
-        List<Stage> stages = stageService.getStagesById(contestId);
-        List<StageShow> stageShows = new ArrayList<>();
-
-        for (Stage stage : stages) {
-            StageShow stageShow = new StageShow();
-            stageShow.setStageName(stage.getStageName());
-            stageShow.setStageType(stage.getStageType());
-            stageShow.setStageBegin(stage.getStageBegin());
-            stageShow.setStageEnd(stage.getStageEnd());
-            stageShows.add(stageShow);
-        }
-        judgeCreateContest.setStages(stageShows);
-
-        return judgeCreateContest;
+        return contestService.judgeContestBegin(contestId);
     }
 
 }
