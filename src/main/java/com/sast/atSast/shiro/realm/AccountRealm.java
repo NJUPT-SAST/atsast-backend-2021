@@ -35,10 +35,8 @@ public class AccountRealm extends AuthorizingRealm {
         List<String> roles = accountService.findRolesByEmail(primaryPrincipal);
         if(!CollectionUtils.isEmpty(roles)){
             SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-            roles.forEach(role->{
-                simpleAuthorizationInfo.addRole(role);
-            });
-
+            roles.forEach(simpleAuthorizationInfo::addRole);
+            return simpleAuthorizationInfo;
         }
         return null;
     }
