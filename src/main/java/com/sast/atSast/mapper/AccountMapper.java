@@ -35,4 +35,5 @@ public interface AccountMapper {
 
     Long selectUidByEmail(String email);
 
+    String selectRoleByEmail(@Param("email") String email);
 }

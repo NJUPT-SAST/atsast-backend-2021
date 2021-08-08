@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 登陆相关逻辑接口
  **/
 public interface AccountService {
-    void login(String username, String password);
+    String login(String username, String password);
 
     void logout();
 
