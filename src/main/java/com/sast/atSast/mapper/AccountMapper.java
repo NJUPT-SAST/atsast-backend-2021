@@ -14,6 +14,7 @@ import java.util.List;
 @Mapper
 @Repository
 public interface AccountMapper {
+
     void insertAccount(Account account);
 
     void deleteAccountByUid(Long uid);
@@ -29,4 +30,9 @@ public interface AccountMapper {
     void importAccount(@Param("account") Account account);
 
     List<String> listEmail();
+
+    String selectEmailById(Long uid);
+
+    Long selectUidByEmail(String email);
+
 }

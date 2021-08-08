@@ -109,6 +109,12 @@
         where enable = 1
     </select>
 
+    <select id="getStageById" resultType="com.sast.atSast.pojo.ContestStage">
+        select s.*, file_path, f.file_description, f.file_limit
+        from atsast.stage as s
+                 LEFT JOIN atsast.file_std as f ON s.stage_id = f.stage_id
+        where s.contest_id = #{contestId}
+    </select>
 
 </mapper>
 

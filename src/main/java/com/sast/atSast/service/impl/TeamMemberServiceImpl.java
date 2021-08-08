@@ -6,6 +6,7 @@ import com.sast.atSast.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -26,7 +27,11 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public void insertTeam(TeamMember teamMember) {
-        teamMemberMapper.insertTeam(teamMember);
+        String[] memberUids = teamMember.getMemberUids().split("#");
+        for (String memberUid : memberUids) {
+            teamMember.setMemberUid(Long.parseLong(memberUid));
+            teamMemberMapper.insertTeam(teamMember);
+        }
     }
 
 }

@@ -39,9 +39,24 @@
         from account
         where enable = 1
     </select>
+
+    <select id="selectEmailById" resultType="java.lang.String">
+        select email
+        from atsast.account
+        where uid = #{uid}
+          and enable = 1
+    </select>
+
+    <select id="selectUidByEmail" resultType="java.lang.Long">
+        select uid
+        from atsast.account
+        where email = #{email}
+    </select>
+
     <update id="deleteAccountByUid">
         update account
         set enable=0
         where uid = #{uid}
     </update>
+
 </mapper>

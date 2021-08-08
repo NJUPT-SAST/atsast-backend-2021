@@ -2,6 +2,7 @@ package com.sast.atSast.service;
 
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.pojo.ContestStage;
 import com.sast.atSast.pojo.JudgeContestEnd;
 import com.sast.atSast.pojo.JudgeCreateContest;
 
@@ -34,5 +35,7 @@ public interface ContestService {
     JudgeCreateContest judgeContestBegin(Long contestId);
 
     JudgeContestEnd getContestFiles(Long contestId);
+
+    List<ContestStage> getStageById(Long contestId);
 
 }

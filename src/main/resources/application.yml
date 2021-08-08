@@ -4,6 +4,7 @@ spring:
     username: atsast
     password: sast_forever
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   mail:
     host: smtp.qq.com #发送邮件服务器
     username: 1129126684@qq.com #发送邮件的邮箱地址
@@ -19,15 +20,15 @@ spring:
     port: 6379
     password: xhn200232
 
+minio:
+  endpoint: https://minio.sast.fun/
+  accessKey: sast
+  secretKey: sast_forever_minio
+  bucketImageName: finalresults
+  port: 9000
+
 mybatis:
   type-aliases-package: com.sast.atSast.model
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
-
-minio:
-  endpoint:
-  accessKey:
-  secretKey:
-  bucketImageName:
-  port:

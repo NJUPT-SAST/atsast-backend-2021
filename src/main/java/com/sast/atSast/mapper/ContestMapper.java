@@ -3,6 +3,7 @@ package com.sast.atSast.mapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.FileStd;
 import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.pojo.ContestStage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -41,12 +42,14 @@ public interface ContestMapper {
 
     void updateComment(Long contestId, String comment);
 
-    void updateJudge(Integer judging, long contestId);
+    void updateJudge(Integer judging, Long contestId);
 
     List<Contest> getContestByCurr(Integer curr);
 
     List<Contest> findAll();
 
     Contest getInfoById(Long contestId);
+
+    List<ContestStage> getStageById(Long contestId);
 
 }

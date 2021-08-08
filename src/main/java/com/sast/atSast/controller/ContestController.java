@@ -6,6 +6,7 @@ import com.sast.atSast.mapper.AccountMapper;
 import com.sast.atSast.mapper.JudgeInfoMapper;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.JudgeInfo;
+import com.sast.atSast.pojo.ContestStage;
 import com.sast.atSast.pojo.JugdeTemp;
 import com.sast.atSast.service.ContestService;
 import com.sast.atSast.service.ExcelService;
@@ -121,6 +122,11 @@ public class ContestController {
         }
 
         return judgeInfoMapper.getJudgeInfo(contestId);
+    }
+
+    @GetMapping("/user/conteststage")
+    public List<ContestStage> getStageById(Long contestId) {
+        return contestService.getStageById(contestId);
     }
 
 }
