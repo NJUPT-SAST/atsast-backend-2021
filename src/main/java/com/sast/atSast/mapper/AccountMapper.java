@@ -29,4 +29,6 @@ public interface AccountMapper {
     void importAccount(@Param("account") Account account);
 
     List<String> listEmail();
+
+    String selectRoleByEmail(@Param("email") String email);
 }

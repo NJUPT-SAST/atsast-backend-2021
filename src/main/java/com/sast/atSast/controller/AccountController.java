@@ -34,8 +34,7 @@ public class AccountController {
 
     @PostMapping("/user/login")
     public String login(String email, String password) {
-        accountService.login(email, password);
-        return "ok";
+        return accountService.login(email, password);
     }
 
     @PutMapping("/user/logout")
