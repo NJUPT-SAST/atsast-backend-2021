@@ -18,9 +18,11 @@
     </update>
 
     <insert id="insertTeam" parameterType="com.sast.atSast.model.TeamMember">
-        insert into atsast.team_member (team_id, member_uid, leader_uid, instructor, contest_id, team_name)
+        insert into atsast.team_member (team_id, member_uid, leader_uid, instructor, instructor_id, contest_id,
+                                        team_name, team_group, subject_category, work_type)
         values (#{teamMember.teamId}, #{teamMember.memberUid}, #{teamMember.leaderUid}, #{teamMember.instructor},
-                #{teamMember.contestId}, #{teamMember.teamName})
+                #{teamMember.contestId}, #{teamMember.contestId}, #{teamMember.teamName}, #{teamMember.teamGroup},
+                #{teamMember.subjectCategory}, #{teamMember.workType})
     </insert>
 
 

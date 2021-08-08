@@ -135,14 +135,4 @@ public class AdminController {
         return "ok";
     }
 
-    /**
-     * @param contestId 比赛id
-     * @description 获得一个比赛所有的评委信息
-     */
-    @ResponseBody
-    @GetMapping("/admin/judgelist")
-    List<JudgeInfo> getJudgeInfo(Long contestId) {
-        return judgeInfoService.getJudgeInfo(contestId);
-    }
-
 }

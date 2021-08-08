@@ -4,6 +4,7 @@ package com.sast.atSast.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Transient;
 
 @Data
 @NoArgsConstructor
@@ -21,5 +22,9 @@ public class TeamMember {
     private String teamGroup;
     private String instructorId;
     private String subjectCategory;
+    private String workType;
+
+    @Transient
+    private String memberUids;
 }
 

@@ -1,8 +1,10 @@
 package com.sast.atSast.service.impl;
 
+import com.sast.atSast.mapper.AccountMapper;
 import com.sast.atSast.mapper.StudentInfoMapper;
 import com.sast.atSast.model.StudentInfo;
 import com.sast.atSast.service.StudentInfoService;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,13 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     @Autowired
     private StudentInfoMapper studentInfoMapper;
 
+    @Autowired
+    private AccountMapper accountMapper;
+
     @Override
     public void addStudentInfo(StudentInfo studentInfo) {
+        Long uid = accountMapper.selectUidByEmail(studentInfo.getEmail());
+        studentInfo.setUid(uid);
         studentInfoMapper.addStudentInfo(studentInfo);
     }
 
@@ -39,4 +46,5 @@ public class StudentInfoServiceImpl implements StudentInfoService {
     public List<StudentInfo> listStudentInfos() {
         return studentInfoMapper.listStudentInfos();
     }
+
 }

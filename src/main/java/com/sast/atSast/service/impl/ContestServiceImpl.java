@@ -4,10 +4,7 @@ import com.sast.atSast.mapper.*;
 import com.sast.atSast.model.Contest;
 import com.sast.atSast.model.Stage;
 import com.sast.atSast.model.TeamMember;
-import com.sast.atSast.pojo.JudgeContestEnd;
-import com.sast.atSast.pojo.JudgeCreateContest;
-import com.sast.atSast.pojo.StageShow;
-import com.sast.atSast.pojo.TeamMemberTemp;
+import com.sast.atSast.pojo.*;
 import com.sast.atSast.service.ContestService;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,6 +151,11 @@ public class ContestServiceImpl implements ContestService {
         judgeContestEnd.setPushLinkUrls(Arrays.asList(contestMapper.getpushLinkById(contestId).split("#")));
         judgeContestEnd.setProposalUrl(proposalMapper.getProposalById(contestId));
         return judgeContestEnd;
+    }
+
+    @Override
+    public List<ContestStage> getStageById(Long contestId) {
+        return contestMapper.getStageById(contestId);
     }
 
 }
