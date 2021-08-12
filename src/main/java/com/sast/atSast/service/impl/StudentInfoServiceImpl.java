@@ -27,8 +27,6 @@ public class StudentInfoServiceImpl implements StudentInfoService {
 
     @Override
     public void addStudentInfo(StudentInfo studentInfo) {
-        Long uid = accountMapper.selectUidByEmail(studentInfo.getEmail());
-        studentInfo.setUid(uid);
         studentInfoMapper.addStudentInfo(studentInfo);
     }
 
