@@ -53,8 +53,13 @@
         where email = #{email}
     </select>
 
+    <select id="selectRoleByEmail" resultType="java.lang.String">
+        select role
+        from account
+        where email = #{email}
+    </select>
     <update id="deleteAccountByUid">
-        update account
+        update acount
         set enable=0
         where uid = #{uid}
     </update>
