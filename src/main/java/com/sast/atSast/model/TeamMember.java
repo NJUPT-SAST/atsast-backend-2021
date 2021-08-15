@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Transient;
 @AllArgsConstructor
 public class TeamMember {
     private Long teamId;
-    private String memberUid;
+    private Long memberUid;
     private Byte enable;
     private Long leaderUid;
     private String instructor;
@@ -24,16 +24,7 @@ public class TeamMember {
     private String subjectCategory;
     private String workType;
 
-    public Message toMessage(){
-        Message message=new Message();
-        message.uid=this.memberUid;
-        message.contestId=this.contestId;
-        message.enable=1;
-        message.leaderUid=this.leaderUid;
-        message.teamId=this.teamId;
-        return message;
-    }
-
-
+    @Transient
+    private String memberUids;
 }
 
