@@ -59,6 +59,9 @@ dependencies {
 	// minio
 	implementation("io.minio:minio:7.0.2")
 
+	// spring-boot-starter-websocket
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.4.5'
+
 
 
 }
