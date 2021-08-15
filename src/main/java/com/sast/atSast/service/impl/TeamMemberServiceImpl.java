@@ -1,7 +1,9 @@
 package com.sast.atSast.service.impl;
 
 import com.sast.atSast.mapper.TeamMemberMapper;
+import com.sast.atSast.model.Message;
 import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.service.MessageService;
 import com.sast.atSast.service.TeamMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     @Autowired
     private TeamMemberMapper teamMemberMapper;
 
+    @Autowired MessageService messageService;
+
     @Override
     public List<TeamMember> getTeams(Long contestId) {
         return teamMemberMapper.getTeams(contestId);
@@ -27,11 +31,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public void insertTeam(TeamMember teamMember) {
-        String[] memberUids = teamMember.getMemberUids().split("#");
-        for (String memberUid : memberUids) {
-            teamMember.setMemberUid(Long.parseLong(memberUid));
-            teamMemberMapper.insertTeam(teamMember);
-        }
+        teamMemberMapper.insertTeam(teamMember);
     }
 
 }
