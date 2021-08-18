@@ -1,8 +1,13 @@
 package com.sast.atSast.controller;
 
-import com.sast.atSast.model.*;
-import com.sast.atSast.server.SseEmitterServer;
-import com.sast.atSast.service.*;
+import com.sast.atSast.model.Contest;
+import com.sast.atSast.model.File;
+import com.sast.atSast.model.StudentInfo;
+import com.sast.atSast.model.TeamMember;
+import com.sast.atSast.service.ContestService;
+import com.sast.atSast.service.FileService;
+import com.sast.atSast.service.StudentInfoService;
+import com.sast.atSast.service.TeamMemberService;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +17,7 @@ import java.util.List;
 /**
  * @program: ATSAST
  * @description: 身份为学生的用户
- * @author: cxy621,punkginger
+ * @author: cxy621
  * @create: 2021-07-17 20:31
  **/
 @RestController
@@ -29,10 +34,6 @@ public class StudentController {
 
     @Autowired
     TeamMemberService teamMemberService;
-
-    @Autowired
-    MessageService messageService;
-
 
     /**
      * @param studentInfo 学生具体信息
@@ -90,33 +91,11 @@ public class StudentController {
         return "ok";
     }
 
-    /**
-     *
-     * @param teamMember
-     * @description 报名并添加对应消息提醒
-     */
     @PostMapping("/user/contestapply/team")
     @RequiresRoles("student")
     public String runForTheContest(@RequestBody TeamMember teamMember) {
         teamMemberService.insertTeam(teamMember);
-        Message message=teamMember.toMessage();
-        messageService.sendInvite(message);
         return "ok";
     }
 
-
-    /**
-     * @description 消息相关
-     */
-    @ResponseBody
-    @GetMapping("/user/message")
-    @RequiresRoles("student")
-    //按uid查询所有消息
-    public List<Message> getMessage(long uid){
-        return messageService.getMessage(uid);
-    }
-    //标记消息为已读
-    public void unableMessage(int messageId){
-        messageService.unable(messageId);
-    }
 }

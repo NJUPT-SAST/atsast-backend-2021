@@ -4,16 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Message {
-    public String uid;
-    public Long contestId;
-    public Byte enable;
-    public Long teamId;
-    public Long leaderUid;
-
+    private Long uid;
+    private Long contestId;
+    private String isAccepted;
+    private Byte enable;
+    private Long teamId;
+    private Long leaderUid;
 }
