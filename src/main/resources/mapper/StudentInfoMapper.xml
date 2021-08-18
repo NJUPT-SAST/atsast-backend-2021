@@ -3,9 +3,9 @@
 <mapper namespace="com.sast.atSast.mapper.StudentInfoMapper">
 
     <insert id="addStudentInfo" parameterType="com.sast.atSast.model.StudentInfo">
-        insert into atsast.student_info (uid, real_name, stu_id, phone, faculty,
+        insert into atsast.student_info (uid, real_name, stu_id, phone, faculty, email,
                                          person_id, major, qq, hometown, political_status, dormitory_number)
-        values (#{uid}, #{realName}, #{stuId}, #{phone}, #{faculty},
+        values (#{uid}, #{realName}, #{stuId}, #{phone}, #{faculty}, #{email},
                 #{personId}, #{major}, #{qq}, #{hometown}, #{politicalStatus},
                 #{dormitoryNumber})
     </insert>
