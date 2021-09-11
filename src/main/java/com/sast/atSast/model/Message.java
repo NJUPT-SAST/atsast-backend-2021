@@ -15,5 +15,7 @@ public class Message {
     public Byte enable;
     public Long teamId;
     public Long leaderUid;
-
+    public String contestName;
+    public String leaderName;
+    public String teamName;
 }

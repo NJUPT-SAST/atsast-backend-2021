@@ -31,6 +31,9 @@ public class TeamMember {
         message.enable=1;
         message.leaderUid=this.leaderUid;
         message.teamId=this.teamId;
+        message.teamName=this.teamName;
+        message.contestName=null;
+        message.leaderName=null;
         return message;
     }
 

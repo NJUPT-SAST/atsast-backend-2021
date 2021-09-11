@@ -37,6 +37,8 @@ public class MessageServiceImpl implements MessageService {
             msg.teamId=message.teamId;
             msg.leaderUid=message.leaderUid;
             msg.contestId=message.contestId;
+            msg.leaderName=messageMapper.getLeaderNameById(message.leaderUid);
+            msg.contestName=messageMapper.getContestById(message.contestId);
             messageMapper.sendInvite(msg);
             SseEmitterServer.connect(uid);
             SseEmitterServer.sendMessage(uid,"有新的组队消息");

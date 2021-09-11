@@ -17,5 +17,9 @@ import java.util.List;
 public interface MessageMapper {
     void sendInvite(@Param("msg") Message msg);
     List<Message> getMessage(@Param("uid")Long uid);
-    void unable(int messageId);
+    void unable(@Param("messageId")int messageId);
+
+    //操作contest表与student_info表
+    String getContestById(@Param("contestId")long contestId);
+    String getLeaderNameById(@Param("leaderUid")long leaderUid);
 }
