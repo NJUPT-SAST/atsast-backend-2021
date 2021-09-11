@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sast.atSast.mapper.MessageMapper">
+    <insert id="sendInvite" parameterType="com.sast.atSast.mapper.MessageMapper">
+        insert into atsast.message (uid,contest_id,team_id,leader_uid)
+        values (#{msg.uid},#{msg.contestId},#{msg.teamId},#{msg.leaderUid})
+    </insert>
+    
+    <select id="getMessage" resultType="com.sast.atSast.model.Message">
+        select *
+        from atsast.message
+        where uid = #{uid}
+        and enable = 1
+    </select>
+
+    <update id="unable">
+        update atsast.message
+        set enable = 0
+        where message_id = #{messageId}
+    </update>
+
+    <select id="getContestById" resultType="com.sast.atSast.model.Message">
+        select contest_name
+        from atsast.contest
+        where contest_id = #{contestId}
+        and enable = 1
+    </select>
+
+    <select id="getLeaderNameById" resultType="com.sast.atSast.model.Message">
+        select real_name
+        from atsast.student_info
+        where uid = #{leaderId}
+        and enable = 1
+    </select>
+</mapper>
