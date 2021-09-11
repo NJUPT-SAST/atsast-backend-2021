@@ -6,14 +6,17 @@ import com.sast.atSast.shiro.realm.AccountRealm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
 import org.apache.shiro.realm.Realm;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * @author: 風楪fy
@@ -27,9 +30,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         Map<String, String> map = new HashMap<>();
-//        map.put("/user/login","anon");//anon表示公共资源
-//        map.put("/user/register","anon");//anon表示公共资源
-//        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
+        map.put("/user/login","anon");//anon表示公共资源
+        map.put("/user/register","anon");//anon表示公共资源
+        map.put("/**","authc");//authc表示请求这个资源需要认证和授权
         //设置过滤链
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
 
@@ -49,6 +52,21 @@ public class ShiroConfig {
         defaultWebSecurityManager.setRealm(realm);
         return defaultWebSecurityManager;
     }
+
+    @Bean
+    public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator() {
+        DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+        advisorAutoProxyCreator.setProxyTargetClass(true);
+        return advisorAutoProxyCreator;
+    }
+
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor() {
+        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+        return authorizationAttributeSourceAdvisor;
+    }
+
+
 
     @Bean
     public Realm getRealm() {
