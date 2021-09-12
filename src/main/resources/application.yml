@@ -21,9 +21,9 @@ spring:
     password: 1234xxxxxxxxx
 
 minio:
-  endpoint: http://frp.sast.fun:7900/
-  accessKey: root
-  secretKey: sast_forever
+  endpoint: http://###########/
+  accessKey: xxxxxxx
+  secretKey: xxxxxxx
 
 mybatis:
   type-aliases-package: com.sast.atSast.model
