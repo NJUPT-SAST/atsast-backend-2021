@@ -25,8 +25,8 @@ public class AdminController {
     @Autowired
     private FileStdService fileStdService;
 
-    @Autowired
-    private ExcelService excelService;
+//    @Autowired
+//    private ExcelService excelService;
 
     @Autowired
     private ProposalService proposalService;

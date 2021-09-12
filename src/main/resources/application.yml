@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://pipe.sast.codes:7336/atsast?useUnicode=true&characterEncoding=UTF-8&serverTimezone=CST&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://frp.sast.fun:7336/atsast?useUnicode=true&characterEncoding=UTF-8&serverTimezone=CST&useSSL=false&allowPublicKeyRetrieval=true
     username: atsast
     password: sast_forever
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -21,11 +21,9 @@ spring:
     password: 1234xxxxxxxxx
 
 minio:
-  endpoint: https://minio.sast.fun/
-  accessKey: sast
-  secretKey: sast_forever_minio
-  bucketImageName: finalresults
-  port: 9000
+  endpoint: http://frp.sast.fun:7900/
+  accessKey: root
+  secretKey: sast_forever
 
 mybatis:
   type-aliases-package: com.sast.atSast.model
