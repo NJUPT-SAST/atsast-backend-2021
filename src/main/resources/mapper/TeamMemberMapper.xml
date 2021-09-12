@@ -26,4 +26,29 @@
     </insert>
 
 
+    <select id="getSummaryTeamById" resultType="com.sast.atSast.model.SummaryTeam">
+        select 'member_uid', 'instructor', 'result', 'team_name'
+        from atsast.team_member
+        where contest_id = #{contestId}
+          and enable = 1
+    </select>
+
+    <select id="getTeamsByLeader" resultType="com.sast.atSast.model.TeamMember">
+        select *
+        from atsast.team_member
+        where leader_uid = member_uid
+          and contest_id = #{contestId}
+          and enable = 1
+    </select>
+
+
+    <select id="getLeaderInfo" resultType="com.sast.atSast.model.LeaderInfo">
+        select a.uid, email, faculty
+        from atsast.student_info as a
+                 inner join (select leader_uid
+                             from atsast.team_member
+                             where leader_uid = member_uid
+                               and contest_id = #{contestId}) as k on a.uid = k.leader_uid
+    </select>
+
 </mapper>
