@@ -75,5 +75,4 @@ public class AccountController {
         accountService.updatePassword(oldPassword, newPassword);
         return "ok";
     }
-
 }

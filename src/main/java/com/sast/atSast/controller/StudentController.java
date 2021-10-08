@@ -78,17 +78,17 @@ public class StudentController {
         return contestService.getContest();
     }
 
-    /**
-     * @param file 传来的文件数据
-     * @desription 学生上传比赛文件
-     */
-    @ResponseBody
-    @PostMapping("/user/addfiles")
-    @RequiresRoles("student")
-    public String updateFiles(File file) {
-        fileService.updateFiles(file);
-        return "ok";
-    }
+//    /**
+//     * @param file 传来的文件数据
+//     * @desription 学生上传比赛文件
+//     */
+//    @ResponseBody
+//    @PostMapping("/user/addfiles")
+//    @RequiresRoles("student")
+//    public String updateFiles(File file) {
+//        fileService.updateFiles(file);
+//        return "ok";
+//    }
 
     /**
      *
